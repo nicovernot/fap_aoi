@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Champ{% endblock %}
+
+{% block body %}
+    <h1>Champ</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ champ.id }}</td>
+            </tr>
+            <tr>
+                <th>Idchp</th>
+                <td>{{ champ.idchp }}</td>
+            </tr>
+            <tr>
+                <th>Chpcha</th>
+                <td>{{ champ.chpcha }}</td>
+            </tr>
+            <tr>
+                <th>Chpord</th>
+                <td>{{ champ.chpord }}</td>
+            </tr>
+            <tr>
+                <th>Chplon</th>
+                <td>{{ champ.chplon }}</td>
+            </tr>
+            <tr>
+                <th>Chptyp</th>
+                <td>{{ champ.chptyp }}</td>
+            </tr>
+            <tr>
+                <th>Chpsai</th>
+                <td>{{ champ.chpsai }}</td>
+            </tr>
+            <tr>
+                <th>Chpsel</th>
+                <td>{{ champ.chpsel }}</td>
+            </tr>
+            <tr>
+                <th>Chprec</th>
+                <td>{{ champ.chprec }}</td>
+            </tr>
+            <tr>
+                <th>Chplib</th>
+                <td>{{ champ.chplib }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('champ_index') }}">back to list</a>
+
+    <a href="{{ path('champ_edit', {'id': champ.id}) }}">edit</a>
+
+    {{ include('champ/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,114 @@
+sonata_admin:
+    title: 'IEI  Admin'
+    title_logo: ieilogo.png
+    dashboard:
+        groups:
+            Divers:
+                label:                ~
+                label_catalogue:      ~
+                icon:            '<i class="fa fa-image"></i>'
+                items:
+                   
+                    - route:        homme
+                      label:        Home 
+                    
+                    - route:        gestion_schema
+                      label:        Gestion
+
+                    - route:        api_entrypoint
+                      label:        Api 
+                      
+                      
+
+            admin:
+
+
+        blocks:
+            -
+                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                position: top                        # zone in the dashboard
+                type:     sonata.admin.block.stats   # block id
+                settings:
+                    code:  admin.Ssmenu    # admin code - service id
+                    icon:  fa-magic                  # font awesome icon
+                    text:  Sous Menus
+                    color: bg-red                 # colors: bg-green, bg-red and bg-aqua
+                    filters:                         # filter values
+                        edited: { value: 1 }
+            -
+                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                position: top                        # zone in the dashboard
+                type:     sonata.admin.block.stats   # block id
+                settings:
+                    code:  admin.Menu    # admin code - service id
+                    icon:  fa-magic                  # font awesome icon
+                    text:  Menus 
+                    color: bg-yellow                 # colors: bg-green, bg-red and bg-aqua
+                    filters:                         # filter values
+                        edited: { value: 1 }
+
+            -
+                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                position: top                        # zone in the dashboard
+                type:     sonata.admin.block.stats   # block id
+                settings:
+                    code:  admin.Onglet    # admin code - service id
+                    icon:  fa-magic                  # font awesome icon
+                    text:  Onglets
+                    color: bg-aqua                 # colors: bg-green, bg-red and bg-aqua
+                    filters:                         # filter values
+                        edited: { value: 1 }
+
+            -
+                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                position: top                        # zone in the dashboard
+                type:     sonata.admin.block.stats   # block id
+                settings:
+                    code:  admin.champs    # admin code - service id
+                    icon:  fa-magic                  # font awesome icon
+                    text:  Champs
+                    color: bg-dark                 # colors: bg-green, bg-red and bg-aqua
+                    filters:                         # filter values
+                        edited: { value: 1 }
+
+
+            -   
+                type: sonata.admin.block.admin_list
+                position: left
+         
+
+            -
+                position: right
+                type: sonata.block.service.text
+                settings:
+                    template : dash.html.twig 
+            -
+                position: right
+                type: sonata.block.service.rss
+                roles: [POST_READER]
+                settings:
+                    title: Sonata Project's Feeds
+                    url: https://sonata-project.org/blog/archive.rss
+    breadcrumbs:
+  # use this to change the default route used to generate the link
+       # to the parent object inside a breadcrumb, when in a child admin
+        child_admin_route: edit
+
+    templates:
+        # other configuration options
+        search:              '@SonataAdmin/Core/search.html.twig'
+        search_result_block: '@SonataAdmin/Block/block_search_result.html.twig'
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]
+        sonata.admin.block.search_result:
+            contexts:   [admin]
+        sonata.admin.block.stats:
+            contexts:   [admin]
+        sonata.block.service.text:
+        sonata.block.service.container:
+        sonata.block.service.rss:
+        sonata.block.service.menu:
+        sonata.block.service.template:

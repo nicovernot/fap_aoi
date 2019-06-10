@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ssmenu{% endblock %}
+
+{% block body %}
+    <h1>Ssmenu</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ ssmenu.id }}</td>
+            </tr>
+            <tr>
+                <th>Ssmcod</th>
+                <td>{{ ssmenu.ssmcod }}</td>
+            </tr>
+            <tr>
+                <th>Ssmlib</th>
+                <td>{{ ssmenu.ssmlib }}</td>
+            </tr>
+            <tr>
+                <th>Ssmord</th>
+                <td>{{ ssmenu.ssmord }}</td>
+            </tr>
+            <tr>
+                <th>Ssmcom</th>
+                <td>{{ ssmenu.ssmcom }}</td>
+            </tr>
+            <tr>
+                <th>Ssmmaj</th>
+                <td>{{ ssmenu.ssmmaj ? ssmenu.ssmmaj|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Ssmphp</th>
+                <td>{{ ssmenu.ssmphp }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('ssmenu_index') }}">back to list</a>
+
+    <a href="{{ path('ssmenu_edit', {'id': ssmenu.id}) }}">edit</a>
+
+    {{ include('ssmenu/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,29 @@
+{# empty Twig template #}
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="{{path('homme')}}">Home</a>
+    </li>
+     {% for men in menu %}
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle"  href="#" id="navbardrop" data-toggle="dropdown">{{men.menlib}} </a>
+       <div class="dropdown-menu">
+            {%for ssmen in men.getSsmenusChildren(men.id) %}
+                  {%for ch in ssmen.getOngChildren1(men.id) %}
+                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib~ssmen.id)}}</a>
+                  {%endfor%}
+            {% endfor %}
+      </div>
+    </li>   
+     {% endfor %}
+      <li class="nav-item">
+      <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('api_entrypoint')}}">Api</a>
+    </li>
+        <li class="nav-item">
+      <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
+    </li>
+  </ul>
+</nav>

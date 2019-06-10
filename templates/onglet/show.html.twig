@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Onglet{% endblock %}
+
+{% block body %}
+    <h1>Onglet</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ onglet.id }}</td>
+            </tr>
+            <tr>
+                <th>Ongcod</th>
+                <td>{{ onglet.ongcod }}</td>
+            </tr>
+            <tr>
+                <th>Onglib</th>
+                <td>{{ onglet.onglib }}</td>
+            </tr>
+            <tr>
+                <th>Ongord</th>
+                <td>{{ onglet.ongord }}</td>
+            </tr>
+            <tr>
+                <th>Onglec</th>
+                <td>{{ onglet.onglec }}</td>
+            </tr>
+            <tr>
+                <th>Ongcre</th>
+                <td>{{ onglet.ongcre }}</td>
+            </tr>
+            <tr>
+                <th>Ongupd</th>
+                <td>{{ onglet.ongupd }}</td>
+            </tr>
+            <tr>
+                <th>Ongadm</th>
+                <td>{{ onglet.ongadm }}</td>
+            </tr>
+            <tr>
+                <th>Ongcom</th>
+                <td>{{ onglet.ongcom }}</td>
+            </tr>
+            <tr>
+                <th>Ongmaj</th>
+                <td>{{ onglet.ongmaj ? onglet.ongmaj|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Ongphp</th>
+                <td>{{ onglet.ongphp }}</td>
+            </tr>
+            <tr>
+                <th>Ongsql</th>
+                <td>{{ onglet.ongsql }}</td>
+            </tr>
+            <tr>
+                <th>Ongdef</th>
+                <td>{{ onglet.ongdef }}</td>
+            </tr>
+            <tr>
+                <th>Ongsqlcre</th>
+                <td>{{ onglet.ongsqlcre }}</td>
+            </tr>
+            <tr>
+                <th>Ongsqlupd</th>
+                <td>{{ onglet.ongsqlupd }}</td>
+            </tr>
+            <tr>
+                <th>Ongsqldel</th>
+                <td>{{ onglet.ongsqldel }}</td>
+            </tr>
+            <tr>
+                <th>Ongcon</th>
+                <td>{{ onglet.ongcon }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('onglet_index') }}">back to list</a>
+
+    <a href="{{ path('onglet_edit', {'id': onglet.id}) }}">edit</a>
+
+    {{ include('onglet/_delete_form.html.twig') }}
+{% endblock %}

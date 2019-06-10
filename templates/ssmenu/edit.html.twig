@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Ssmenu{% endblock %}
+
+{% block body %}
+    <h1>Edit Ssmenu</h1>
+
+    {{ include('ssmenu/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('ssmenu_index') }}">back to list</a>
+
+    {{ include('ssmenu/_delete_form.html.twig') }}
+{% endblock %}

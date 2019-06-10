@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HommeController!{% endblock %}
+
+{% block body %}
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="{{path('homme')}}">Home</a>
+    </li>
+     {% for men in menu %}
+      <li class="nav-item dropdown">
+      <a class="nav-link dropdown-toggle"  href="#" id="navbardrop" data-toggle="dropdown">{{men.menlib}} </a>
+       <div class="dropdown-menu">
+            {%for ssmen in men.getSsmenusChildren(men.id) %}
+                  {%for ch in ssmen.getOngChildren1(men.id) %}
+                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib~ssmen.id)}}</a>
+                  {%endfor%}
+            {% endfor %}
+      </div>
+    </li>   
+     {% endfor %}
+      <li class="nav-item">
+      <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="{{path('api_entrypoint')}}">Api</a>
+    </li>
+        <li class="nav-item">
+      <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
+    </li>
+  </ul>
+</nav>
+
+{% if not app.request.get("ong") %}
+        <div class="jumbotron jumbotron-fluid">
+          <div class="container">
+            <h1>Projet Gestion de Contenu</h1>      
+            <h3>-L'onglet admin permet la création de menu - sousmnu - onglets champs .</h3>
+            <h3>-L'Api web sert les donnés à afficher .</h3>
+            <h3>-L'onglet Génération de champs permet de générer les champs à afficher a partir d'une des tables de la base de donnéés .</h3>
+          </div>
+        </div>
+{% endif %}
+        
+        {% set apipath = "" %}
+        {% set onglet = "" %}
+        <br>
+        <ul class="nav nav-pills" id="ssm">
+ 
+        {% for smen in ssmenu %}
+        {% if smen.getMenu().id == app.request.get('men') %}
+         <li class="nav-item  dropdown">
+                    <a class="nav-link {{smen.id==app.request.get('ssmen')? 'active' :'' }}  dropdown-toggle" data-toggle="dropdown" href="#" id="ssm{{smen.id}}" >{{smen.ssmlib}}</a>
+        <div class="dropdown-menu" id="divssm{{smen.id}}">
+      <a class="dropdown-item" href="#">Link 1</a>
+      <a class="dropdown-item" href="#">Link 2</a>
+      <a class="dropdown-item" href="#">Link 3</a>
+    </div>
+       </li>
+        {% endif %}
+        {% endfor %}
+        </ul>
+        
+        
+
+        
+  {# affichge de la rechercher       #}      
+      {%for ssmen in ssmenu %}
+      {%for ong in ssmen.getOngbyId(ong) %}
+      {% set apipath = ong.ongsql %}
+      {% include "recherche.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
+      {% include "modal.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
+      {% endfor %}
+      {% endfor %}
+ {%if app.request.get('ong') %}
+<script>
+$(document).ready(function(){
+var ssmdiv=$("div[id*='divssm']");
+ var path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')}}';
+          
+ssmdiv.each(function() {
+   $.get(path+"/ssmenus/1/onglets", function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
+  console.log(this.id);
+     });
+    
+   console.log(ssmdiv[0].id.slice(6,7));
+});
+</script>
+    {% endif %}
+
+{% endblock %}

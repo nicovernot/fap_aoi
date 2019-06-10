@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion Schema Controller!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item active">
+      <a class="nav-link" href="{{path('homme')}}">Home</a>
+    </li>
+  </ul>
+</nav>
+
+<div class="example-wrapper">
+    <h1>{{ controller_name }}! ✅</h1>
+
+    Liste de tables dans la base :
+    <ul>
+        <li>Génération de champs à partir d'une table</li>
+    </ul>
+
+    <ul class="list-group">
+       
+        {% for tb in tables %}
+         <form action="{{path('gestion_schema')}}" method="GET">    
+            <li class="list-group-item">{{tb.name}} colonnes : <br>
+        {% for key,ch in tb.columns %}
+          {{key}}-
+        {% endfor%}
+        <input value="{{tb.name}}" name="nmtbl" type="hidden">
+        <select name='nglt'>
+            <option></option>   
+        {% for key,ong in onglets %}
+            <option value="{{ong.id}}">{{ong.onglib}}</option>
+        {% endfor%}    
+        </select>
+            <input class="btn bg-success" type="submit" value="valider">
+    </li>
+         </form>
+        {% endfor%}
+
+         
+</ul>
+      
+{{ sonata_block_render({ 'type': 'sonata.block.service.rss' }, {
+    'title': 'Sonata Project\'s Feeds',
+    'url': 'https://sonata-project.org/blog/archive.rss'
+}) }}
+
+
+{% endblock %}

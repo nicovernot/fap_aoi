@@ -1,0 +1,195 @@
+{# empty Twig template #}
+<div class="container">
+    
+    <br>
+ <table class="table table-striped table-hover" id="recherche">
+    <thead>
+      <tr>
+          {% set hcol = [] %} 
+          {% set hcol1 = [] %}  
+
+          {%for ch in champs %}
+{% if ch.chprec != 0 %}
+        <th>{{ch.chpcha}}</th>
+             {% set hcol = hcol|merge([ch.chpcha|lower]) %}  
+             {% set hcol1 = hcol1|merge([{data :ch.chpcha|lower}]) %}  
+{% endif %}
+{% endfor %}
+ {% set hcol1 = hcol1|merge([{ className: "","ordering": false, "searching": false}]) %}  
+<th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="fline">
+
+     
+    </tbody>
+           <tfoot>
+            <tr>
+             {%for ch in champs %}
+{% if ch.chprec != 0 %}
+        <th>{{ch.chpcha}}</th>
+           
+{% endif %}
+    
+{% endfor %}
+<th>Action</th>
+            </tr>
+        </tfoot>
+  </table>
+
+<boutton class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="change_click()">Création<boutton>
+
+            
+</div>
+    <script>
+        var hcol1 =  {{hcol1|json_encode()|raw}};
+$(document).ready(function(){
+   var hcol =  {{hcol|json_encode()|raw}};
+   var hcol1 =  {{hcol1|json_encode()|raw}};
+   $( "tfoot th:last-child" ).hide();
+   
+table(hcol1);
+
+    });
+    
+ function table(hcol1){
+     $.get("{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')~"/"~apipath}}", function(data, status){
+    
+  
+var table = $('#recherche').DataTable({
+
+    data: data["hydra:member"],
+    columnDefs: [ {
+    "targets": -1,
+    "data":null,
+    "searchable": false, 
+    "orderable": false,
+    "render": function ( data, type, row, meta ) {
+       
+      return '<a class="btn btn-success " id="'+row["@id"]+'" data-toggle="modal" data-target="#myModal" onclick="detail_voir(this.id)">V</a> <a class="btn btn-danger " name="delbtn" id="'+row["@id"]+'" onclick="del()">E(X)</a> <a data-toggle="modal" id="'+row["@id"]+'" data-target="#myModal" class="btn btn-info " onclick="detail_modif(this.id)">M</a>';
+    }
+  } ],
+    columns: hcol1,
+    deferRender: true,
+    initComplete: function () {
+            this.api().columns().every( function () {
+                var column = this;
+                var select = $('<select><option value=""></option></select>')
+                    .appendTo( $(column.footer()).empty() )
+                    .on( 'change', function () {
+                        var val = $.fn.dataTable.util.escapeRegex(
+                            $(this).val()
+                        );
+ 
+                        column
+                            .search( val ? '^'+val+'$' : '', true, false )
+                            .draw();
+                    } );
+ 
+                column.data().unique().sort().each( function ( d, j ) {
+                    select.append( '<option value="'+d+'">'+d+'</option>' )
+                } );
+            } );
+        },
+} );
+
+
+});
+
+    }
+function detail_modif(id){
+    $("#btnsend").show();   
+     $('#btnsend').data('path',id);
+      var $inputs = $('#mbinput :input');
+ $inputs.each(function() {
+    $(this).val("");
+ });
+  $.get(id, function(data, status){
+    
+     $inputs.each(function() {
+         var chpnom =$(this).attr('name').toLowerCase();
+       
+        $('#'+chpnom).val(data[chpnom]);
+        if($(this).attr('type')=='date'){
+         $('#'+chpnom).val(data[chpnom].slice(0, 10));    
+        }
+    })
+ 
+  });
+    
+    }
+    
+    function modal_put(method){
+       var mdlfrm = {};  
+       var md2=[];
+       var $inputs = $('#mbinput :input');
+        var path="";
+             
+        
+        if(method=='PUT'){
+           path = $('#btnsend').data("path");
+           $inputs.each(function() {
+           mdlfrm[$(this).attr('name').toLowerCase()]=$(this).val();
+       
+           if($(this).attr("type")=='number'){
+                mdlfrm[$(this).attr('name').toLowerCase()]=parseInt($(this).val());  
+           }
+        }); 
+        }
+        
+         if(method=='DELETE'){
+           path = $('a[name=delbtn]').attr('id');
+        }
+       
+       if (method=='POST'){
+           path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')~"/"~apipath}}';
+           console.log(path);
+ 
+     
+      $inputs.each(function() {
+           mdlfrm[$(this).attr('name').toLowerCase()]=$(this).val();
+     
+           if($(this).attr("type")=='number'){
+                mdlfrm[$(this).attr('name').toLowerCase()]=parseInt($(this).val());  
+        }
+        })
+    }
+     var jsonform = JSON.stringify(mdlfrm);
+    $.ajax(path, {
+    method: method,
+    contentType: 'application/json',
+    processData: false,
+    data: jsonform
+})
+.then(
+    function success(data) {
+   
+        alert('modifications prise en compte');
+       
+         $('#myModal').modal('hide');
+         location.reload();
+       
+    }
+);
+    }
+    
+    function detail_voir(id){
+       detail_modif(id);
+     $("#btnsend").hide();   
+    }
+
+    function change_click(){
+     $('#btnsend').attr("onclick","modal_put('POST')");
+     var $inputs = $('#mbinput :input');
+          $inputs.each(function() {
+    $(this).val("");
+     });
+    }
+    
+    function del(){
+    modal_put("DELETE");
+    }
+
+</script>
+ 
+

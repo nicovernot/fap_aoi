@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ssmenu index{% endblock %}
+
+{% block body %}
+    <h1>Ssmenu index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ssmcod</th>
+                <th>Ssmlib</th>
+                <th>Ssmord</th>
+                <th>Ssmcom</th>
+                <th>Ssmmaj</th>
+                <th>Ssmphp</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for ssmenu in ssmenus %}
+            <tr>
+                <td>{{ ssmenu.id }}</td>
+                <td>{{ ssmenu.ssmcod }}</td>
+                <td>{{ ssmenu.ssmlib }}</td>
+                <td>{{ ssmenu.ssmord }}</td>
+                <td>{{ ssmenu.ssmcom }}</td>
+                <td>{{ ssmenu.ssmmaj ? ssmenu.ssmmaj|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ ssmenu.ssmphp }}</td>
+                <td>
+                    <a href="{{ path('ssmenu_show', {'id': ssmenu.id}) }}">show</a>
+                    <a href="{{ path('ssmenu_edit', {'id': ssmenu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('ssmenu_new') }}">Create new</a>
+{% endblock %}

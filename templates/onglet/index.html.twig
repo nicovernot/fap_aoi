@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Onglet index{% endblock %}
+
+{% block body %}
+    <h1>Onglet index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Ongcod</th>
+                <th>Onglib</th>
+                <th>Ongord</th>
+                <th>Onglec</th>
+                <th>Ongcre</th>
+                <th>Ongupd</th>
+                <th>Ongadm</th>
+                <th>Ongcom</th>
+                <th>Ongmaj</th>
+                <th>Ongphp</th>
+                <th>Ongsql</th>
+                <th>Ongdef</th>
+                <th>Ongsqlcre</th>
+                <th>Ongsqlupd</th>
+                <th>Ongsqldel</th>
+                <th>Ongcon</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for onglet in onglets %}
+            <tr>
+                <td>{{ onglet.id }}</td>
+                <td>{{ onglet.ongcod }}</td>
+                <td>{{ onglet.onglib }}</td>
+                <td>{{ onglet.ongord }}</td>
+                <td>{{ onglet.onglec }}</td>
+                <td>{{ onglet.ongcre }}</td>
+                <td>{{ onglet.ongupd }}</td>
+                <td>{{ onglet.ongadm }}</td>
+                <td>{{ onglet.ongcom }}</td>
+                <td>{{ onglet.ongmaj ? onglet.ongmaj|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ onglet.ongphp }}</td>
+                <td>{{ onglet.ongsql }}</td>
+                <td>{{ onglet.ongdef }}</td>
+                <td>{{ onglet.ongsqlcre }}</td>
+                <td>{{ onglet.ongsqlupd }}</td>
+                <td>{{ onglet.ongsqldel }}</td>
+                <td>{{ onglet.ongcon }}</td>
+                <td>
+                    <a href="{{ path('onglet_show', {'id': onglet.id}) }}">show</a>
+                    <a href="{{ path('onglet_edit', {'id': onglet.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="18">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('onglet_new') }}">Create new</a>
+{% endblock %}

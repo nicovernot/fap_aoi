@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Champ index{% endblock %}
+
+{% block body %}
+    <h1>Champ index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                
+                <th>Chpcha</th>
+                <th>Chpord</th>
+                <th>Chplon</th>
+                <th>Chptyp</th>
+                <th>Chpsai</th>
+                <th>Chpsel</th>
+                <th>Chprec</th>
+                <th>Chplib</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for champ in champs %}
+            <tr>
+                <td>{{ champ.id }}</td>
+               
+                <td>{{ champ.chpcha }}</td>
+                <td>{{ champ.chpord }}</td>
+                <td>{{ champ.chplon }}</td>
+                <td>{{ champ.chptyp }}</td>
+                <td>{{ champ.chpsai }}</td>
+                <td>{{ champ.chpsel }}</td>
+                <td>{{ champ.chprec }}</td>
+                <td>{{ champ.chplib }}</td>
+                <td>
+                    <a href="{{ path('champ_show', {'id': champ.id}) }}">show</a>
+                    <a href="{{ path('champ_edit', {'id': champ.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="11">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('champ_new') }}">Create new</a>
+{% endblock %}
