@@ -82,10 +82,17 @@ var ssmdiv=$("div[id*='divssm']");
  var path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')}}';
           
 ssmdiv.each(function() {
-   $.get(path+"/ssmenus/1/onglets", function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
+  var idv = this.id;
+   var iddiv= idv.slice(6,idv.length);
+   console.log(iddiv) ;
+   $.get(path+"/ssmenus/"+iddiv+"/onglets", function(data, status){
+    // $("#")
+   $("#"+idv).append("<a>list</a>");
+   console.log(data["hydra:member"][0].id  );
+    //alert("Data: " + data + "\nStatus: " + status);
   });
-  console.log(this.id);
+  
+  //console.log(this.id);
      });
     
    console.log(ssmdiv[0].id.slice(6,7));
