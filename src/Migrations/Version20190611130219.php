@@ -1,0 +1,75 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DoctrineMigrations;
+
+use Doctrine\DBAL\Schema\Schema;
+use Doctrine\Migrations\AbstractMigration;
+
+/**
+ * Auto-generated Migration: Please modify to your needs!
+ */
+final class Version20190611130219 extends AbstractMigration
+{
+    public function getDescription() : string
+    {
+        return '';
+    }
+
+    public function up(Schema $schema) : void
+    {
+        // this up() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
+
+        $this->addSql('CREATE SEQUENCE menu_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE onglet_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE champ_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE ssmenu_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE IEI_ONGLET_idong_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE TABLE IEI_MENU (idmen SERIAL NOT NULL, MENCOD VARCHAR(50) DEFAULT NULL, MENLIB VARCHAR(100) DEFAULT NULL, MENORD DOUBLE PRECISION DEFAULT NULL, MENCOM VARCHAR(250) DEFAULT NULL, MENDAT DATE DEFAULT NULL, MENPHP VARCHAR(50) DEFAULT NULL, MENSQL VARCHAR(20) DEFAULT NULL, PRIMARY KEY(idmen))');
+        $this->addSql('CREATE TABLE IEI_SSMENU (idmen INT DEFAULT NULL, IDSSM SERIAL NOT NULL, SSMCOD VARCHAR(50) DEFAULT NULL, SSMLIB VARCHAR(100) DEFAULT NULL, SSMORD DOUBLE PRECISION DEFAULT NULL, SSMCOM VARCHAR(250) DEFAULT NULL, SSMMAJ DATE DEFAULT NULL, SSMPHP VARCHAR(250) DEFAULT NULL, PRIMARY KEY(IDSSM))');
+        $this->addSql('CREATE INDEX IDX_691285B514CB09BB ON IEI_SSMENU (idmen)');
+        $this->addSql('CREATE TABLE menu (id INT NOT NULL, mencod VARCHAR(255) DEFAULT NULL, menlib VARCHAR(255) DEFAULT NULL, menord INT DEFAULT NULL, mencom VARCHAR(255) DEFAULT NULL, mendat TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, menphp VARCHAR(255) DEFAULT NULL, mensql VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE onglet (id INT NOT NULL, ssmenu_id INT DEFAULT NULL, ongcod VARCHAR(255) DEFAULT NULL, onglib VARCHAR(255) DEFAULT NULL, ongord INT DEFAULT NULL, onglec INT DEFAULT NULL, ongcre INT DEFAULT NULL, ongupd INT DEFAULT NULL, ongadm INT DEFAULT NULL, ongcom VARCHAR(255) DEFAULT NULL, ongmaj TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, ongphp VARCHAR(255) DEFAULT NULL, ongsql VARCHAR(255) DEFAULT NULL, ongdef INT DEFAULT NULL, ongsqlcre VARCHAR(255) DEFAULT NULL, ongsqlupd VARCHAR(255) DEFAULT NULL, ongsqldel VARCHAR(255) DEFAULT NULL, ongcon INT DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_C6BC02395C434BA1 ON onglet (ssmenu_id)');
+        $this->addSql('CREATE TABLE iei_champs (idong INT DEFAULT NULL, IDCHP SERIAL NOT NULL, CHPLIB VARCHAR(50) DEFAULT NULL, CHPCHA VARCHAR(20) DEFAULT NULL, CHPORD DOUBLE PRECISION DEFAULT NULL, CHPLON DOUBLE PRECISION DEFAULT NULL, CHPTYP VARCHAR(20) DEFAULT NULL, CHPSAI DOUBLE PRECISION DEFAULT NULL, CHPSEL VARCHAR(500) DEFAULT NULL, CHPREC DOUBLE PRECISION DEFAULT NULL, PRIMARY KEY(IDCHP))');
+        $this->addSql('CREATE INDEX IDX_C03171F48D67BCBA ON iei_champs (idong)');
+        $this->addSql('CREATE TABLE champ (id INT NOT NULL, onglet_id INT DEFAULT NULL, chpcha VARCHAR(255) DEFAULT NULL, chpord INT DEFAULT NULL, chplon INT DEFAULT NULL, chptyp VARCHAR(255) NOT NULL, chpsai INT DEFAULT NULL, chpsel VARCHAR(255) DEFAULT NULL, chprec INT DEFAULT NULL, chplib VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_2F61E0ADBD1A86CC ON champ (onglet_id)');
+        $this->addSql('CREATE TABLE ssmenu (id INT NOT NULL, menu_id INT NOT NULL, ssmcod VARCHAR(255) DEFAULT NULL, ssmlib VARCHAR(255) DEFAULT NULL, ssmord INT DEFAULT NULL, ssmcom VARCHAR(255) DEFAULT NULL, ssmmaj TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, ssmphp VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_DE47A15CCCD7E912 ON ssmenu (menu_id)');
+        $this->addSql('CREATE TABLE IEI_ONGLET (idong INT NOT NULL, IDSSM INT DEFAULT NULL, ONGCOD VARCHAR(50) DEFAULT NULL, ONGLIB VARCHAR(100) DEFAULT NULL, ONGORD DOUBLE PRECISION DEFAULT NULL, ONGLEC DOUBLE PRECISION DEFAULT NULL, ONGCRE DOUBLE PRECISION DEFAULT NULL, ONGUPD DOUBLE PRECISION DEFAULT NULL, ONGADM DOUBLE PRECISION DEFAULT NULL, ONGCOM VARCHAR(250) DEFAULT NULL, ONGMAJ DATE DEFAULT NULL, ONGPHP VARCHAR(250) DEFAULT NULL, ONGSQL VARCHAR(200) DEFAULT NULL, ONGDEF DOUBLE PRECISION DEFAULT NULL, ONGSQLCRE VARCHAR(100) DEFAULT NULL, ONGSQLUPD VARCHAR(100) DEFAULT NULL, ONGSQLDEL VARCHAR(100) DEFAULT NULL, ONGCON DOUBLE PRECISION DEFAULT NULL, ONGSQLCON VARCHAR(250) DEFAULT NULL, PRIMARY KEY(idong))');
+        $this->addSql('ALTER TABLE IEI_SSMENU ADD CONSTRAINT FK_691285B514CB09BB FOREIGN KEY (idmen) REFERENCES IEI_MENU (idmen) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE onglet ADD CONSTRAINT FK_C6BC02395C434BA1 FOREIGN KEY (ssmenu_id) REFERENCES ssmenu (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE iei_champs ADD CONSTRAINT FK_C03171F48D67BCBA FOREIGN KEY (idong) REFERENCES IEI_ONGLET (idong) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE champ ADD CONSTRAINT FK_2F61E0ADBD1A86CC FOREIGN KEY (onglet_id) REFERENCES onglet (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE ssmenu ADD CONSTRAINT FK_DE47A15CCCD7E912 FOREIGN KEY (menu_id) REFERENCES menu (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+    }
+
+    public function down(Schema $schema) : void
+    {
+        // this down() migration is auto-generated, please modify it to your needs
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
+
+        $this->addSql('CREATE SCHEMA public');
+        $this->addSql('ALTER TABLE IEI_SSMENU DROP CONSTRAINT FK_691285B514CB09BB');
+        $this->addSql('ALTER TABLE ssmenu DROP CONSTRAINT FK_DE47A15CCCD7E912');
+        $this->addSql('ALTER TABLE champ DROP CONSTRAINT FK_2F61E0ADBD1A86CC');
+        $this->addSql('ALTER TABLE onglet DROP CONSTRAINT FK_C6BC02395C434BA1');
+        $this->addSql('ALTER TABLE iei_champs DROP CONSTRAINT FK_C03171F48D67BCBA');
+        $this->addSql('DROP SEQUENCE menu_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE onglet_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE champ_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE ssmenu_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE IEI_ONGLET_idong_seq CASCADE');
+        $this->addSql('DROP TABLE IEI_MENU');
+        $this->addSql('DROP TABLE IEI_SSMENU');
+        $this->addSql('DROP TABLE menu');
+        $this->addSql('DROP TABLE onglet');
+        $this->addSql('DROP TABLE iei_champs');
+        $this->addSql('DROP TABLE champ');
+        $this->addSql('DROP TABLE ssmenu');
+        $this->addSql('DROP TABLE IEI_ONGLET');
+    }
+}

@@ -20,11 +20,14 @@ class GestionSchemaController extends AbstractController
         var_dump($ong);
         var_dump($nomtable);
         if(isset($ong) and isset($nomtable)){
-           $sql1 = "PRAGMA table_info($nomtable);" ;
+           $sql1 = "select *
+           from information_schema.columns
+           where table_name = '$nomtable';" ;
          $cols = $connection->fetchAll($sql1);
-        foreach ($cols as $key => $value) {
-         $connection->insert('champ', array('onglet_id' => $ong,'Chplib'=>$value["name"],'Chpcha'=>$value["name"],'Chpord'=>$value["cid"],'Chptyp'=>$value["type"],'Chprec'=>1));
-          }  
+         var_dump($cols);
+       // foreach ($cols as $key => $value) {
+      //   $connection->insert('champ', array('onglet_id' => $ong,'Chplib'=>$value["name"],'Chpcha'=>$value["name"],'Chpord'=>$value["cid"],'Chptyp'=>$value["type"],'Chprec'=>1));
+        //  }  
         }
        
             
