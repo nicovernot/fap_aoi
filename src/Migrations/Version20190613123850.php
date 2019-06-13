@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190613072953 extends AbstractMigration
+final class Version20190613123850 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,6 +22,7 @@ final class Version20190613072953 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'postgresql', 'Migration can only be executed safely on \'postgresql\'.');
 
+        $this->addSql('CREATE SEQUENCE image_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE menu_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE onglet_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user1_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
@@ -31,6 +32,7 @@ final class Version20190613072953 extends AbstractMigration
         $this->addSql('CREATE TABLE IEI_MENU (idmen SERIAL NOT NULL, MENCOD VARCHAR(50) DEFAULT NULL, MENLIB VARCHAR(100) DEFAULT NULL, MENORD DOUBLE PRECISION DEFAULT NULL, MENCOM VARCHAR(250) DEFAULT NULL, MENDAT DATE DEFAULT NULL, MENPHP VARCHAR(50) DEFAULT NULL, MENSQL VARCHAR(20) DEFAULT NULL, PRIMARY KEY(idmen))');
         $this->addSql('CREATE TABLE IEI_SSMENU (idmen INT DEFAULT NULL, IDSSM SERIAL NOT NULL, SSMCOD VARCHAR(50) DEFAULT NULL, SSMLIB VARCHAR(100) DEFAULT NULL, SSMORD DOUBLE PRECISION DEFAULT NULL, SSMCOM VARCHAR(250) DEFAULT NULL, SSMMAJ DATE DEFAULT NULL, SSMPHP VARCHAR(250) DEFAULT NULL, PRIMARY KEY(IDSSM))');
         $this->addSql('CREATE INDEX IDX_691285B514CB09BB ON IEI_SSMENU (idmen)');
+        $this->addSql('CREATE TABLE image (id INT NOT NULL, filename VARCHAR(100) NOT NULL, updated TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE menu (id INT NOT NULL, mencod VARCHAR(255) DEFAULT NULL, menlib VARCHAR(255) DEFAULT NULL, menord INT DEFAULT NULL, mencom VARCHAR(255) DEFAULT NULL, mendat TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, menphp VARCHAR(255) DEFAULT NULL, mensql VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE onglet (id INT NOT NULL, ssmenu_id INT DEFAULT NULL, ongcod VARCHAR(255) DEFAULT NULL, onglib VARCHAR(255) DEFAULT NULL, ongord INT DEFAULT NULL, onglec INT DEFAULT NULL, ongcre INT DEFAULT NULL, ongupd INT DEFAULT NULL, ongadm INT DEFAULT NULL, ongcom VARCHAR(255) DEFAULT NULL, ongmaj TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, ongphp VARCHAR(255) DEFAULT NULL, ongsql VARCHAR(255) DEFAULT NULL, ongdef INT DEFAULT NULL, ongsqlcre VARCHAR(255) DEFAULT NULL, ongsqlupd VARCHAR(255) DEFAULT NULL, ongsqldel VARCHAR(255) DEFAULT NULL, ongcon INT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_C6BC02395C434BA1 ON onglet (ssmenu_id)');
@@ -61,6 +63,7 @@ final class Version20190613072953 extends AbstractMigration
         $this->addSql('ALTER TABLE champ DROP CONSTRAINT FK_2F61E0ADBD1A86CC');
         $this->addSql('ALTER TABLE onglet DROP CONSTRAINT FK_C6BC02395C434BA1');
         $this->addSql('ALTER TABLE iei_champs DROP CONSTRAINT FK_C03171F48D67BCBA');
+        $this->addSql('DROP SEQUENCE image_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE menu_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE onglet_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE "user1_id_seq" CASCADE');
@@ -69,6 +72,7 @@ final class Version20190613072953 extends AbstractMigration
         $this->addSql('DROP SEQUENCE IEI_ONGLET_idong_seq CASCADE');
         $this->addSql('DROP TABLE IEI_MENU');
         $this->addSql('DROP TABLE IEI_SSMENU');
+        $this->addSql('DROP TABLE image');
         $this->addSql('DROP TABLE menu');
         $this->addSql('DROP TABLE onglet');
         $this->addSql('DROP TABLE iei_champs');

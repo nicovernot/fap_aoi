@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -81,6 +83,21 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $codepostal;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="client")
+     */
+    private $messages;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Abonnement", mappedBy="client", cascade={"persist", "remove"})
+     */
+    private $abonnement;
+
+    public function __construct()
+    {
+        $this->messages = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -264,6 +281,55 @@ class User implements UserInterface
     public function setCodepostal(int $codepostal): self
     {
         $this->codepostal = $codepostal;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessages(): Collection
+    {
+        return $this->messages;
+    }
+
+    public function addMessage(Message $message): self
+    {
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->addClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessage(Message $message): self
+    {
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            $message->removeClient($this);
+        }
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return $this->getEmail() ?: '';
+    }
+
+    public function getAbonnement(): ?Abonnement
+    {
+        return $this->abonnement;
+    }
+
+    public function setAbonnement(Abonnement $abonnement): self
+    {
+        $this->abonnement = $abonnement;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $abonnement->getClient()) {
+            $abonnement->setClient($this);
+        }
 
         return $this;
     }

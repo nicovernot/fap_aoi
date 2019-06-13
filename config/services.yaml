@@ -78,3 +78,38 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: User }
         public: true
+
+    admin.image:
+        class: App\Admin\ImageAdmin
+        arguments: [~, App\Entity\Image, App\Controller\ImageAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Image }
+        public: true
+
+    admin.magazine:
+        class: App\Admin\MagazineAdmin
+        arguments: [~, App\Entity\Magazine, App\Controller\MagazineAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Magazine }
+        public: true
+
+    admin.type_message:
+        class: App\Admin\TypeMessageAdmin
+        arguments: [~, App\Entity\TypeMessage, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeMessage }
+        public: true
+
+    admin.message:
+        class: App\Admin\MessageAdmin
+        arguments: [~, App\Entity\Message, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Message }
+        public: true
+
+    admin.abonnement:
+        class: App\Admin\AbonnementAdmin
+        arguments: [~, App\Entity\Abonnement, App\Controller\AbonnementAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Abonnement }
+        public: true
