@@ -1,0 +1,28 @@
+App\Entity\User:
+    user:
+        password: '<sprintf("$argon2i$v=19$m=1024,t=2,p=2$Sk52T3FraVF5Qmw3NzBJTQ$ZjjjC0WyC544bKemykxhjT0KcZ8TozAGtF2M2HTjzko")>'
+        email: admin@admin.com
+        roles: ["ROLE_ADMIN"]
+        nom: admin
+        prenom: admin
+        tel: 06060606
+        dateNaissance: <dateTimeBetween('1970-10-10', '1990-10-10')>
+        lieuNaissance: bogota
+        rue: einstein
+        numeroRue: 10
+        ville: Marseille
+        codepostal: 13013
+    user{1..10}:
+        password: '<sprintf("$argon2i$v=19$m=1024,t=2,p=2$Sk52T3FraVF5Qmw3NzBJTQ$ZjjjC0WyC544bKemykxhjT0KcZ8TozAGtF2M2HTjzko")>'
+        email: <email()>
+        roles: ["ROLE_USER"]
+        nom: <name()>
+        prenom: <firstNameMale()>
+        tel: <phoneNumber()>
+        dateNaissance: <dateTimeBetween('1970-10-10', '1999-10-10')>
+        lieuNaissance: <city()>
+        rue: <name()>
+        numeroRue: 10
+        ville: <city()>
+        codepostal: 13013
+        

@@ -23,11 +23,15 @@ class GestionSchemaController extends AbstractController
            $sql1 = "select *
            from information_schema.columns
            where table_name = '$nomtable';" ;
+         $seq = $connection->fetchAll("select nextval('champ_id_seq');");
+        $seq = $seq[0]["nextval"];
          $cols = $connection->fetchAll($sql1);
-         var_dump($cols);
-       // foreach ($cols as $key => $value) {
-      //   $connection->insert('champ', array('onglet_id' => $ong,'Chplib'=>$value["name"],'Chpcha'=>$value["name"],'Chpord'=>$value["cid"],'Chptyp'=>$value["type"],'Chprec'=>1));
-        //  }  
+       
+       foreach ($cols as $key => $value) {
+        $seq = $connection->fetchAll("select nextval('champ_id_seq');");
+        $seq = $seq[0]["nextval"];
+         $connection->insert('champ', array('id' => $seq,'onglet_id' => $ong,'Chplib'=>$value["column_name"],'Chpcha'=>$value["column_name"],'Chpord'=>$value ["ordinal_position"],'Chptyp'=>$value ["data_type"],'Chplon'=>$value ["character_maximum_length"],'Chprec'=>1));
+       }  
         }
        
             

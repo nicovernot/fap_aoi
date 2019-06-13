@@ -9,24 +9,26 @@
           <h4 class="modal-title">Modal Heading</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-        
+      
         <!-- Modal body -->
         <div class="modal-body" id="mbinput">
             {% for ch in champs %}
-            <div class="form-group d-inline-flex p-2">
+          
+
+            <div class="form-group d-inline-flex p-2 text-primary">
                 
-            {% if ch.chptyp == 'INTEGER' and ch.chprec ==1 %}
-                <label width="100px" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+            {% if ch.chptyp == 'integer' and ch.chprec ==1 %}
+                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                <input type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
             {% endif %}
             
-            {% if ch.chptyp == 'DATE' and ch.chprec ==1 %}
-                 <label width="100px" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+            {% if ch.chptyp == 'date' and ch.chprec ==1 %}
+                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                   <input type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
             {% endif %}
             
-            {% if ch.chptyp  starts with 'VARCHAR' and ch.chprec ==1 %}
-                 <label width="100px" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+            {% if ch.chptyp  starts with 'character' and ch.chprec ==1 %}
+                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                   <input type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
             {% endif %}            
             </div>

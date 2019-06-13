@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190611130219 extends AbstractMigration
+final class Version20190613072953 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -24,6 +24,7 @@ final class Version20190611130219 extends AbstractMigration
 
         $this->addSql('CREATE SEQUENCE menu_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE onglet_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE "user1_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE champ_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE ssmenu_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE IEI_ONGLET_idong_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -35,6 +36,8 @@ final class Version20190611130219 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_C6BC02395C434BA1 ON onglet (ssmenu_id)');
         $this->addSql('CREATE TABLE iei_champs (idong INT DEFAULT NULL, IDCHP SERIAL NOT NULL, CHPLIB VARCHAR(50) DEFAULT NULL, CHPCHA VARCHAR(20) DEFAULT NULL, CHPORD DOUBLE PRECISION DEFAULT NULL, CHPLON DOUBLE PRECISION DEFAULT NULL, CHPTYP VARCHAR(20) DEFAULT NULL, CHPSAI DOUBLE PRECISION DEFAULT NULL, CHPSEL VARCHAR(500) DEFAULT NULL, CHPREC DOUBLE PRECISION DEFAULT NULL, PRIMARY KEY(IDCHP))');
         $this->addSql('CREATE INDEX IDX_C03171F48D67BCBA ON iei_champs (idong)');
+        $this->addSql('CREATE TABLE "user1" (id INT NOT NULL, email VARCHAR(180) NOT NULL, roles JSON NOT NULL, password VARCHAR(255) NOT NULL, nom VARCHAR(255) NOT NULL, prenom VARCHAR(255) NOT NULL, tel VARCHAR(255) NOT NULL, date_naissance TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, lieu_naissance VARCHAR(255) NOT NULL, rue VARCHAR(255) NOT NULL, numero_rue INT NOT NULL, ville VARCHAR(255) NOT NULL, codepostal INT NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_8C518555E7927C74 ON "user1" (email)');
         $this->addSql('CREATE TABLE champ (id INT NOT NULL, onglet_id INT DEFAULT NULL, chpcha VARCHAR(255) DEFAULT NULL, chpord INT DEFAULT NULL, chplon INT DEFAULT NULL, chptyp VARCHAR(255) NOT NULL, chpsai INT DEFAULT NULL, chpsel VARCHAR(255) DEFAULT NULL, chprec INT DEFAULT NULL, chplib VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_2F61E0ADBD1A86CC ON champ (onglet_id)');
         $this->addSql('CREATE TABLE ssmenu (id INT NOT NULL, menu_id INT NOT NULL, ssmcod VARCHAR(255) DEFAULT NULL, ssmlib VARCHAR(255) DEFAULT NULL, ssmord INT DEFAULT NULL, ssmcom VARCHAR(255) DEFAULT NULL, ssmmaj TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NULL, ssmphp VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id))');
@@ -60,6 +63,7 @@ final class Version20190611130219 extends AbstractMigration
         $this->addSql('ALTER TABLE iei_champs DROP CONSTRAINT FK_C03171F48D67BCBA');
         $this->addSql('DROP SEQUENCE menu_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE onglet_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE "user1_id_seq" CASCADE');
         $this->addSql('DROP SEQUENCE champ_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE ssmenu_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE IEI_ONGLET_idong_seq CASCADE');
@@ -68,6 +72,7 @@ final class Version20190611130219 extends AbstractMigration
         $this->addSql('DROP TABLE menu');
         $this->addSql('DROP TABLE onglet');
         $this->addSql('DROP TABLE iei_champs');
+        $this->addSql('DROP TABLE "user1"');
         $this->addSql('DROP TABLE champ');
         $this->addSql('DROP TABLE ssmenu');
         $this->addSql('DROP TABLE IEI_ONGLET');
