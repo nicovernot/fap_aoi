@@ -10,9 +10,13 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 final class ImageAdmin extends AbstractAdmin
 {
+
+    
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -40,6 +44,7 @@ final class ImageAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
+        $image = $this->getSubject();
         $formMapper
         ->add('filename')
         ->add('file', FileType::class, [

@@ -22,6 +22,8 @@ sonata_admin:
 
             admin:
 
+    
+
 
         blocks:
             -
