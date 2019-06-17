@@ -27,26 +27,12 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->addModelTransformer(new CallbackTransformer(
-            function(Image $image = null) {
-                if ($image instanceof Image) {
-                    return new File($this->imagePath . $image->getFile());
-                }
-            },
-            function(UploadedFile $uploadedFile = null) {
-                if ($uploadedFile instanceof UploadedFile) {
-                    $image = new Image();
-                    $image->setFile($uploadedFile);
-                    return $image;
-                }
-            }
-        ));
+        $builder
+        ->add('filename', FileType::class, ['label' => 'Image (jpg-png)'])
+        ->add('updated')
+        ;
     }
-    public function getBlockPrefix()
-    {
-        return 'image';
-    }
-
+ 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([

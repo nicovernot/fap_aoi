@@ -22,7 +22,7 @@ final class ImageAdmin extends AbstractAdmin
     {
         $datagridMapper
 			->add('id')
-			->add('filename')
+            ->add('filename')
 			->add('updated')
 			;
     }
@@ -31,7 +31,8 @@ final class ImageAdmin extends AbstractAdmin
     {
         $listMapper
 			->add('id')
-			->add('filename')
+            ->add('filename')
+            
 			->add('updated')
 			->add('_action', null, [
                 'actions' => [
@@ -47,17 +48,15 @@ final class ImageAdmin extends AbstractAdmin
         $image = $this->getSubject();
         $formMapper
         ->add('filename')
-        ->add('file', FileType::class, [
-            'required' => false
-        ])
+        ->add('updated')
 			;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-			->add('id')
-			->add('filename')
+            ->add('id')
+            ->add('filename')
 			->add('updated')
 			;
     }
@@ -74,7 +73,7 @@ final class ImageAdmin extends AbstractAdmin
 
     private function manageFileUpload($image)
     {
-        if ($image->getFile()) {
+        if ($image->getFilename()) {
             $image->refreshUpdated();
         }
     }

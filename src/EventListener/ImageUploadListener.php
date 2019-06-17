@@ -24,6 +24,7 @@ class ImageUploadListener
     }
     public function prePersist(LifecycleEventArgs $args)
     {
+        var_dump($args);
         $entity = $args->getEntity();
         $this->uploadFile($entity);
     }
@@ -37,10 +38,11 @@ class ImageUploadListener
         if (!$entity instanceof Image) {
             return;
         }
-        $file = $entity->getFile();
+        $file = $entity->getFilename();
         if ($file instanceof UploadedFile) {
             $filename = $this->uploader->upload($file);
-            $entity->setFile($filename);
+            $entity->setFilename($filename);
+           
         }
     }
 }

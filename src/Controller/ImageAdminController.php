@@ -20,7 +20,7 @@ final class ImageAdminController extends CRUDController
 
     public function handleOfferForm(Request $request)
 {
-   
+
     $this->session->set('image', 'img');
     $image = new Image();
     $file = $request->files->get('file');

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiSubresource;
 
 /**
  * @ApiResource()
@@ -41,6 +42,7 @@ class Magazine
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Image", inversedBy="magazine", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
+     * @ApiSubresource
      */
     private $image;
 
