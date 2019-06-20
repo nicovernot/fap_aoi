@@ -14,7 +14,7 @@ class GestionSchemaController extends AbstractController
      */
     public function index(Connection $connection,Request $request)
     {
-        $sql = "SELECT * FROM IEI_SSMENU WHERE IDSSM = :id";
+       
         $nomtable= $request->query->get('nmtbl');
         $ong= $request->query->get("nglt");
         var_dump($ong);
@@ -42,10 +42,10 @@ class GestionSchemaController extends AbstractController
         ->findAll();
 
        
-        $stmt = $connection->prepare($sql);
-        $stmt->bindValue("id", 1);
-        $stmt->execute();
-        $st = $stmt->fetchAll();
+       // $stmt = $connection->prepare($sql);
+      //  $stmt->bindValue("id", 1);
+      //  $stmt->execute();
+      //  $st = $stmt->fetchAll();
       $sm = $connection->getSchemaManager();
       //$databases = $sm->listDatabases();
       $tables = $sm->listTables();
@@ -53,8 +53,7 @@ class GestionSchemaController extends AbstractController
        return $this->render('gestion_schema/index.html.twig', [
             'controller_name' => 'GestionSchemaController',
             'tables' => $tables,
-            'stm' => $st,
-          
+           
            'onglets' => $onglets,
         ]);
     }

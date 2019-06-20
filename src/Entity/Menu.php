@@ -66,6 +66,7 @@ class Menu
     public function __construct()
     {
         $this->ssmenus = new ArrayCollection();
+        $this->mendate = new \DateTime('now');
     }
 
   
@@ -127,7 +128,12 @@ class Menu
 
     public function getMendat(): ?\DateTimeInterface
     {
-        return $this->mendat;
+        if($this->mendat){
+            return $this-> mendat ;    
+        }else
+        {
+            return $this-> mendat = new \DateTime('now');
+        }
     }
 
     public function setMendat(?\DateTimeInterface $mendat): self

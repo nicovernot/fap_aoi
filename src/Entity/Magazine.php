@@ -3,12 +3,17 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\MagazineRepository")
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact"}) 
  */
 class Magazine
 {
@@ -47,9 +52,16 @@ class Magazine
     private $image;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Abonnement", mappedBy="magazine", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Abonnement", mappedBy="magazine")
      */
     private $abonnement;
+
+    public function __construct()
+    {
+        $this->abonnement = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -116,24 +128,40 @@ class Magazine
         return $this;
     }
 
-    public function getAbonnement(): ?Abonnement
+   
+    public function __toString()
+    {
+        return $this->getTitre() ?: '';
+    }
+
+    /**
+     * @return Collection|Abonnement[]
+     */
+    public function getAbonnement(): Collection
     {
         return $this->abonnement;
     }
 
-    public function setAbonnement(Abonnement $abonnement): self
+    public function addAbonnement(Abonnement $abonnement): self
     {
-        $this->abonnement = $abonnement;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $abonnement->getMagazine()) {
+        if (!$this->abonnement->contains($abonnement)) {
+            $this->abonnement[] = $abonnement;
             $abonnement->setMagazine($this);
         }
 
         return $this;
     }
-    public function __toString()
+
+    public function removeAbonnement(Abonnement $abonnement): self
     {
-        return $this->getTitre() ?: '';
+        if ($this->abonnement->contains($abonnement)) {
+            $this->abonnement->removeElement($abonnement);
+            // set the owning side to null (unless already changed)
+            if ($abonnement->getMagazine() === $this) {
+                $abonnement->setMagazine(null);
+            }
+        }
+
+        return $this;
     }
 }

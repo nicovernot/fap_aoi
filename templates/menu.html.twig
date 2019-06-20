@@ -10,7 +10,7 @@
        <div class="dropdown-menu">
             {%for ssmen in men.getSsmenusChildren(men.id) %}
                   {%for ch in ssmen.getOngChildren1(men.id) %}
-                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib~ssmen.id)}}</a>
+                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib)}}</a>
                   {%endfor%}
             {% endfor %}
       </div>

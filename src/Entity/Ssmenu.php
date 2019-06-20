@@ -129,7 +129,12 @@ class Ssmenu
 
     public function getSsmmaj(): ?\DateTimeInterface
     {
-        return $this->ssmmaj;
+        if($this->ssmmaj){
+            return $this-> ssmmaj ;    
+        }else
+        {
+            return $this-> ssmmaj = new \DateTime('now');
+        }
     }
 
     public function setSsmmaj(?\DateTimeInterface $ssmmaj): self

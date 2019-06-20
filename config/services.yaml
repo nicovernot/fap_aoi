@@ -74,12 +74,7 @@ services:
         calls:
             - [addChild, ['@admin.Ssmenu']]
 
-    admin.user:
-        class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
-        public: true
+
 
     admin.image:
         class: App\Admin\ImageAdmin
@@ -115,6 +110,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Abonnement }
         public: true
+
     
     App\Service\FileUploader:  
         arguments: 
@@ -128,4 +124,11 @@ services:
 
     App\Form\ImageType:
         arguments:
-            $imagePath: '%image_directory%'        
+            $imagePath: '%image_directory%'
+
+    admin.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
+        public: true

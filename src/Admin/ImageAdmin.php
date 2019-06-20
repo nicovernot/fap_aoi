@@ -9,20 +9,15 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-
 
 final class ImageAdmin extends AbstractAdmin
 {
 
-    
-
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-			->add('id')
-            ->add('filename')
+			
+			->add('filename')
 			->add('updated')
 			;
     }
@@ -30,9 +25,8 @@ final class ImageAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-			->add('id')
-            ->add('filename')
-            
+			
+			->add('filename')
 			->add('updated')
 			->add('_action', null, [
                 'actions' => [
@@ -43,9 +37,19 @@ final class ImageAdmin extends AbstractAdmin
             ]);
     }
 
-    protected function configureFormFields(FormMapper $formMapper): void
+     protected function configureFormFields(FormMapper $formMapper): void
     {
         $image = $this->getSubject();
+         
+        $fileFieldOptions = ['required' => false];
+        if ($image ) {
+            // get the container so the full path to the image can be set
+            $container = $this->getConfigurationPool()->getContainer();
+            $fullPath = $container->get('request_stack')->getCurrentRequest()->getBasePath().'/public/img';
+
+            // add a 'help' option containing the preview's img tag
+            $fileFieldOptions['help'] = '<img src="'.$fullPath.'" class="admin-preview"/>';
+        }
         $formMapper
         ->add('filename')
         ->add('updated')
@@ -55,13 +59,13 @@ final class ImageAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-            ->add('id')
-            ->add('filename')
+		
+			->add('filename')
 			->add('updated')
 			;
     }
 
-    public function prePersist($image)
+ public function prePersist($image)
     {
         $this->manageFileUpload($image);
     }

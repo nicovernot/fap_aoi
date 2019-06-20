@@ -17,7 +17,7 @@ final class MagazineAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-			->add('id')
+		
 			->add('titre')
 			->add('numerosparan')
 			->add('presentation')
@@ -28,10 +28,11 @@ final class MagazineAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-			->add('id')
+			
 			->add('titre')
 			->add('numerosparan')
 			->add('presentation')
+			->add('image')
 			->add('prixann')
 			->add('_action', null, [
                 'actions' => [
@@ -44,24 +45,26 @@ final class MagazineAdmin extends AbstractAdmin
 
     protected function configureFormFields(FormMapper $formMapper): void
     {
-		$imageFieldOptions = [];
-		$formMapper
+        $imageFieldOptions = [];
+
+        $formMapper
 			
 			->add('titre')
 			->add('numerosparan')
 			->add('presentation')
-			->add('prixann')
 			->add('image', ModelType::class, $imageFieldOptions)
+			->add('prixann')
 			;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-			->add('id')
+			
 			->add('titre')
 			->add('numerosparan')
 			->add('presentation')
+			->add('image')
 			->add('prixann')
 			;
     }

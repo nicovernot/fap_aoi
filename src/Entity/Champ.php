@@ -7,10 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 
 /**
  * @ApiResource(attributes={"order"={"chpord": "ASC"}})
  * @ORM\Entity(repositoryClass="App\Repository\ChampRepository")
+ * @ApiFilter(OrderFilter::class, properties={"chmpord"})
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "onglet": "exact", "chpcha": "exact"})
  */
 class Champ

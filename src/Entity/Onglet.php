@@ -227,7 +227,12 @@ class Onglet
 
     public function getOngmaj(): ?\DateTimeInterface
     {
-        return $this->ongmaj;
+        if($this->ongmaj){
+            return $this-> ongmaj ;    
+        }else
+        {
+            return $this-> ongmaj = new \DateTime('now');
+        }
     }
 
     public function setOngmaj(?\DateTimeInterface $ongmaj): self
@@ -335,7 +340,7 @@ class Onglet
     public function getChampsOrd()
     {
          $criteria = Criteria::create()
-            ->andWhere(Criteria::expr()->eq('chprec', 1))
+            //->andWhere(Criteria::expr()->eq('chprec', 1))
             ->orderBy(['chpord' => Criteria::ASC]);     
            
         return $this->getChamps()->matching($criteria);

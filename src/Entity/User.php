@@ -2,16 +2,19 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\Common\Collections\Criteria;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\Table(name="`user1`")
+ * @ApiResource()
  */
 class User implements UserInterface
 {
@@ -90,13 +93,16 @@ class User implements UserInterface
     private $messages;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Abonnement", mappedBy="client", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity="App\Entity\Abonnement", mappedBy="client")
      */
     private $abonnement;
+
+   
 
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->abonnement = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -317,20 +323,45 @@ class User implements UserInterface
         return $this->getEmail() ?: '';
     }
 
-    public function getAbonnement(): ?Abonnement
+    /**
+     * @return Collection|Abonnement[]
+     */
+    public function getAbonnement(): Collection
     {
         return $this->abonnement;
     }
 
-    public function setAbonnement(Abonnement $abonnement): self
+    public function getmesabo($id)
     {
-        $this->abonnement = $abonnement;
+         $criteria = Criteria::create()
+            ->andWhere(Criteria::expr()->eq('client', $id))
+           ;     
+           
+        return $this->getAbonnement()->matching($criteria);
+    }
 
-        // set the owning side of the relation if necessary
-        if ($this !== $abonnement->getClient()) {
+    public function addAbonnement(Abonnement $abonnement): self
+    {
+        if (!$this->abonnement->contains($abonnement)) {
+            $this->abonnement[] = $abonnement;
             $abonnement->setClient($this);
         }
 
         return $this;
     }
+
+    public function removeAbonnement(Abonnement $abonnement): self
+    {
+        if ($this->abonnement->contains($abonnement)) {
+            $this->abonnement->removeElement($abonnement);
+            // set the owning side to null (unless already changed)
+            if ($abonnement->getClient() === $this) {
+                $abonnement->setClient(null);
+            }
+        }
+
+        return $this;
+    }
+
+    
 }

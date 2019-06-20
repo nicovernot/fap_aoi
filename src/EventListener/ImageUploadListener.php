@@ -24,7 +24,7 @@ class ImageUploadListener
     }
     public function prePersist(LifecycleEventArgs $args)
     {
-        var_dump($args);
+       
         $entity = $args->getEntity();
         $this->uploadFile($entity);
     }

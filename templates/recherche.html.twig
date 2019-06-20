@@ -1,8 +1,12 @@
 {# empty Twig template #}
 
-    
+    <h2>
+        {{ ong.ongcom }}
+    </h2>
+  
+
     <br>
- <table class="table table-striped table-hover" id="recherche">
+ <table class="table table-striped table-hover" id="recherche" style="width:100%">
     <thead>
       <tr>
           {% set hcol = [] %} 
@@ -27,7 +31,7 @@
             <tr>
              {%for ch in champs %}
 {% if ch.chprec != 0 %}
-        <th>{{ch.chpcha}}</th>
+        <th id="{{ch.chpcha}}" >{{ch.chpcha}}</th>
            
 {% endif %}
     
@@ -37,26 +41,32 @@
         </tfoot>
   </table>
 
-<boutton class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="change_click()">Création<boutton>
 
-            
+
+{% if ong.ongcre >3 %}
+<boutton class="btn btn-primary" data-toggle="modal" data-target="#myModal" onclick="change_click()">Création<boutton>
+{% endif %}
+
+      
+     
 
     <script>
-        var hcol1 =  {{hcol1|json_encode()|raw}};
-        console.log(hcol1);
+// initialisation varibles javascript
+var hcol1 =  {{hcol1|json_encode()|raw}};
 $(document).ready(function(){
    var hcol =  {{hcol|json_encode()|raw}};
    var hcol1 =  {{hcol1|json_encode()|raw}};
    $( "tfoot th:last-child" ).hide();
    
 table(hcol1);
-
+var divimg = $("div[id^='divrow']")
     });
-    
+
+  //  initiliasation data table  
  function table(hcol1){
      $.get("{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')~"/"~apipath}}", function(data, status){
-    
   
+ var count = 0 ;
 var table = $('#recherche').DataTable({
 
     data: data["hydra:member"],
@@ -66,8 +76,9 @@ var table = $('#recherche').DataTable({
     "searchable": false, 
     "orderable": false,
     "render": function ( data, type, row, meta ) {
-       
-      return '<a class="btn btn-success " id="'+row["@id"]+'" data-toggle="modal" data-target="#myModal" onclick="detail_voir(this.id)">V</a> <a class="btn btn-danger " name="delbtn" id="'+row["@id"]+'" onclick="del()">E(X)</a> <a data-toggle="modal" id="'+row["@id"]+'" data-target="#myModal" class="btn btn-info " onclick="detail_modif(this.id)">M</a>';
+     console.log('test');
+ 
+      return '<div id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> <a class="btn btn-danger " name="delbtn" id="'+row["@id"]+'" onclick="{{ong.ongsqldel}}">E(X)</a> <a data-toggle="modal" id="'+row["@id"]+'" data-target="#myModal" class="btn btn-info " onclick="{{ong.ongsqlupd}}">M</a></div>';
     }
   } ],
     columns: hcol1,
@@ -98,19 +109,23 @@ var table = $('#recherche').DataTable({
 });
 
     }
+
+// initialistation modal à afficher ou à modifier recuperation de données et remplissage
 function detail_modif(id){
     $("#btnsend").show();   
      $('#btnsend').data('path',id);
       var $inputs = $('#mbinput :input');
+     
  $inputs.each(function() {
     $(this).val("");
  });
   $.get(id, function(data, status){
+  console.log(data);
     
      $inputs.each(function() {
-         var chpnom =$(this).attr('name').toLowerCase();
-       
+        var chpnom =$(this).attr('name').toLowerCase();
         $('#'+chpnom).val(data[chpnom]);
+
         if($(this).attr('type')=='date'){
          $('#'+chpnom).val(data[chpnom].slice(0, 10));    
         }
@@ -119,6 +134,8 @@ function detail_modif(id){
   });
     
     }
+
+    // utilisation de methodes post,put,delette pour une modal
     
     function modal_put(method){
        var mdlfrm = {};  
@@ -144,10 +161,8 @@ function detail_modif(id){
        
        if (method=='POST'){
            path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')~"/"~apipath}}';
-           console.log(path);
- 
      
-      $inputs.each(function() {
+           $inputs.each(function() {
            mdlfrm[$(this).attr('name').toLowerCase()]=$(this).val();
      
            if($(this).attr("type")=='number'){
@@ -174,9 +189,29 @@ function detail_modif(id){
 );
     }
     
-    function detail_voir(id){
+    function detail_voir(id,image){
+       $("#imgmodal").remove();
        detail_modif(id);
-     $("#btnsend").hide();   
+       var divimg = $("div[id^='divrow']")
+       console.log(divimg)
+     $("#btnsend").hide();
+     if (image === 'undefined') {
+ 
+
+         $('#myModal').modal('show');  
+
+     } else {
+         console.log(image);
+          $.get(image, function(data, status){
+         console.log("1 undefined"+image);
+         $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" />');
+      
+  $('#myModal').modal('show');
+  });   
+
+
+     }
+
     }
 
     function change_click(){

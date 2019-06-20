@@ -65,7 +65,11 @@ class Message
 
     public function getDate(): ?\DateTimeInterface
     {
-        return $this->date;
+        if($this->date){
+           return $this->date;
+        }else{
+            return $this->date = new \DateTime('now');
+        }
     }
 
     public function setDate(\DateTimeInterface $date): self

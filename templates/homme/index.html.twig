@@ -31,8 +31,16 @@
         <li class="nav-item">
       <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
     </li>
-  </ul>
+
+    <li class="nav-item">
+      <a class="btn btn-info" href="#">Mon compte</a>
+    </ul>
+
 </nav>
+  <p>Username: {{ app.user.username }}</p>
+  
+{% set mesabos = app.user.getmesabo(app.user) %}
+{{dump(mesabos.0.magazine.titre)}}
 
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">
@@ -47,6 +55,7 @@
         
         {% set apipath = "" %}
         {% set onglet = "" %}
+        {% set chmparr = [] %} 
         <br>
         <ul class="nav nav-pills" id="ssm">
 
@@ -55,26 +64,35 @@
          <li class="nav-item  dropdown">
                     <a class="nav-link {{smen.id==app.request.get('ssmen')? 'active' :'' }}  dropdown-toggle" data-toggle="dropdown" href="#" id="ssm{{smen.id}}" >{{smen.ssmlib}}</a>
         <div class="dropdown-menu" id="divssm{{smen.id}}">
-      <a class="dropdown-item" href="#">Link 1</a>
-      <a class="dropdown-item" href="#">Link 2</a>
-      <a class="dropdown-item" href="#">Link 3</a>
+
     </div>
        </li>
         {% endif %}
         {% endfor %}
         </ul>
-        
-        
-
-        
+        {% set ongarr=[] %}
   {# affichge de la rechercher       #}      
       {%for ssmen in ssmenu %}
       {%for ong in ssmen.getOngbyId(ong) %}
       {% set apipath = ong.ongsql %}
-      {% include "recherche.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
+{% if ong.ongcon ==2 %}
+      {% set apipath = apipath~"?client="~app.user.id %}
+{% endif %}
+
+{% set ongarr = ong %}     
+{% set chmparr = ong.getChampsOrd() %}   
+   
       {% include "modal.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
+      {% if app.request.get('type')=='recherche' %}
+      <div class="container">
+      {% include "recherche.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
+      </div>
+      {% endif %}
+
       {% endfor %}
       {% endfor %}
+
+
  {%if app.request.get('ong') %}
 <script>
 $(document).ready(function(){
@@ -84,18 +102,19 @@ var ssmdiv=$("div[id*='divssm']");
 ssmdiv.each(function() {
   var idv = this.id;
    var iddiv= idv.slice(6,idv.length);
-   console.log(iddiv) ;
+   //console.log(iddiv) ;
    $.get(path+"/ssmenus/"+iddiv+"/onglets", function(data, status){
-    // $("#")
-   $("#"+idv).append("<a>list</a>");
-   console.log(data["hydra:member"][0].id  );
-    //alert("Data: " + data + "\nStatus: " + status);
+   var onglets = data["hydra:member"];
+   for (var prop in onglets) {
+     console.log(data)
+   $("#"+idv).append('<a class="dropdown-item" href="?ong='+onglets[prop].id+'&con='+onglets[prop].ongcon+'&type='+onglets[prop].ongphp+'&men='+'{{app.request.get('men')}}">'+onglets[prop].onglib+'</a>');
+}
   });
   
   //console.log(this.id);
      });
     
-   console.log(ssmdiv[0].id.slice(6,7));
+   
 });
 </script>
     {% endif %}

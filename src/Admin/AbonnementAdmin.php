@@ -9,6 +9,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Knp\Menu\ItemInterface as MenuItemInterface;
+use Sonata\AdminBundle\Admin\AdminInterface;
 
 final class AbonnementAdmin extends AbstractAdmin
 {
@@ -18,6 +20,7 @@ final class AbonnementAdmin extends AbstractAdmin
         $datagridMapper
         ->add('client')
         ->add('magazine')
+        ->add('encours')
         ->add('date')
 			;
     }
@@ -25,9 +28,10 @@ final class AbonnementAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-            ->add('client')
-            ->add('magazine')
-			->add('date')
+        ->add('client')
+        ->add('magazine')
+        ->add('encours')
+        ->add('date')
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -40,17 +44,19 @@ final class AbonnementAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-            ->add('client')
-            ->add('magazine')
-			->add('date')
+        ->add('client')
+        ->add('magazine')
+        ->add('encours')
+        ->add('date')
 			;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-            ->add('client')
-            ->add('magazine')
+        ->add('client')
+        ->add('magazine')
+        ->add('encours')
 			->add('date')
 			;
     }

@@ -77,7 +77,12 @@ class Image
 
     public function getUpdated(): ?\DateTimeInterface
     {
-        return $this->updated;
+        if($this->updated){
+            return $this-> updated ;    
+        }else
+        {
+            return $this-> updated = new \DateTime('now');
+        }
     }
 
     public function setUpdated(?\DateTimeInterface $updated): self

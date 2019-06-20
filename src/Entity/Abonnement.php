@@ -4,9 +4,15 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
  * @ApiResource()
+ * 
+ * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact"}) 
  * @ORM\Entity(repositoryClass="App\Repository\AbonnementRepository")
  */
 class Abonnement
@@ -18,26 +24,56 @@ class Abonnement
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\User", inversedBy="abonnement", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $client;
-
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Magazine", inversedBy="abonnement", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $magazine;
 
     /**
      * @ORM\Column(type="datetime")
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="abonnement")
+     * @ORM\JoinColumn(nullable=false)
+     * @ApiSubresource
+     * 
+     */
+    private $client;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Magazine", inversedBy="abonnement")
+     * @ORM\JoinColumn(nullable=false)
+     * @ApiSubresource
+     * 
+     */
+    private $magazine;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $encours;
+
+  
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        if($this->date){
+            return $this-> date ;    
+        }else
+        {
+            return $this-> date = new \DateTime('now');
+        }
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
+
+        return $this;
     }
 
     public function getClient(): ?User
@@ -45,7 +81,7 @@ class Abonnement
         return $this->client;
     }
 
-    public function setClient(User $client): self
+    public function setClient(?User $client): self
     {
         $this->client = $client;
 
@@ -57,22 +93,26 @@ class Abonnement
         return $this->magazine;
     }
 
-    public function setMagazine(Magazine $magazine): self
+    public function setMagazine(?Magazine $magazine): self
     {
         $this->magazine = $magazine;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getEncours(): ?bool
     {
-        return $this->date;
+        return $this->encours;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setEncours(?bool $encours): self
     {
-        $this->date = $date;
+        $this->encours = $encours;
 
         return $this;
     }
+
+
+
+   
 }

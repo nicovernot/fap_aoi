@@ -13,26 +13,41 @@
         <!-- Modal body -->
         <div class="modal-body" id="mbinput">
             {% for ch in champs %}
-          
-
             <div class="form-group d-inline-flex p-2 text-primary">
                 
-            {% if ch.chptyp == 'integer' and ch.chprec ==1 %}
+            {% if ch.chptyp == 'integer' and ch.chpsai ==1 %}
                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                <input type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
             {% endif %}
-            
-            {% if ch.chptyp == 'date' and ch.chprec ==1 %}
+
+          {% if ch.chptyp == 'boolean' and ch.chpsai ==1 %}
+                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+               <input type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+            {% endif %}
+
+            {% if ch.chptyp  starts with 'double' and ch.chpsai ==1 %}
+                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+               <input type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+            {% endif %}
+
+           
+            {% if ch.chptyp == 'date' and ch.chpsai ==1 %}
                  <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                   <input type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
             {% endif %}
             
-            {% if ch.chptyp  starts with 'character' and ch.chprec ==1 %}
+            {% if ch.chptyp  starts with 'character' and ch.chpsai ==1 %}
                  <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
                   <input type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+            {% endif %} 
+
+            {% if ch.chptyp  starts with 'timestamp' and ch.chpsai ==1 %}
+                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+                  <input type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
             {% endif %}            
             </div>
         {% endfor %}
+        
           <button id="btnsend" name="btnsend" data-path="id1" onclick="modal_put('PUT')" class="btn btn-primary">Submit</button>
 
         </div>
@@ -44,4 +59,5 @@
         
       </div>
     </div>
+
   </div>
