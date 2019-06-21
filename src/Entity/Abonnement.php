@@ -51,7 +51,80 @@ class Abonnement
      */
     private $encours;
 
-  
+    private $datefin;
+    
+    private $nommagazine;
+
+    private $etatabb;
+
+    public function getEtatabb(): ?string
+    {
+        
+            $etat = $this->encours;
+            if ($etat=="true"){
+                $this->etatabb = "<i class='far fa-calendar-check bg-success' style='font-size:26px'></i>";
+                return $this->etatabb;
+
+            }else{
+                $this->etatabb = "<i class='fas fa-calendar-times bg-danger' style='font-size:26px'></i>";
+                return $this->etatabb;
+            }
+
+        
+    }
+
+    public function setEtatabb(): self
+    {
+        $this->nommagazine = $titre;
+
+        return $this;
+    }
+
+    public function getNommagazine(): ?string
+    {
+        
+            $nom = $this->magazine;
+            $this->nommagazine = $nom->getTitre();
+
+        return $this->nommagazine;
+        
+    }
+
+    public function setNommagazine(): self
+    {
+        $this->nommagazine = $titre;
+
+        return $this;
+    }
+
+    public function getDatefin(): ?\DateTimeInterface
+    {
+        if($this->datefin){
+            return $this-> datefin ;    
+        }else
+        {
+            $interstr = "P";
+            $df = $this->magazine->getNumerosparan();
+            $interstr = $interstr.$df;
+            $interstr = $interstr."M";
+            $interval = new \DateInterval($interstr);
+            $this-> datefin = clone $this->date;
+            $this-> datefin = $this->datefin->add($interval);
+            return $this-> datefin ;
+        }
+    }
+
+    public function setDatefin(): self
+    {
+        $df = $this->magazine->getNumerosparan();
+        $interval = new DateInterval('P.$df.M');
+         
+        $this->datefin = $this->date->add($interval);
+
+        return $this;
+    }
+
+
 
     public function getId(): ?int
     {

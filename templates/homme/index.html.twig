@@ -40,7 +40,7 @@
   <p>Username: {{ app.user.username }}</p>
   
 {% set mesabos = app.user.getmesabo(app.user) %}
-{{dump(mesabos.0.magazine.titre)}}
+
 
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">

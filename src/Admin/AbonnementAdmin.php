@@ -31,6 +31,7 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('client')
         ->add('magazine')
         ->add('encours')
+        
         ->add('date')
 			->add('_action', null, [
                 'actions' => [

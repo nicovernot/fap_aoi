@@ -53,6 +53,7 @@
     <script>
 // initialisation varibles javascript
 var hcol1 =  {{hcol1|json_encode()|raw}};
+   
 $(document).ready(function(){
    var hcol =  {{hcol|json_encode()|raw}};
    var hcol1 =  {{hcol1|json_encode()|raw}};
@@ -64,6 +65,7 @@ var divimg = $("div[id^='divrow']")
 
   //  initiliasation data table  
  function table(hcol1){
+     var countrow = 0 ;
      $.get("{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')~"/"~apipath}}", function(data, status){
   
  var count = 0 ;
@@ -76,14 +78,53 @@ var table = $('#recherche').DataTable({
     "searchable": false, 
     "orderable": false,
     "render": function ( data, type, row, meta ) {
-     console.log('test');
  
-      return '<div id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> <a class="btn btn-danger " name="delbtn" id="'+row["@id"]+'" onclick="{{ong.ongsqldel}}">E(X)</a> <a data-toggle="modal" id="'+row["@id"]+'" data-target="#myModal" class="btn btn-info " onclick="{{ong.ongsqlupd}}">M</a></div>';
+      return '<div  class="bg-secondary" data-text="'+row["magazine"]+'" data-image="'+row["image"]+'" id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> </div>';
     }
   } ],
     columns: hcol1,
     deferRender: true,
+    "createdRow": function ( row, data, index ) {
+       // console.log(hcol1[0].data) 
+        var rowkeys = Object.keys(row.children);
+        rowkeys.forEach(element => {
+if(hcol1[element].data=="date" || hcol1[element].data=="datefin" ){
+row.children[element].childNodes[0].data = row.children[element].childNodes[0].data.slice(0,10);
+}
+
+        });
+
+       
+       row.children[0].classList.add("bg-info")
+        },
     initComplete: function () {
+
+
+ 
+ var divimg = $("div[id^='divrow']")
+
+ Object.keys(divimg).forEach(function (item) {
+     if (item != 'length' ){
+     if (item != 'prevObject' ){
+if (divimg[item].dataset.text != 'undefined') {
+    //alert("is")
+}
+
+if (divimg[item].dataset.image != 'undefined') {
+    $.get(divimg[item].dataset.image, function(data, status){
+     $("#"+divimg[item].id).append('<img id="tabimg" style="width:80px;height:100px;" src="{{ asset('img/') }}'+data.filename+'" />');
+  });   
+
+}
+   
+
+     }
+     }
+     
+});
+   
+ 
+  
             this.api().columns().every( function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
@@ -101,6 +142,8 @@ var table = $('#recherche').DataTable({
                 column.data().unique().sort().each( function ( d, j ) {
                     select.append( '<option value="'+d+'">'+d+'</option>' )
                 } );
+ 
+               
             } );
         },
 } );
@@ -120,7 +163,7 @@ function detail_modif(id){
     $(this).val("");
  });
   $.get(id, function(data, status){
-  console.log(data);
+ // console.log(data);
     
      $inputs.each(function() {
         var chpnom =$(this).attr('name').toLowerCase();
@@ -192,8 +235,10 @@ function detail_modif(id){
     function detail_voir(id,image){
        $("#imgmodal").remove();
        detail_modif(id);
-       var divimg = $("div[id^='divrow']")
-       console.log(divimg)
+      
+
+
+
      $("#btnsend").hide();
      if (image === 'undefined') {
  
@@ -201,9 +246,9 @@ function detail_modif(id){
          $('#myModal').modal('show');  
 
      } else {
-         console.log(image);
+       //  console.log(image);
           $.get(image, function(data, status){
-         console.log("1 undefined"+image);
+         
          $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" />');
       
   $('#myModal').modal('show');

@@ -9,6 +9,7 @@
         "doctrine/doctrine-migrations-bundle": "^2.0",
         "elasticsearch/elasticsearch": "^6.0",
         "guzzlehttp/guzzle": "^6.3",
+        "liip/imagine-bundle": "^2.1",
         "mashape/unirest-php": "^3.0",
         "sensio/framework-extra-bundle": "^5.2",
         "sonata-project/admin-bundle": "^3.45",
