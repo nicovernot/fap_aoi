@@ -59,6 +59,21 @@ class Abonnement
 
     private $etatabb;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Paiement", mappedBy="abonnement", cascade={"persist", "remove"})
+     */
+    private $paiement;
+
+    /**
+     * @ORM\Column(type="boolean",nullable=true)
+     */
+    private $remboursement;
+
+    /**
+     * @ORM\Column(type="datetime",nullable=true)
+     */
+    private $dateremboursement;
+
     public function getEtatabb(): ?string
     {
         $month ="";
@@ -193,6 +208,47 @@ class Abonnement
     public function setEncours(?bool $encours): self
     {
         $this->encours = $encours;
+
+        return $this;
+    }
+
+    public function getPaiement(): ?Paiement
+    {
+        return $this->paiement;
+    }
+
+    public function setPaiement(Paiement $paiement): self
+    {
+        $this->paiement = $paiement;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $paiement->getAbonnement()) {
+            $paiement->setAbonnement($this);
+        }
+
+        return $this;
+    }
+
+    public function getRemboursement(): ?bool
+    {
+        return $this->remboursement;
+    }
+
+    public function setRemboursement(bool $remboursement): self
+    {
+        $this->remboursement = $remboursement;
+
+        return $this;
+    }
+
+    public function getDateremboursement(): ?\DateTimeInterface
+    {
+        return $this->dateremboursement;
+    }
+
+    public function setDateremboursement(?\DateTimeInterface $dateremboursement): self
+    {
+        $this->dateremboursement = $dateremboursement;
 
         return $this;
     }

@@ -22,6 +22,8 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('magazine')
         ->add('encours')
         ->add('date')
+        ->add('dateremboursement')
+
 			;
     }
 
@@ -31,8 +33,9 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('client')
         ->add('magazine')
         ->add('encours')
-        
         ->add('date')
+        ->add('remboursement')
+        ->add('dateremboursement')
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -49,7 +52,9 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('magazine')
         ->add('encours')
         ->add('date')
-			;
+        ->add('remboursement')
+        ->add('dateremboursement')
+        ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
@@ -58,7 +63,9 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('client')
         ->add('magazine')
         ->add('encours')
-			->add('date')
-			;
+            ->add('date')
+            ->add('remboursement')
+            ->add('dateremboursement')
+            ;
     }
 }

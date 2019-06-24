@@ -129,6 +129,11 @@ class User implements UserInterface
      */
     private $appli;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="client")
+     */
+    private $paiements;
+
    
 
     public function __construct(TokenStorageInterface $tokenStorage,Security $security)
@@ -137,6 +142,7 @@ class User implements UserInterface
         $this->abonnement = new ArrayCollection();
         $this->tokenStorage = $tokenStorage;
         $this->security = $security;
+        $this->paiements = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -416,6 +422,37 @@ class User implements UserInterface
     public function setAppli(?Appli $appli): self
     {
         $this->appli = $appli;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Paiement[]
+     */
+    public function getPaiements(): Collection
+    {
+        return $this->paiements;
+    }
+
+    public function addPaiement(Paiement $paiement): self
+    {
+        if (!$this->paiements->contains($paiement)) {
+            $this->paiements[] = $paiement;
+            $paiement->setClient($this);
+        }
+
+        return $this;
+    }
+
+    public function removePaiement(Paiement $paiement): self
+    {
+        if ($this->paiements->contains($paiement)) {
+            $this->paiements->removeElement($paiement);
+            // set the owning side to null (unless already changed)
+            if ($paiement->getClient() === $this) {
+                $paiement->setClient(null);
+            }
+        }
 
         return $this;
     }
