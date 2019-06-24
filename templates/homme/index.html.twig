@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HommeController!{% endblock %}
+{% block title %}Magazines Plus{% endblock %}
 
 {% block body %}
 
@@ -16,7 +16,7 @@
        <div class="dropdown-menu">
             {%for ssmen in men.getSsmenusChildren(men.id) %}
                   {%for ch in ssmen.getOngChildren1(men.id) %}
-                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib~ssmen.id)}}</a>
+                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib)}}</a>
                   {%endfor%}
             {% endfor %}
       </div>
@@ -106,7 +106,7 @@ ssmdiv.each(function() {
    $.get(path+"/ssmenus/"+iddiv+"/onglets", function(data, status){
    var onglets = data["hydra:member"];
    for (var prop in onglets) {
-     console.log(data)
+    // console.log(data)
    $("#"+idv).append('<a class="dropdown-item" href="?ong='+onglets[prop].id+'&con='+onglets[prop].ongcon+'&type='+onglets[prop].ongphp+'&men='+'{{app.request.get('men')}}">'+onglets[prop].onglib+'</a>');
 }
   });

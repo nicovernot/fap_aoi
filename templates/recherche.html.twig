@@ -6,7 +6,7 @@
   
 
     <br>
- <table class="table table-striped table-hover" id="recherche" style="width:100%">
+ <table class="table display compact table-hover" id="recherche" style="width:80%">
     <thead>
       <tr>
           {% set hcol = [] %} 
@@ -78,10 +78,13 @@ var table = $('#recherche').DataTable({
     "searchable": false, 
     "orderable": false,
     "render": function ( data, type, row, meta ) {
- 
+
       return '<div  class="bg-secondary" data-text="'+row["magazine"]+'" data-image="'+row["image"]+'" id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> </div>';
     }
   } ],
+  "language": {
+            "url": "{{ asset('/french.json') }}"
+        },
     columns: hcol1,
     deferRender: true,
     "createdRow": function ( row, data, index ) {
@@ -91,10 +94,8 @@ var table = $('#recherche').DataTable({
 if(hcol1[element].data=="date" || hcol1[element].data=="datefin" ){
 row.children[element].childNodes[0].data = row.children[element].childNodes[0].data.slice(0,10);
 }
-
         });
-
-       
+      
        row.children[0].classList.add("bg-info")
         },
     initComplete: function () {
@@ -103,28 +104,20 @@ row.children[element].childNodes[0].data = row.children[element].childNodes[0].d
  
  var divimg = $("div[id^='divrow']")
 
- Object.keys(divimg).forEach(function (item) {
-     if (item != 'length' ){
-     if (item != 'prevObject' ){
-if (divimg[item].dataset.text != 'undefined') {
-    //alert("is")
-}
+ //Object.keys(divimg).forEach(function (item) {
+  //   if (item != 'length' ){
+  //   if (item != 'prevObject' ){
 
-if (divimg[item].dataset.image != 'undefined') {
-    $.get(divimg[item].dataset.image, function(data, status){
-     $("#"+divimg[item].id).append('<img id="tabimg" style="width:80px;height:100px;" src="{{ asset('img/') }}'+data.filename+'" />');
-  });   
-
-}
-   
-
-     }
-     }
+//if (divimg[item].dataset.image != 'undefined') {
+//    $.get(divimg[item].dataset.image, function(data, status){
+//     $("#"+divimg[item].id).append('<img id="tabimg" style="width:80px;height:100px;" src="{{ asset('img/') }}'+data.filename+'" />');
+//  });   
+//}
+ //     }
+  //   }
      
-});
-   
- 
-  
+//});
+     
             this.api().columns().every( function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
@@ -168,7 +161,7 @@ function detail_modif(id){
      $inputs.each(function() {
         var chpnom =$(this).attr('name').toLowerCase();
         $('#'+chpnom).val(data[chpnom]);
-
+      
         if($(this).attr('type')=='date'){
          $('#'+chpnom).val(data[chpnom].slice(0, 10));    
         }
@@ -235,26 +228,26 @@ function detail_modif(id){
     function detail_voir(id,image){
        $("#imgmodal").remove();
        detail_modif(id);
-      
-
-
-
-     $("#btnsend").hide();
+       (id);
+       $("#btnsend").hide();
+        var ongcre = {{ong.ongcre}};
+        var btnscre1 = "{{ong.ongsqlcre}}";
      if (image === 'undefined') {
- 
-
-         $('#myModal').modal('show');  
-
+          $('#myModal').modal('show');  
      } else {
-       //  console.log(image);
-          $.get(image, function(data, status){
-         
-         $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" />');
-      
-  $('#myModal').modal('show');
-  });   
+        $.get(image, function(data, status){
+            $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" /><br>');
 
-
+            if(ongcre==0)    {
+                $('.simpleCart_input').replaceWith(function(){
+                  
+                return '<span class='+this.className+"text-dark"+'>'+this.value+'</span>'
+                })
+            }
+            
+            if (btnscre1) $("#mbinput").append('<button  type="button" class="btn btn-info" id="'+id+'" onclick="{{ong.ongsqlcre}}" > Abonner</button>');
+            $('#myModal').modal('show');
+        }); 
      }
 
     }
@@ -269,6 +262,11 @@ function detail_modif(id){
     
     function del(){
     modal_put("DELETE");
+    }
+     function sabonner(id){
+         
+       //  $.post( "/api/abonnements", { date:Date.now(),client: {{app.user.id}},  "magazine": id), "encours": true } );
+    alert("sbonner"+id.slice(15,id.length))
     }
 
 </script>

@@ -18,8 +18,7 @@ final class UserAdmin extends AbstractAdmin
         $datagridMapper
 			
 			->add('email')
-			->add('roles')
-			
+					
 			->add('nom')
 			->add('prenom')
 			->add('tel')
@@ -37,7 +36,7 @@ final class UserAdmin extends AbstractAdmin
         $listMapper
 		
 			->add('email')
-			->add('roles')
+		
 		
 			->add('nom')
 			->add('prenom')
@@ -62,7 +61,7 @@ final class UserAdmin extends AbstractAdmin
         $formMapper
 		
 			->add('email')
-			->add('roles')
+			
 			
 			->add('nom')
 			->add('prenom')
@@ -81,7 +80,7 @@ final class UserAdmin extends AbstractAdmin
         $showMapper
 		
 			->add('email')
-			->add('roles')
+			
 		
 			->add('nom')
 			->add('prenom')

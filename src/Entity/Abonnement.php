@@ -59,10 +59,20 @@ class Abonnement
 
     public function getEtatabb(): ?string
     {
-        
+        $month ="";
+        $finp =  clone $this->date;
+        $interval = new \DateInterval('P2M');
+        $finp->add($interval);
+       if ($finp > $this->getDatefin()) {
+          $month = '<p class="bg-danger" >-2 mois</p>';
+       }else{
+        $month = '';
+       }
+            
             $etat = $this->encours;
             if ($etat=="true"){
-                $this->etatabb = "<i class='far fa-calendar-check bg-success' style='font-size:26px'></i>";
+                
+                $this->etatabb = "<i class='far fa-calendar-check bg-success'>$month</i>";
                 return $this->etatabb;
 
             }else{

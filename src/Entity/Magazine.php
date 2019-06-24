@@ -17,6 +17,8 @@ use ApiPlatform\Core\Annotation\ApiFilter;
  */
 class Magazine
 {
+    private $tokenStorage;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -59,9 +61,20 @@ class Magazine
     public function __construct()
     {
         $this->abonnement = new ArrayCollection();
+      
     }
+   
+  
+
+   private $imgfilename;
 
 
+
+   public function getFilename(): ?string
+   {
+
+       return "<img id='tabimg' style='width:80px;height:100px;' src='/img/$this->image'>";
+   }
 
     public function getId(): ?int
     {

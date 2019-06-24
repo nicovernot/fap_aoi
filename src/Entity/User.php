@@ -9,15 +9,27 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Core\Annotation\ApiSubresource;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Security;
+
 
 /**
+ * Secured resource.
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  * @ORM\Table(name="`user1`")
- * @ApiResource()
+ * @ApiResource(attributes={
+ *     "normalization_context"={"groups"={"read"}},
+ *     "denormalization_context"={"groups"={"write"}}
+ * })
  */
 class User implements UserInterface
 {
+
+    private $tokenStorage;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -26,8 +38,12 @@ class User implements UserInterface
      */
     private $id;
 
+    
+
     /**
+     * @Groups({"read", "write"})
      * @ORM\Column(type="string", length=180, unique=true)
+     * 
      */
     private $email;
 
@@ -44,65 +60,78 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $tel;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"read", "write"})
      */
     private $dateNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $lieuNaissance;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $rue;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read", "write"})
      */
     private $numeroRue;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"read", "write"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="integer")
+     * @Groups({"read", "write"})
      */
     private $codepostal;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="client")
+     * @Groups({"read", "write"})
      */
     private $messages;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Abonnement", mappedBy="client")
+     * @Groups({"read", "write"})
      */
     private $abonnement;
 
    
 
-    public function __construct()
+    public function __construct(TokenStorageInterface $tokenStorage,Security $security)
     {
         $this->messages = new ArrayCollection();
         $this->abonnement = new ArrayCollection();
+        $this->tokenStorage = $tokenStorage;
+        $this->security = $security;
     }
 
     public function getId(): ?int
@@ -328,7 +357,18 @@ class User implements UserInterface
      */
     public function getAbonnement(): Collection
     {
+         // $user = $security->getUser();
+       // $user =$this->get('security.context')->getToken()->getUser();
         return $this->abonnement;
+    }
+
+    public function getAbboClient()
+    {
+         $criteria = Criteria::create()
+            //->andWhere(Criteria::expr()->eq('chprec', 1))
+            ->orderBy(['id' => Criteria::ASC]);     
+           
+        return $this->getAbonnement()->matching($criteria);
     }
 
     public function getmesabo($id)
