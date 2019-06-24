@@ -124,6 +124,11 @@ class User implements UserInterface
      */
     private $abonnement;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Appli", inversedBy="client")
+     */
+    private $appli;
+
    
 
     public function __construct(TokenStorageInterface $tokenStorage,Security $security)
@@ -399,6 +404,18 @@ class User implements UserInterface
                 $abonnement->setClient(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAppli(): ?Appli
+    {
+        return $this->appli;
+    }
+
+    public function setAppli(?Appli $appli): self
+    {
+        $this->appli = $appli;
 
         return $this;
     }

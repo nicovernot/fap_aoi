@@ -136,5 +136,14 @@ services:
             - { name: sonata.admin, manager_type: orm, group: admin, label: User }
         public: true
 
+    admin.appli:
+        class: App\Admin\AppliAdmin
+        arguments: [~, App\Entity\Appli, App\Controller\AppliAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Appli }
+        public: true
 
-    
+    App\Doctrine\CurrentUserExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.item }    

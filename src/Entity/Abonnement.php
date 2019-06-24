@@ -31,6 +31,7 @@ class Abonnement
     private $date;
 
     /**
+     * 
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="abonnement")
      * @ORM\JoinColumn(nullable=false)
      * @ApiSubresource
@@ -41,6 +42,7 @@ class Abonnement
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Magazine", inversedBy="abonnement")
      * @ORM\JoinColumn(nullable=false)
+     * 
      * @ApiSubresource
      * 
      */

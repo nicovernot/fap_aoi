@@ -63,6 +63,11 @@ class Menu
      */
     private $ssmenus;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Appli", inversedBy="menu")
+     */
+    private $appli;
+
     public function __construct()
     {
         $this->ssmenus = new ArrayCollection();
@@ -234,6 +239,18 @@ class Menu
                  $ssmenu->setMenu(null);
              }
          }
+
+         return $this;
+     }
+
+     public function getAppli(): ?Appli
+     {
+         return $this->appli;
+     }
+
+     public function setAppli(?Appli $appli): self
+     {
+         $this->appli = $appli;
 
          return $this;
      }
