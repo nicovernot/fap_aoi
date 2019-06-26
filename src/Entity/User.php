@@ -13,7 +13,8 @@ use ApiPlatform\Core\Annotation\ApiSubresource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Security;
-
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * Secured resource.
@@ -24,6 +25,9 @@ use Symfony\Component\Security\Core\Security;
  *     "normalization_context"={"groups"={"read"}},
  *     "denormalization_context"={"groups"={"write"}}
  * })
+ * 
+ * * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact"}) 
+
  */
 class User implements UserInterface
 {

@@ -149,22 +149,30 @@ row.children[element].childNodes[0].data = row.children[element].childNodes[0].d
 // initialistation modal à afficher ou à modifier recuperation de données et remplissage
 function detail_modif(id){
     $("#btnsend").show();   
-     $('#btnsend').data('path',id);
-      var $inputs = $('#mbinput :input');
+    $('#btnsend').data('path',id);
+    var $inputs = $('#mbinput :input');
      
- $inputs.each(function() {
-    $(this).val("");
- });
-  $.get(id, function(data, status){
- // console.log(data);
+    $inputs.each(function() {
+        $(this).val("");
+    });
     
-     $inputs.each(function() {
-        var chpnom =$(this).attr('name').toLowerCase();
-        $('#'+chpnom).val(data[chpnom]);
-      
-        if($(this).attr('type')=='date'){
-         $('#'+chpnom).val(data[chpnom].slice(0, 10));    
-        }
+    $.get(id, function(data, status){
+    // console.log(data);
+    
+    $inputs.each(function() {
+    
+    var chpnom =$(this).attr('name').toLowerCase();
+    $('#in'+chpnom).val(data[chpnom]);
+    console.log(chpnom+' '+data[chpnom]);
+           
+    if($(this).attr('name')=='titre'){
+    console.log( $("#titre"));
+    //$("#"+chpnom).text(data[chpnom]);
+    }
+    
+    if($(this).attr('type')=='date'){
+         $('#in'+chpnom).val(data[chpnom].slice(0, 10));    
+    }
     })
  
   });
@@ -230,26 +238,29 @@ function detail_modif(id){
        detail_modif(id);
        (id);
        $("#btnsend").hide();
-        var ongcre = {{ong.ongcre}};
+        //var ongcre = {{ong.ongcre}};
         var btnscre1 = "{{ong.ongsqlcre}}";
+          if (btnscre1) {
+
+             $("#mbinput").append('<button  type="button" class="btn btn-info" id="'+id+'" onclick="{{ong.ongsqlcre}}" > Abonner</button>');
+          }
+        //if(ongcre==0)    {
+        //        $('.simpleCart_input').replaceWith(function(){
+               
+         //       return '<span class='+this.className+"text-dark"+'>'+this.value+'</span>'
+        //        })
+       //     }
      if (image === 'undefined') {
           $('#myModal').modal('show');  
      } else {
+        
         $.get(image, function(data, status){
             $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" /><br>');
-
-            if(ongcre==0)    {
-                $('.simpleCart_input').replaceWith(function(){
-                  
-                return '<span class='+this.className+"text-dark"+'>'+this.value+'</span>'
-                })
-            }
-            
-            if (btnscre1) $("#mbinput").append('<button  type="button" class="btn btn-info" id="'+id+'" onclick="{{ong.ongsqlcre}}" > Abonner</button>');
+           
             $('#myModal').modal('show');
         }); 
      }
-
+          
     }
 
     function change_click(){

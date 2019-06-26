@@ -6,112 +6,95 @@
       
         <!-- Modal Header -->
         <div class="modal-header bg-info">
-          <h4 class="modal-title">{{ong.onglib}}</h4>
+          <h4 id="titre1" class="modal-title">{{ong.onglib}}</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
       
         <!-- Modal body -->
         <div class="modal-body" id="mbinput">
 
+                <ul class="list-group">
             {% for ch in champs %}
-
-
-            {% if ong.ongcre == 0 %}
-
- <div class=" text-dark">
-                
+          
             {% if ch.chptyp == 'integer' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
+            
                 <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-               <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+               <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+       
+          </li>
             {% endif %}
 
           {% if ch.chptyp == 'boolean' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
                 <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-               <input class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+               <input class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+</li>
             {% endif %}
 
             {% if ch.chptyp  starts with 'double' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
                 <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-               <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+               <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+          
+            </li>
             {% endif %}
 
            
             {% if ch.chptyp == 'date' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-                  <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+                  <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+           
+            </li>
             {% endif %}
             
             {% if ch.chptyp  starts with 'character' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
+
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-                  <input class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+                  <input class="simpleCart_input" type="text" name="{{ch.chpcha|lower}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+             
+            </li>
+
             {% endif %} 
 
             {% if ch.chptyp  starts with 'text' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
+
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-                  <textarea class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}></textarea><br> 
+                  <textarea class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}></textarea><br> 
+            
+            </li>
+
             {% endif %} 
 
             {% if ch.chptyp  starts with 'icon' and ch.chpsai ==1 %}
+ <li class="list-group-item">
+
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
+            
+            </li>
+
                 <div name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"></div>
             {% endif %} 
 
             {% if ch.chptyp  starts with 'timestamp' and ch.chpsai ==1 %}
+ <li class="list-group-item" >
+
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-                  <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+                  <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
+            
+            </li>
+
             {% endif %}            
-            </div>
-
-            {% else %}
-
- <div class="form-group d-inline-flex p-2 text-primary">
-                
-            {% if ch.chptyp == 'integer' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-
-          {% if ch.chptyp == 'boolean' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-
-            {% if ch.chptyp  starts with 'double' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="number" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
+  
 
            
-            {% if ch.chptyp == 'date' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-            
-            {% if ch.chptyp  starts with 'character' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'text' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <textarea type="text" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}></textarea><br> 
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'icon' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                <div name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"></div>
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'timestamp' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="date" name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}            
-            </div>
-
-            {% endif %}
            
         {% endfor %}
-        
+     </ul>
+         
           <button id="btnsend" name="btnsend" data-path="id1" onclick="modal_put('PUT')" class="btn btn-primary">Submit</button>
 
         </div>

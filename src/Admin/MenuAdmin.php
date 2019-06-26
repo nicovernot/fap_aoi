@@ -53,7 +53,8 @@ final class MenuAdmin extends AbstractAdmin
 			->add('mencom')
 			->add('mendat')
 			->add('menphp')
-			->add('mensql')
+            ->add('mensql')
+            ->add('appli')
 			;
     }
 
@@ -68,7 +69,8 @@ final class MenuAdmin extends AbstractAdmin
 			->add('mendat')
 			->add('menphp')
 			->add('mensql')
-			->add('_action', null, [
+            ->add('appli')
+            ->add('_action', null, [
                 'actions' => [
                     'show' => [],
                     'edit' => [],
@@ -88,7 +90,9 @@ final class MenuAdmin extends AbstractAdmin
 			->add('mendat')
 			->add('menphp')
 			->add('mensql')
-			;
+             ->add('appli')
+
+            ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
@@ -102,7 +106,9 @@ final class MenuAdmin extends AbstractAdmin
 			->add('mendat')
 			->add('menphp')
 			->add('mensql')
-			;
+            ->add('appli')
+
+            ;
     }
 
 

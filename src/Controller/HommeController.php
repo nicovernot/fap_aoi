@@ -5,6 +5,8 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class HommeController extends AbstractController
 {
@@ -38,4 +40,48 @@ class HommeController extends AbstractController
             'idmen'=>$idmen,
         ]);
     }
+
+  /**
+     * @Route("/api/apicmptfilter", name="comptefilter")
+     */
+    public function usefilter(Request $request)
+    {
+        $id=0;
+        if ($request->isMethod('get')) {
+         // $ong =$request->query->get('ong');
+         // $type =$request->query->get('type');
+          $id =$request->query->get('id');
+          $Userentity = "App\Entity\User";
+          $usercompte = $this->getDoctrine()
+       ->getRepository($Userentity)
+       ->findOneBy(['id' => $id]);
+       $connecteduser = $this->getUser();
+     if($usercompte !=$connecteduser){
+        return $this->json(['error' => "vou n'etes pas autorisé à acceder a ce compte"]);
+     }
+     //$arrb =array("@id"=>"/apicmptfilter?id=1");
+    // $usercompte->append(array("@id"=>"/apicmptfilter?id=1"));
+    $ketid ="App\Entity\@id";
+   $usercompte->$ketid = "/apicmptfilter?id=1";
+   $array =  (array) $usercompte;
+        return $this->json([$usercompte]);
+}
+       
+    }
+
+    protected function getUser()
+    {
+        if (!$this->container->has('security.token_storage')) {
+            throw new \LogicException('The SecurityBundle is not registered in your application.');
+        }
+        if (null === $token = $this->container->get('security.token_storage')->getToken()) {
+            return;
+        }
+        if (!is_object($user = $token->getUser())) {
+            // e.g. anonymous authentication
+            return;
+        }
+        return $user;
+    }
+
 }

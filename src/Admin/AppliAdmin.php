@@ -16,7 +16,7 @@ final class AppliAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-			->add('id')
+		
 			->add('nom')
 			;
     }
@@ -24,7 +24,7 @@ final class AppliAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-			->add('id')
+			
 			->add('nom')
 			->add('_action', null, [
                 'actions' => [
@@ -38,7 +38,7 @@ final class AppliAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-			->add('id')
+			
 			->add('nom')
 			;
     }
@@ -46,7 +46,7 @@ final class AppliAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-			->add('id')
+		
 			->add('nom')
 			;
     }
