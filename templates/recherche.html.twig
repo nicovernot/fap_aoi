@@ -16,10 +16,10 @@
 {% if ch.chprec != 0 %}
         <th>{{ch.chpcha}}</th>
              {% set hcol = hcol|merge([ch.chpcha|lower]) %}  
-             {% set hcol1 = hcol1|merge([{data :ch.chpcha|lower,"width": "5%",className: "bg-secondary"}]) %}  
+             {% set hcol1 = hcol1|merge([{data :ch.chpcha|lower,"width": "20%",className: ""}]) %}  
 {% endif %}
 {% endfor %}
- {% set hcol1 = hcol1|merge([{ className: "bg-info","ordering": false, "width": "10%", "searching": false}]) %}  
+ {% set hcol1 = hcol1|merge([{ className: "","ordering": false, "width": "10%", "searching": false}]) %}  
 <th>Action</th>
       </tr>
     </thead>
@@ -144,7 +144,13 @@ function detail_modif(id){
     
     $.get(id, function(data, status){
     // console.log(data);
-    
+    if (typeof(Storage) !== "undefined") {
+  // Store
+  localStorage.setItem(id, JSON.stringify(data));
+ 
+} else {
+  document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
     $inputs.each(function(i, el) {
     
     var chpnom =$(this).attr('name').toLowerCase();
@@ -171,12 +177,11 @@ function detail_modif(id){
     // utilisation de methodes post,put,delette pour une modal
     
     function modal_put(method){
-       var mdlfrm = {};  
-       var md2=[];
-       var $inputs = $('#mbinput :input');
+        var mdlfrm = {};  
+        var md2=[];
+        var $inputs = $('#mbinput :input');
       
         var path="";
-             
         
         if(method=='PUT'){
            path = $('#btnsend').data("path");
@@ -210,8 +215,8 @@ function detail_modif(id){
     contentType: 'application/json',
     processData: false,
     data: jsonform
-})
-.then(
+    })
+    .then(
     function success(data) {
    
         alert('modifications prise en compte');
@@ -242,11 +247,17 @@ function detail_modif(id){
             arrsqlcre = sqlcre.split("|");
              $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlcre[0]+'">' +arrsqlcre[1]+'</button>');
          }
-         var btnsupd = "{{ong.ongsqlupd}}";
+        var btnsupd = "{{ong.ongsqlupd}}";
         if (btnsupd) {
             var  sqlupd="{{ong.ongsqlupd}}";
             arrsqlupd = sqlupd.split("|");
              $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlupd[0]+'">' +arrsqlupd[1]+'</button>');
+         }
+        var btnsdel = "{{ong.ongsqldel}}";
+        if (btnsdel) {
+            var  sqldel="{{ong.ongsqldel}}";
+            arrsqldel = sqldel.split("|");
+             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqldel[0]+'">' +arrsqldel[1]+'</button>');
          }
      if (image === 'undefined') {
           $('#myModal').modal('show');  
@@ -272,10 +283,30 @@ function detail_modif(id){
     function del(){
     modal_put("DELETE");
     }
-
+//function de l'onglet abonnement
      function payer(id){
-     alert("payer"+id);
+   
+      var encrypted = CryptoJS.AES.encrypt(id, "Secret Passphrase");
+     //var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
+     //console.log(typeof decrypted.toString(CryptoJS.enc.Utf8));
+     window.location.href = "/paiement?p="+ encrypted;
+
     }
+
+         function prolonger(id){
+             var itemabbo=[];
+if (typeof(Storage) !== "undefined") {
+ 
+  itemabbo=localStorage.getItem(id);
+  
+} else {
+  //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+     console.log(itemabbo);
+     
+    }
+
+    //function de l'onglet abonnement ou magazine
      function sabonner(id,typed){
          var divid = id.slice(17,id.length);
          var mag;

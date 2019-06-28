@@ -23,7 +23,22 @@
 <script>
 var datain =  {{data|json_encode()|raw}};
 var jsonform = JSON.stringify(datain);
-console.log(datain);
+var pay = "{{app.request.get('p')| raw}}"
+var decrypted = CryptoJS.AES.decrypt(pay, "Secret Passphrase");
+var idabonement = decrypted.toString(CryptoJS.enc.Utf8);
+var itemabbo=[];
+alert(pay+" "+decrypted);
+if (typeof(Storage) !== "undefined") {
+  // Store
+ // localStorage.setItem("lastname", "Smith");
+  // Retrieve
+  itemabbo=localStorage.getItem(idabonement);
+  
+} else {
+  //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+
+console.log(itemabbo);
  $.ajax('api/paiementretour', {
     method: "POST",
     contentType: 'application/json',

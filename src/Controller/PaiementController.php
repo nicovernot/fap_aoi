@@ -32,12 +32,15 @@ class PaiementController extends AbstractController
     $form = $this->createFormBuilder($defaultData)
         ->add('UUID', HiddenType::class, ['data' => 'UUIDabcdef',])
         ->add('CID', HiddenType::class, ['data' => 'CIDabcdef',])
-        ->add('CARDNUMBER', TextType::class, ['constraints' => [            
+        ->add('CARDNUMBER', TextType::class, [
+            'label' => 'Carte de Credit',
+            'constraints' => [            
                 new NotBlank(),
                 new Length(['min' => 12,'max' =>12]),
             ],
         ])
         ->add('MONTH', IntegerType::class, [
+            'label' => 'Mois',
             'constraints' => [
                 
                 new NotBlank(),
@@ -45,6 +48,7 @@ class PaiementController extends AbstractController
             ],
         ])
         ->add('YEAR', IntegerType::class, [
+            'label' => 'Annéé',
             'constraints' => [
                 
                 new NotBlank(),

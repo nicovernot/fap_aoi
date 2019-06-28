@@ -57,7 +57,16 @@ class Abonnement
     
     private $nommagazine;
 
-    private $etatabb;
+    private $status;
+
+    private $prixapayer;
+    
+    public function getPriapayer(){
+     $this->prixapayer =$this->magazine->getPrixann();
+     return $this->prixapayer;
+    }
+
+
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Paiement", mappedBy="abonnement", cascade={"persist", "remove"})
@@ -74,7 +83,17 @@ class Abonnement
      */
     private $dateremboursement;
 
-    public function getEtatabb(): ?string
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $estpaye;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $estprolonge;
+
+    public function getStatus(): ?string
     {
         $month ="";
         $finp =  clone $this->date;
@@ -100,7 +119,7 @@ class Abonnement
         
     }
 
-    public function setEtatabb(): self
+    public function setStatus(): self
     {
         $this->nommagazine = $titre;
 
@@ -249,6 +268,30 @@ class Abonnement
     public function setDateremboursement(?\DateTimeInterface $dateremboursement): self
     {
         $this->dateremboursement = $dateremboursement;
+
+        return $this;
+    }
+
+    public function getEstpaye(): ?bool
+    {
+        return $this->estpaye;
+    }
+
+    public function setEstpaye(?bool $estpaye): self
+    {
+        $this->estpaye = $estpaye;
+
+        return $this;
+    }
+
+    public function getEstprolonge(): ?bool
+    {
+        return $this->estprolonge;
+    }
+
+    public function setEstprolonge(?bool $estprolonge): self
+    {
+        $this->estprolonge = $estprolonge;
 
         return $this;
     }
