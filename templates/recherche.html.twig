@@ -294,16 +294,7 @@ function detail_modif(id){
     }
 
          function prolonger(id){
-             var itemabbo=[];
-if (typeof(Storage) !== "undefined") {
- 
-  itemabbo=localStorage.getItem(id);
-  
-} else {
-  //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
-}
-     console.log(itemabbo);
-     
+          sabonner(id,3);
     }
 
     //function de l'onglet abonnement ou magazine
@@ -326,6 +317,21 @@ if (typeof(Storage) !== "undefined") {
        datapost = { date:"2019-06-26T08:15:44.087Z",client: "api/users/{{app.user.id}}",  "magazine": mag, "encours": false  };
        method ="PUT";
    }
+
+    if (typed===3) {
+        var path = id;
+        var itemabbo=[];
+        if (typeof(Storage) !== "undefined") {
+        itemabbo=localStorage.getItem(id);
+        }
+        obj = JSON.parse(itemabbo); 
+       
+        datapost = { date:"2019-06-26T08:15:44.087Z",client: "api/users/{{app.user.id}}",  "magazine": obj['magazine'], "estprolonge": true  };
+        method ="PUT";
+   }
+
+    
+     
        
          var jsonform = JSON.stringify(datapost);
         

@@ -62,7 +62,13 @@ class Abonnement
     private $prixapayer;
     
     public function getPriapayer(){
-     $this->prixapayer =$this->magazine->getPrixann();
+
+     if ($this->estprolonge==true) {
+        $this->prixapayer =($this->magazine->getPrixann())*2;
+        # code...
+     }   else {
+        $this->prixapayer =$this->magazine->getPrixann();
+     }
      return $this->prixapayer;
     }
 
@@ -150,7 +156,11 @@ class Abonnement
         }else
         {
             $interstr = "P";
-            $df = $this->magazine->getNumerosparan();
+            if($this->estprolonge==true){
+                $df = ( $this->magazine->getNumerosparan())*2;
+            }else{
+                $df = $this->magazine->getNumerosparan();
+            }
             $interstr = $interstr.$df;
             $interstr = $interstr."M";
             $interval = new \DateInterval($interstr);
