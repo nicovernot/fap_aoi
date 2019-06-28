@@ -23,11 +23,12 @@
 <script>
 var datain =  {{data|json_encode()|raw}};
 var jsonform = JSON.stringify(datain);
-var pay = "{{app.request.get('p')| raw}}"
-var decrypted = CryptoJS.AES.decrypt(pay, "Secret Passphrase");
+var pay = "{{app.request.get('p')| raw | convert_encoding('UTF-8', 'ISO-8859-1')}}"
+  var myParam = location.search.split('p=')[1]
+var decrypted = CryptoJS.AES.decrypt(myParam, "Secret Passphrase");
 var idabonement = decrypted.toString(CryptoJS.enc.Utf8);
 var itemabbo=[];
-alert(pay+" "+decrypted);
+alert(idabonement+" "+decrypted);
 if (typeof(Storage) !== "undefined") {
   // Store
  // localStorage.setItem("lastname", "Smith");
