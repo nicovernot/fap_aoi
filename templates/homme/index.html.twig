@@ -85,9 +85,9 @@
 {% set chmparr = ong.getChampsOrd() %}   
    
       {% if app.request.get('type')=='recherche' %}
-      <div class="container">
+      
       {% include "recherche.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
-      </div>
+    
       {% include "modal.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
       {% endif %}
       {% if app.request.get('type')=='detail' %}
@@ -116,8 +116,7 @@ ssmdiv.each(function() {
    $("#"+idv).append('<a class="dropdown-item" href="?ong='+onglets[prop].id+'&con='+onglets[prop].ongcon+'&type='+onglets[prop].ongphp+'&men='+'{{app.request.get('men')}}">'+onglets[prop].onglib+'</a>');
 }
   });
-  
-  //console.log(this.id);
+
      });
     
    

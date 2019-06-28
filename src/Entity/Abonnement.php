@@ -89,11 +89,11 @@ class Abonnement
             $etat = $this->encours;
             if ($etat=="true"){
                 
-                $this->etatabb = "<i class='far fa-calendar-check bg-success'>$month</i>";
+                $this->etatabb = "<i class='far fa-calendar-check bg-success' style='font-size:20px'>$month</i>";
                 return $this->etatabb;
 
             }else{
-                $this->etatabb = "<i class='fas fa-calendar-times bg-danger' style='font-size:26px'></i>";
+                $this->etatabb = "<i class='fas fa-calendar-times bg-danger' style='font-size:26px'>fini</i>";
                 return $this->etatabb;
             }
 

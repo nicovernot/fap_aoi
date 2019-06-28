@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiSubresource;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource()
@@ -73,7 +74,7 @@ class Magazine
    public function getFilename(): ?string
    {
 
-       return "<img id='tabimg' style='width:80px;height:100px;' src='/img/$this->image'>";
+       return "<img id='tabimg' class='imghide' style='width:80px;height:100px;' src='/img/$this->image'>";
    }
 
     public function getId(): ?int

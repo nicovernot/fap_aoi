@@ -24,10 +24,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
  * @ApiResource(attributes={
  *     "normalization_context"={"groups"={"read"}},
  *     "denormalization_context"={"groups"={"write"}}
- * })
+ * } )
  * 
- * * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact"}) 
-
+ * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact"}) 
  */
 class User implements UserInterface
 {
@@ -140,12 +139,10 @@ class User implements UserInterface
 
    
 
-    public function __construct(TokenStorageInterface $tokenStorage,Security $security)
+    public function __construct()
     {
         $this->messages = new ArrayCollection();
         $this->abonnement = new ArrayCollection();
-        $this->tokenStorage = $tokenStorage;
-        $this->security = $security;
         $this->paiements = new ArrayCollection();
     }
 

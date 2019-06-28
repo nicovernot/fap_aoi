@@ -70,52 +70,7 @@
 
             {% endif %}            
      </ul>
-            {% else %}
 
- <div class="form-group d-inline-flex p-2 text-primary">
-                
-            {% if ch.chptyp == 'integer' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-
-          {% if ch.chptyp == 'boolean' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-
-            {% if ch.chptyp  starts with 'double' and ch.chpsai ==1 %}
-                <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-               <input type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-
-           
-            {% if ch.chptyp == 'date' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}
-            
-            {% if ch.chptyp  starts with 'character' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'text' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <textarea type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}></textarea><br> 
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'icon' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                <div name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"></div>
-            {% endif %} 
-
-            {% if ch.chptyp  starts with 'timestamp' and ch.chpsai ==1 %}
-                 <label width="100px" class="bg_secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-                  <input type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            {% endif %}            
-            </div>
-           
         {% endfor %}
              </div>
 
@@ -145,8 +100,9 @@ function detail_modif(id){
         $('#in'+chpnom).val(data[0][chpnom]);
       //console.log($('#in'+chpnom));
 
-          if($(this).attr('name')=='numerorue'){
-    //console.log( $("#innumerorue"));
+          if($(this).attr('name')=='numeroRue'){
+    console.log( $("#innumerorue"));
+    $("#innumerorue").val(data[0]["numeroRue"]);
     //$("#titre").text(data[chpnom]);
     }
         if($(this).attr('type')=='date'){

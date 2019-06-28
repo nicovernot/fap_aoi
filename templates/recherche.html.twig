@@ -6,7 +6,7 @@
   
 
     <br>
- <table class="table display compact table-hover" id="recherche" style="width:80%">
+ <table class="display compact table-hover" id="recherche" style="width:70%">
     <thead>
       <tr>
           {% set hcol = [] %} 
@@ -16,10 +16,10 @@
 {% if ch.chprec != 0 %}
         <th>{{ch.chpcha}}</th>
              {% set hcol = hcol|merge([ch.chpcha|lower]) %}  
-             {% set hcol1 = hcol1|merge([{data :ch.chpcha|lower}]) %}  
+             {% set hcol1 = hcol1|merge([{data :ch.chpcha|lower,"width": "5%",className: "bg-secondary"}]) %}  
 {% endif %}
 {% endfor %}
- {% set hcol1 = hcol1|merge([{ className: "","ordering": false, "searching": false}]) %}  
+ {% set hcol1 = hcol1|merge([{ className: "bg-info","ordering": false, "width": "10%", "searching": false}]) %}  
 <th>Action</th>
       </tr>
     </thead>
@@ -53,7 +53,7 @@
     <script>
 // initialisation varibles javascript
 var hcol1 =  {{hcol1|json_encode()|raw}};
-   
+   console.log(hcol1);
 $(document).ready(function(){
    var hcol =  {{hcol|json_encode()|raw}};
    var hcol1 =  {{hcol1|json_encode()|raw}};
@@ -81,7 +81,9 @@ var table = $('#recherche').DataTable({
 
       return '<div  class="bg-secondary" data-text="'+row["magazine"]+'" data-image="'+row["image"]+'" id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> </div>';
     }
-  } ],
+  },
+  { "width": "5%", "targets": 1 }
+   ],
   "language": {
             "url": "{{ asset('/french.json') }}"
         },
@@ -100,24 +102,8 @@ row.children[element].childNodes[0].data = row.children[element].childNodes[0].d
         },
     initComplete: function () {
 
-
- 
  var divimg = $("div[id^='divrow']")
 
- //Object.keys(divimg).forEach(function (item) {
-  //   if (item != 'length' ){
-  //   if (item != 'prevObject' ){
-
-//if (divimg[item].dataset.image != 'undefined') {
-//    $.get(divimg[item].dataset.image, function(data, status){
-//     $("#"+divimg[item].id).append('<img id="tabimg" style="width:80px;height:100px;" src="{{ asset('img/') }}'+data.filename+'" />');
-//  });   
-//}
- //     }
-  //   }
-     
-//});
-     
             this.api().columns().every( function () {
                 var column = this;
                 var select = $('<select><option value=""></option></select>')
@@ -159,16 +145,19 @@ function detail_modif(id){
     $.get(id, function(data, status){
     // console.log(data);
     
-    $inputs.each(function() {
+    $inputs.each(function(i, el) {
     
     var chpnom =$(this).attr('name').toLowerCase();
+
+    $('#para'+chpnom).text(data[chpnom]);
     $('#in'+chpnom).val(data[chpnom]);
-    console.log(chpnom+' '+data[chpnom]);
-           
-    if($(this).attr('name')=='titre'){
-    console.log( $("#titre"));
-    //$("#"+chpnom).text(data[chpnom]);
-    }
+    //console.log(chpnom+' '+data[chpnom]);
+    if ($("mbinput").children('#img') && i===0) {
+       $('#img').empty();
+       $('#img').append(data['filename']);
+     
+    }       
+
     
     if($(this).attr('type')=='date'){
          $('#in'+chpnom).val(data[chpnom].slice(0, 10));    
@@ -185,6 +174,7 @@ function detail_modif(id){
        var mdlfrm = {};  
        var md2=[];
        var $inputs = $('#mbinput :input');
+      
         var path="";
              
         
@@ -232,33 +222,41 @@ function detail_modif(id){
     }
 );
     }
-    
+    // preparation et affichage du modal 
     function detail_voir(id,image){
-       $("#imgmodal").remove();
        detail_modif(id);
        (id);
        $("#btnsend").hide();
-        //var ongcre = {{ong.ongcre}};
-        var btnscre1 = "{{ong.ongsqlcre}}";
-          if (btnscre1) {
+       var ongcre = "{{ong.ongcre}}";
+        if(ongcre==0)    {
+                 $('#mbinput :input').each(function (i, el) {
+                    el.style.visibility = "hidden";
+       // console.log(el);
+     });
+           }
 
-             $("#mbinput").append('<button  type="button" class="btn btn-info" id="'+id+'" onclick="{{ong.ongsqlcre}}" > Abonner</button>');
-          }
-        //if(ongcre==0)    {
-        //        $('.simpleCart_input').replaceWith(function(){
-               
-         //       return '<span class='+this.className+"text-dark"+'>'+this.value+'</span>'
-        //        })
-       //     }
+        var btnscre1 = "{{ong.ongsqlcre}}";
+        $(".modal-footer").empty();
+        if (btnscre1) {
+             var  sqlcre="{{ong.ongsqlcre}}";
+            arrsqlcre = sqlcre.split("|");
+             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlcre[0]+'">' +arrsqlcre[1]+'</button>');
+         }
+         var btnsupd = "{{ong.ongsqlupd}}";
+        if (btnsupd) {
+            var  sqlupd="{{ong.ongsqlupd}}";
+            arrsqlupd = sqlupd.split("|");
+             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlupd[0]+'">' +arrsqlupd[1]+'</button>');
+         }
      if (image === 'undefined') {
           $('#myModal').modal('show');  
      } else {
         
-        $.get(image, function(data, status){
-            $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" /><br>');
+        //$.get(image, function(data, status){
+        //    $("#mbinput").append('<img id="imgmodal" src="{{ asset('img/') }}'+data.filename+'" /><br>');
            
+       // }); 
             $('#myModal').modal('show');
-        }); 
      }
           
     }
@@ -274,10 +272,50 @@ function detail_modif(id){
     function del(){
     modal_put("DELETE");
     }
-     function sabonner(id){
-         
-       //  $.post( "/api/abonnements", { date:Date.now(),client: {{app.user.id}},  "magazine": id), "encours": true } );
-    alert("sbonner"+id.slice(15,id.length))
+
+     function payer(id){
+     alert("payer"+id);
+    }
+     function sabonner(id,typed){
+         var divid = id.slice(17,id.length);
+         var mag;
+         var divimg = $("div[id^='divrows/"+divid+"']");
+         divimg.each(function() {
+      
+       mag = $(this)[0].dataset.text;
+       //console.log($(this)[0].dataset.text);
+    });    
+    if (typed===1) {
+        var path = "/api/abonnements";
+       var datapost = { date:"2019-06-26T08:15:44.087Z",client: "api/users/{{app.user.id}}",  "magazine": id, "encours": true  };
+       method ="POST";
+    }
+   if (typed===2) {
+       var path = id;
+       datapost = { date:"2019-06-26T08:15:44.087Z",client: "api/users/{{app.user.id}}",  "magazine": mag, "encours": false  };
+       method ="PUT";
+   }
+       
+         var jsonform = JSON.stringify(datapost);
+        
+    $.ajax(path, {
+    method: method,
+    contentType: 'application/json',
+    processData: false,
+    data: jsonform
+    })
+    
+    .then(
+    function success(data) {
+   
+        alert('modification prise en compte');
+       
+         $('#myModal').modal('hide');
+         location.reload();
+       
+    }
+);   
+   
     }
 
 </script>

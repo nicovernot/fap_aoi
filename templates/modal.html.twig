@@ -20,8 +20,8 @@
  <li class="list-group-item" >
             
                 <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+       <p id="para{{ch.chpcha|lower}}"></p>
                <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-       
           </li>
             {% endif %}
 
@@ -35,8 +35,8 @@
             {% if ch.chptyp  starts with 'double' and ch.chpsai ==1 %}
  <li class="list-group-item" >
                 <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+            <p id="para{{ch.chpcha|lower}}"></p>
                <input class="simpleCart_input" type="number" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
-          
             </li>
             {% endif %}
 
@@ -44,8 +44,8 @@
             {% if ch.chptyp == 'date' and ch.chpsai ==1 %}
  <li class="list-group-item" >
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+             <p id="para{{ch.chpcha|lower}}"></p>
                   <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-           
             </li>
             {% endif %}
             
@@ -53,8 +53,8 @@
  <li class="list-group-item" >
 
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+               <p id="para{{ch.chpcha|lower}}"></p>
                   <input class="simpleCart_input" type="text" name="{{ch.chpcha|lower}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-             
             </li>
 
             {% endif %} 
@@ -63,28 +63,28 @@
  <li class="list-group-item" >
 
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+              <p id="para{{ch.chpcha|lower}}"></p>
                   <textarea class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}></textarea><br> 
-            
             </li>
 
             {% endif %} 
 
-            {% if ch.chptyp  starts with 'icon' and ch.chpsai ==1 %}
+            {% if ch.chptyp  starts with 'image' and ch.chpsai ==1 %}
  <li class="list-group-item">
 
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label>
-            
+             <div name="{{ch.chpcha}}" id="img"></div>
             </li>
 
-                <div name="{{ch.chpcha}}" id="{{ch.chpcha|lower}}"></div>
+               
             {% endif %} 
 
             {% if ch.chptyp  starts with 'timestamp' and ch.chpsai ==1 %}
  <li class="list-group-item" >
 
                  <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+              <p id="para{{ch.chpcha|lower}}"></p>
                   <input class="simpleCart_input" type="date" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}"  {{ch.chprec==1? "required":""}}><br> 
-            
             </li>
 
             {% endif %}            
@@ -95,7 +95,9 @@
         {% endfor %}
      </ul>
          
+        {% if ong.ongcre ==1 %}
           <button id="btnsend" name="btnsend" data-path="id1" onclick="modal_put('PUT')" class="btn btn-primary">Submit</button>
+        {% endif %}
 
         </div>
 

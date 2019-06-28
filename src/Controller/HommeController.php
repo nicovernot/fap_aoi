@@ -59,11 +59,11 @@ class HommeController extends AbstractController
      if($usercompte !=$connecteduser){
         return $this->json(['error' => "vou n'etes pas autorisé à acceder a ce compte"]);
      }
-     //$arrb =array("@id"=>"/apicmptfilter?id=1");
-    // $usercompte->append(array("@id"=>"/apicmptfilter?id=1"));
+     
     $ketid ="App\Entity\@id";
-   $usercompte->$ketid = "/apicmptfilter?id=1";
-   $array =  (array) $usercompte;
+    $usercompte->$ketid = "/apicmptfilter?id=1";
+    $array = $this->json([$usercompte]);
+
         return $this->json([$usercompte]);
 }
        

@@ -33,6 +33,11 @@ class Paiement
      */
     private $abonnement;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $idpaiement;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -70,6 +75,18 @@ class Paiement
     public function setAbonnement(Abonnement $abonnement): self
     {
         $this->abonnement = $abonnement;
+
+        return $this;
+    }
+
+    public function getIdpaiement(): ?string
+    {
+        return $this->idpaiement;
+    }
+
+    public function setIdpaiement(string $idpaiement): self
+    {
+        $this->idpaiement = $idpaiement;
 
         return $this;
     }

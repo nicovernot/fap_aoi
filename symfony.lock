@@ -17,6 +17,9 @@
     "behat/transliterator": {
         "version": "v1.2.0"
     },
+    "ci/restclientbundle": {
+        "version": "2.0.3"
+    },
     "cocur/slugify": {
         "version": "v3.1"
     },
@@ -97,6 +100,15 @@
     },
     "easyrdf/easyrdf": {
         "version": "0.9.1"
+    },
+    "eightpoints/guzzle-bundle": {
+        "version": "7.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "7.0",
+            "ref": "e5e657ce5a4ebc99f3c76916938aa0a5f8ef7736"
+        }
     },
     "elasticsearch/elasticsearch": {
         "version": "v6.1.0"

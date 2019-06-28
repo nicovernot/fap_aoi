@@ -38,9 +38,9 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
         if (Abonnement::class !== $resourceClass || $this->security->isGranted('ROLE_ADMIN') || null === $user = $this->security->getUser()) {
             return;
         }
-
+        //var_dump("test");
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->andWhere(sprintf('%s.user = :current_user', $rootAlias));
+        $queryBuilder->andWhere(sprintf('%s.client = :current_user', $rootAlias));
         $queryBuilder->setParameter('current_user', $user);
     }
 }
