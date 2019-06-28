@@ -13,18 +13,14 @@
     <h1>{{ controller_name }}</h1>
 
     Vous etes sur le point d'éffectuer un paiement:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/home/nico/Projects/homecapi/src/Controller/PaiementController.php'|file_link(0) }}">src/Controller/PaiementController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/home/nico/Projects/homecapi/templates/paiement/index.html.twig'|file_link(0) }}">templates/paiement/index.html.twig</a></code></li>
-    </ul>
+
     {{ form(paiementForm) }}
 </div>
 {% else %}
 <script>
 var datain =  {{data|json_encode()|raw}};
 var jsonform = JSON.stringify(datain);
-var pay = "{{app.request.get('p')| raw | convert_encoding('UTF-8', 'ISO-8859-1')}}"
-  var myParam = location.search.split('p=')[1]
+var myParam = location.search.split('p=')[1]
 var decrypted = CryptoJS.AES.decrypt(myParam, "Secret Passphrase");
 var idabonement = decrypted.toString(CryptoJS.enc.Utf8);
 var itemabbo=[];

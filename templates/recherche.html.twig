@@ -84,9 +84,9 @@ var table = $('#recherche').DataTable({
   },
   { "width": "5%", "targets": 1 }
    ],
-  "language": {
-            "url": "{{ asset('/french.json') }}"
-        },
+ "language": {
+        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/French.json"
+    },
     columns: hcol1,
     deferRender: true,
     "createdRow": function ( row, data, index ) {
@@ -157,7 +157,7 @@ function detail_modif(id){
 
     $('#para'+chpnom).text(data[chpnom]);
     $('#in'+chpnom).val(data[chpnom]);
-    //console.log(chpnom+' '+data[chpnom]);
+    
     if ($("mbinput").children('#img') && i===0) {
        $('#img').empty();
        $('#img').append(data['filename']);
@@ -236,7 +236,7 @@ function detail_modif(id){
         if(ongcre==0)    {
                  $('#mbinput :input').each(function (i, el) {
                     el.style.visibility = "hidden";
-       // console.log(el);
+     
      });
            }
 
