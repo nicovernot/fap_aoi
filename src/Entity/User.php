@@ -34,6 +34,7 @@ class User implements UserInterface
     private $tokenStorage;
 
     /**
+     * @var integer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")

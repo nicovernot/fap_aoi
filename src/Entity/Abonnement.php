@@ -10,9 +10,16 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(itemOperations={
+ *     
+ *     "get"={
+ *         "method"="GET",
+ *         "path"="/api/abonnements",
+ *         "controller"=ReadAbo::class,
+ *     }
+ * })
  * 
- * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact"}) 
+ * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact","magazine":"exact"}) 
  * @ORM\Entity(repositoryClass="App\Repository\AbonnementRepository")
  */
 class Abonnement
@@ -31,7 +38,7 @@ class Abonnement
     private $date;
 
     /**
-     * 
+     *  @var User 
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="abonnement")
      * @ORM\JoinColumn(nullable=false)
      * @ApiSubresource
@@ -49,6 +56,7 @@ class Abonnement
     private $magazine;
 
     /**
+     *
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $encours;
@@ -125,12 +133,7 @@ class Abonnement
         
     }
 
-    public function setStatus(): self
-    {
-        $this->nommagazine = $titre;
-
-        return $this;
-    }
+    
 
     public function getNommagazine(): ?string
     {

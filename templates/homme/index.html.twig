@@ -37,8 +37,20 @@
 </nav>
   <p class="bg-success">Compte: {{ app.user.username }}</p>
   
-{% set mesabos = app.user.getmesabo(app.user) %}
+{% set mesabos = [] %}
 
+  {% for abo in app.user.getAbonnement()%}
+  
+  {% set mesabos = mesabos|merge( ["/api/magazines/"~abo.getMagazine().id] ) %}
+ {% endfor %}
+
+ {% for mes in app.user.getMessages()%}
+ <div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Success!</strong>{{mes.message}}
+</div>
+ 
+ {% endfor %}
 
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">
@@ -80,7 +92,6 @@
       {% set apipath = apipath~"?client="~app.user.id %}
   {% endif %}
 {% endif %}
-
 {% set ongarr = ong %}     
 {% set chmparr = ong.getChampsOrd() %}   
    
@@ -102,9 +113,10 @@
  {%if app.request.get('ong') %}
 <script>
 $(document).ready(function(){
+
 var ssmdiv=$("div[id*='divssm']");
  var path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')}}';
-          
+     // generation des sous Menus     
 ssmdiv.each(function() {
   var idv = this.id;
    var iddiv= idv.slice(6,idv.length);

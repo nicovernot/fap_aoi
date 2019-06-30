@@ -46,6 +46,13 @@ class HommeController extends AbstractController
      */
     public function usefilter(Request $request)
     {
+        if ($request->isMethod('post')) {
+            $refererUrl = $request->getSession()->get('_security.main.target_path');
+         
+                return $this->redirect($refererUrl);
+          
+
+        }
         $id=0;
         if ($request->isMethod('get')) {
          // $ong =$request->query->get('ong');

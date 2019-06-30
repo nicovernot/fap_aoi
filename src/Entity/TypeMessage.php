@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,9 +26,16 @@ class TypeMessage
     private $typemessage;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Message", mappedBy="typemessage", cascade={"persist", "remove"})
+     * @ORM\ManyToMany(targetEntity="App\Entity\Message", inversedBy="typeMessages")
      */
     private $message;
+
+    public function __construct()
+    {
+        $this->message = new ArrayCollection();
+    }
+
+
 
     public function getId(): ?int
     {
@@ -45,24 +54,34 @@ class TypeMessage
         return $this;
     }
 
-    public function getMessage(): ?Message
+    public function __toString()
+    {
+        return $this->getTypemessage() ?: '';
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessage(): Collection
     {
         return $this->message;
     }
 
-    public function setMessage(Message $message): self
+    public function addMessage(Message $message): self
     {
-        $this->message = $message;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $message->getTypemessage()) {
-            $message->setTypemessage($this);
+        if (!$this->message->contains($message)) {
+            $this->message[] = $message;
         }
 
         return $this;
     }
-    public function __toString()
+
+    public function removeMessage(Message $message): self
     {
-        return $this->getTypemessage() ?: '';
+        if ($this->message->contains($message)) {
+            $this->message->removeElement($message);
+        }
+
+        return $this;
     }
 }

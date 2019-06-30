@@ -6,7 +6,6 @@ namespace App\Doctrine;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryCollectionExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
-use App\Entity\Abonnement;
 use Doctrine\ORM\QueryBuilder;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Security;
@@ -14,7 +13,7 @@ use Psr\Log\LoggerInterface;
 
 
 
-final class CurrentUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+final class UserUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     private $security;
     private $logger;
@@ -52,12 +51,12 @@ final class CurrentUserExtension implements QueryCollectionExtensionInterface, Q
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
-        if (Abonnement::class !== $resourceClass || null === $user = $this->security->getUser()) {
+        if (User::class !== $resourceClass || null === $user = $this->security->getUser()) {
             return;
         }
-
+        
         $rootAlias = $queryBuilder->getRootAliases()[0];
-        $queryBuilder->andWhere(sprintf('%s.client = :current_user', $rootAlias));
+        $queryBuilder->andWhere(sprintf('%s.id = :current_user', $rootAlias));
         $queryBuilder->setParameter('current_user', $user);
     }
 }

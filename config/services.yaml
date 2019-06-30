@@ -145,8 +145,13 @@ services:
 
     App\Doctrine\CurrentUserExtension:
         tags:
-            - { name: api_platform.doctrine.orm.query_extension.collection }
+            - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
             - { name: api_platform.doctrine.orm.query_extension.item }
+    
+    App\Doctrine\UserUserExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
+            - { name: api_platform.doctrine.orm.query_extension.item }        
 
     admin.paiement:
         class: App\Admin\PaiementAdmin
@@ -154,3 +159,4 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Paiement }
         public: true
+        

@@ -53,7 +53,8 @@
     <script>
 // initialisation varibles javascript
 var hcol1 =  {{hcol1|json_encode()|raw}};
-   console.log(hcol1);
+var mesabos =  {{mesabos|json_encode()|raw}};
+//console.log(mesabos);
 $(document).ready(function(){
    var hcol =  {{hcol|json_encode()|raw}};
    var hcol1 =  {{hcol1|json_encode()|raw}};
@@ -143,7 +144,7 @@ function detail_modif(id){
     });
     
     $.get(id, function(data, status){
-    // console.log(data);
+    console.log(status);
     if (typeof(Storage) !== "undefined") {
   // Store
   localStorage.setItem(id, JSON.stringify(data));
@@ -163,10 +164,19 @@ function detail_modif(id){
        $('#img').append(data['filename']);
      
     }       
+    if($(this).attr('type')=='checkbox'){
+         $('#in'+chpnom).val(data[chpnom]); 
+         if (data[chpnom]==true) {
+         $('#para'+chpnom).html('<span class="badge badge-success">Oui</span>');  
+         }else{
+         $('#para'+chpnom).html('<span class="badge badge-danger">Non</span>');  
+         }
 
+    }
     
     if($(this).attr('type')=='date'){
-         $('#in'+chpnom).val(data[chpnom].slice(0, 10));    
+         $('#in'+chpnom).val(data[chpnom].slice(0, 10));  
+         $('#para'+chpnom).text(data[chpnom].slice(0, 10));  
     }
     })
  
@@ -229,6 +239,7 @@ function detail_modif(id){
     }
     // preparation et affichage du modal 
     function detail_voir(id,image){
+        
        detail_modif(id);
        (id);
        $("#btnsend").hide();
@@ -239,14 +250,15 @@ function detail_modif(id){
      
      });
            }
+        $(".modal-footer").empty();
 
         var btnscre1 = "{{ong.ongsqlcre}}";
-        $(".modal-footer").empty();
         if (btnscre1) {
              var  sqlcre="{{ong.ongsqlcre}}";
             arrsqlcre = sqlcre.split("|");
              $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlcre[0]+'">' +arrsqlcre[1]+'</button>');
          }
+
         var btnsupd = "{{ong.ongsqlupd}}";
         if (btnsupd) {
             var  sqlupd="{{ong.ongsqlupd}}";
@@ -308,7 +320,16 @@ function detail_modif(id){
        //console.log($(this)[0].dataset.text);
     });    
     if (typed===1) {
-        var path = "/api/abonnements";
+       var path = "/api/abonnements";
+
+        $.get(path+"?client={{app.user.id}}&magazine="+id.slice(15,id.length), function(data, status){
+        if ( status === 200 ) {
+             $('#myModal').modal('hide');
+            alert("vous etes déja abonné! " );
+
+        return;
+        }
+        });
        var datapost = { date:"2019-06-26T08:15:44.087Z",client: "api/users/{{app.user.id}}",  "magazine": id, "encours": true  };
        method ="POST";
     }

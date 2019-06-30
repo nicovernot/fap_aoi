@@ -11,6 +11,8 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\ModelListType;
 use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Form\Type\ModelType;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 final class MessageAdmin extends AbstractAdmin
 {
@@ -29,7 +31,8 @@ final class MessageAdmin extends AbstractAdmin
 			->add('message')
             ->add('date')
             ->add('client')
-            ->add('typemessage')
+            ->add('typeMessages')
+            
 			;
     }
 
@@ -40,7 +43,8 @@ final class MessageAdmin extends AbstractAdmin
 			->add('message')
             ->add('date')
             ->add('client')
-            ->add('typemessage')
+            ->add('typeMessages')
+            
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -58,8 +62,8 @@ final class MessageAdmin extends AbstractAdmin
         $formMapper
 			
             ->add('message')
-            ->add('typemessage')
             ->add('client')
+            ->add('typeMessages')
 			->add('date')
 			;
     }
@@ -67,7 +71,8 @@ final class MessageAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-			
+        ->add('client')
+        ->add('typeMessages')
 			->add('message')
 			->add('date')
 			;

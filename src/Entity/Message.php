@@ -30,20 +30,22 @@ class Message
      */
     private $date;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\TypeMessage", inversedBy="message", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $typemessage;
+
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="messages")
      */
     private $client;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\TypeMessage", mappedBy="message")
+     */
+    private $typeMessages;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
+        $this->typeMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -79,18 +81,6 @@ class Message
         return $this;
     }
 
-    public function getTypemessage(): ?TypeMessage
-    {
-        return $this->typemessage;
-    }
-
-    public function setTypemessage(TypeMessage $typemessage): self
-    {
-        $this->typemessage = $typemessage;
-
-        return $this;
-    }
-
     /**
      * @return Collection|User[]
      */
@@ -112,6 +102,34 @@ class Message
     {
         if ($this->client->contains($client)) {
             $this->client->removeElement($client);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TypeMessage[]
+     */
+    public function getTypeMessages(): Collection
+    {
+        return $this->typeMessages;
+    }
+
+    public function addTypeMessage(TypeMessage $typeMessage): self
+    {
+        if (!$this->typeMessages->contains($typeMessage)) {
+            $this->typeMessages[] = $typeMessage;
+            $typeMessage->addMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTypeMessage(TypeMessage $typeMessage): self
+    {
+        if ($this->typeMessages->contains($typeMessage)) {
+            $this->typeMessages->removeElement($typeMessage);
+            $typeMessage->removeMessage($this);
         }
 
         return $this;

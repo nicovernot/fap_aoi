@@ -27,8 +27,9 @@
 
           {% if ch.chptyp == 'boolean' and ch.chpsai ==1 %}
  <li class="list-group-item" >
-                <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
-               <input class="simpleCart_input" type="text" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
+               <label width="100px" class="bg-secondary" for="{{ch.chpcha}}">{{ch.chplib}}    :</label><br>
+               <p id="para{{ch.chpcha|lower}}"></p>
+               <input class="simpleCart_input" type="checkbox" name="{{ch.chpcha}}" id="in{{ch.chpcha|lower}}" {{ch.chprec==1? "required":""}}><br> 
 </li>
             {% endif %}
 
