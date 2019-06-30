@@ -48,15 +48,48 @@ class HommeController extends AbstractController
     {
         if ($request->isMethod('post')) {
             $refererUrl = $request->getSession()->get('_security.main.target_path');
-         
-                return $this->redirect($refererUrl);
+            $entityManager = $this->getDoctrine()->getManager();
+            $connecteduser = $this->getUser();
+           // var_dump($connecteduser);
+            $id = $connecteduser->getId();
+            $Userentity = "App\Entity\User";
+            $usercompte = $this->getDoctrine()
+            ->getRepository($Userentity)
+            ->findOneBy(['id' => $id]);
+        
+            if (!$usercompte) {
+                throw $this->createNotFoundException(
+                    'No User found for id '.$id
+                );
+            }
+            $nom =$request->request->get('nom');
+            $usercompte->setNom($nom);
+            $prenom =$request->request->get('prenom');
+            $usercompte->setPrenom($prenom);            
+            $tel =$request->request->get('tel');
+            $usercompte->setTel($tel);            
+            $rue =$request->request->get('rue');
+            $usercompte->setRue($rue);
+            $nrue =$request->request->get('numeroRue');
+            $usercompte->setNumeroRue($nrue);
+            $ville =$request->request->get('ville');
+            $usercompte->setVille($ville);
+            $cp =$request->request->get('codepostal');
+            $usercompte->setCodepostal($cp);
+            $entityManager->persist($usercompte);
+
+        // actually executes the queries (i.e. the INSERT query)
+            $entityManager->flush();
+ 
+                
+            
+            return $this->redirect($refererUrl);
           
 
         }
         $id=0;
         if ($request->isMethod('get')) {
-         // $ong =$request->query->get('ong');
-         // $type =$request->query->get('type');
+        
           $id =$request->query->get('id');
           $Userentity = "App\Entity\User";
           $usercompte = $this->getDoctrine()
