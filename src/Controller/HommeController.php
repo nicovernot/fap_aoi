@@ -80,11 +80,10 @@ class HommeController extends AbstractController
 
         // actually executes the queries (i.e. the INSERT query)
             $entityManager->flush();
- 
-                
+               
             
             return $this->redirect($refererUrl);
-          
+       
 
         }
         $id=0;

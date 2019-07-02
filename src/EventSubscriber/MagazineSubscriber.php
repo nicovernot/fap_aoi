@@ -38,7 +38,7 @@ final class MagazineSubscriber implements EventSubscriberInterface
             return;
         }
 
-var_dump("test");
+
 
       //  $this->mailer->send($message);
 

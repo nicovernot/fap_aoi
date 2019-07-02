@@ -54,7 +54,7 @@
 // initialisation varibles javascript
 var hcol1 =  {{hcol1|json_encode()|raw}};
 var mesabos =  {{mesabos|json_encode()|raw}};
-//console.log(mesabos);
+console.log(mesabos);
 $(document).ready(function(){
    var hcol =  {{hcol|json_encode()|raw}};
    var hcol1 =  {{hcol1|json_encode()|raw}};
@@ -79,8 +79,8 @@ var table = $('#recherche').DataTable({
     "searchable": false, 
     "orderable": false,
     "render": function ( data, type, row, meta ) {
-
-      return '<div  class="bg-secondary" data-text="'+row["magazine"]+'" data-image="'+row["image"]+'" id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+row["@id"]+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> </div>';
+    var idsrow = row["@id"].startsWith('/api/api/')? "/api/"+row["@id"].slice(9,row["@id"].length):row["@id"];
+      return '<div  class="bg-secondary" data-text="'+row["magazine"]+'" data-image="'+row["image"]+'" id="divrow'+row["@id"].slice(15,row["@id"].length)+'"><a class="btn btn-success " id="'+idsrow+'" data-ong="{{ongarr.id}}" data-image="'+row["image"]+'"  onclick="detail_voir(this.id,this.dataset.image)">V</a> </div>';
     }
   },
   { "width": "5%", "targets": 1 }
@@ -137,6 +137,7 @@ row.children[element].childNodes[0].data = row.children[element].childNodes[0].d
 function detail_modif(id){
     $("#btnsend").show();   
     $('#btnsend').data('path',id);
+
     var $inputs = $('#mbinput :input');
      
     $inputs.each(function() {
@@ -144,7 +145,6 @@ function detail_modif(id){
     });
     
     $.get(id, function(data, status){
-    console.log(status);
     if (typeof(Storage) !== "undefined") {
   // Store
   localStorage.setItem(id, JSON.stringify(data));
@@ -241,7 +241,11 @@ function detail_modif(id){
     function detail_voir(id,image){
         
        detail_modif(id);
-       (id);
+           isdata = [];
+    if (typeof(Storage) !== "undefined") {
+       iddata = JSON.parse(localStorage.getItem(id));
+    }
+    console.log(iddata);
        $("#btnsend").hide();
        var ongcre = "{{ong.ongcre}}";
         if(ongcre==0)    {
@@ -256,21 +260,34 @@ function detail_modif(id){
         if (btnscre1) {
              var  sqlcre="{{ong.ongsqlcre}}";
             arrsqlcre = sqlcre.split("|");
-             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlcre[0]+'">' +arrsqlcre[1]+'</button>');
+             $(".modal-footer").append('<button  type="button"  class="btn btn-info btncre tthide" id="'+id+'" onclick="'+arrsqlcre[0]+'">' +arrsqlcre[1]+'</button>');
          }
+        if(mesabos.includes(id)) 
+        {
+        $(".btncre").hide();
+        $(".modal-footer").append('<p>Vous etes dèja abonné!</p>');
+    
+        }
 
         var btnsupd = "{{ong.ongsqlupd}}";
         if (btnsupd) {
             var  sqlupd="{{ong.ongsqlupd}}";
             arrsqlupd = sqlupd.split("|");
-             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqlupd[0]+'">' +arrsqlupd[1]+'</button>');
+             $(".modal-footer").append('<button  type="button" class="btn btnupd btn-info tthide" id="'+id+'" onclick="'+arrsqlupd[0]+'">' +arrsqlupd[1]+'</button>');
          }
         var btnsdel = "{{ong.ongsqldel}}";
         if (btnsdel) {
             var  sqldel="{{ong.ongsqldel}}";
             arrsqldel = sqldel.split("|");
-             $(".modal-footer").append('<button  type="button" class="btn btn-info tthide" id="'+id+'" onclick="'+arrsqldel[0]+'">' +arrsqldel[1]+'</button>');
+             $(".modal-footer").append('<button  type="button" class="btn btn-info btndel tthide" id="'+id+'" onclick="'+arrsqldel[0]+'">' +arrsqldel[1]+'</button>');
          }
+
+        if(iddata['encours']==false) 
+        {
+        $(".btncre").hide();
+        $(".btnupd").hide();
+        $(".btndel").hide();
+        }
      if (image === 'undefined') {
           $('#myModal').modal('show');  
      } else {
@@ -295,7 +312,7 @@ function detail_modif(id){
     function del(){
     modal_put("DELETE");
     }
-//function de l'onglet abonnement
+//fonction de l'onglet abonnement
      function payer(id){
    
       var encrypted = CryptoJS.AES.encrypt(id, "Secret Passphrase");

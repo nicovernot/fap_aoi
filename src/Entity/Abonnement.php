@@ -10,14 +10,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 
 /**
- * @ApiResource(itemOperations={
- *     
- *     "get"={
- *         "method"="GET",
- *         "path"="/api/abonnements",
- *         "controller"=ReadAbo::class,
- *     }
- * })
+ * @ApiResource()
  * 
  * @ApiFilter(SearchFilter::class, properties={"client": "exact","id":"exact","magazine":"exact"}) 
  * @ORM\Entity(repositoryClass="App\Repository\AbonnementRepository")
