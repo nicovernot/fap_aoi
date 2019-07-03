@@ -84,7 +84,7 @@ class PaiementController extends AbstractController
     }
 
      /**
-     * @Route("/api/paiement")
+     * @Route("/paiement")
      * @Method({"POST"})
      */
     public function newAction(Request $request,LoggerInterface $logger)
