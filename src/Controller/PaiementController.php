@@ -25,9 +25,13 @@ class PaiementController extends AbstractController
      * @Route("/paiement", name="paiement")
      * 
      */
-    public function index(Request $request)
+    public function index(Request $request,LoggerInterface $logger)
     { 
-
+    $host = $request->server->get('HTTP_HOST'); 
+    if ($request->isMethod('post')) {
+    $logger->info('We are logging!');
+    $logger->info($host);
+    }
     $defaultData = ['message' => 'Merci de remplir tous les champs pour éffectuer le paiement'];
     $form = $this->createFormBuilder($defaultData)
         ->add('UUID', HiddenType::class, ['data' => 'UUIDabcdef',])
@@ -59,10 +63,10 @@ class PaiementController extends AbstractController
         ->add('Envoyer', SubmitType::class)
         ->getForm();
        $data=[];
-        $form->handleRequest($request);
+       $form->handleRequest($request);
          //     var_dump($form);
         if ($form->isSubmitted() && $form->isValid()) {
-            // data is an array with "name", "email", and "message" keys
+           
             $data = $form->getData();
             
             
@@ -72,6 +76,8 @@ class PaiementController extends AbstractController
             'controller_name' => 'Paiement',
             'paiementForm' => $form->createView(),
             'data'=>$data,
+            'uuid'=>"8e39f14a-d44e-51bb-8782-89723e586aa5",
+            'host'=>$host,
         ]);
     }
 

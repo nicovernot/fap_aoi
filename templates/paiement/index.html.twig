@@ -3,6 +3,7 @@
 {% block title %}Hello PaiementController!{% endblock %}
 
 {% block body %}
+{{dump(host)}}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
@@ -40,6 +41,7 @@ $("#paylabel").append("<p> Prix à payer : "+itemabbo["priapayer"]+" Euros</p>")
 {% else %}
 <script>
 var datain =  {{data|json_encode()|raw}};
+var payhost = "{{host|raw}}";
 var jsonform = JSON.stringify(datain);
 var myParam = location.search.split('p=')[1]
 var decrypted = CryptoJS.AES.decrypt(myParam, "Secret Passphrase");
@@ -56,10 +58,12 @@ if (typeof(Storage) !== "undefined") {
   //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
 itemabbo = JSON.parse(itemabbo);
-var paydata = JSON.stringify({ uuid : datain['UUID'],cid : datain['CID'],cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
-var paydatapath = "api/paiementretour/"+ datain['UUID']+"/"+myParam+"/"+ datain['CARDNUMBER']+"/"+datain['MONTH']+"/"+datain['YEAR']+"/"+itemabbo["priapayer"];
-console.log(paydatapath);
-console.log(paydata);
+var x = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+//var paydata = JSON.stringify({ uuid : datain['UUID'],cid : datain['CID'],cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
+var paydata = JSON.stringify({ uuid : "8e39f14a-d44e-51bb-8782-89723e586aa5",cid : "test01",cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
+var paydatapath = "http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/"+ "8e39f14a-d44e-51bb-8782-89723e586aa5"+"/"+x+"/"+ datain['CARDNUMBER']+"/"+datain['MONTH']+"/"+datain['YEAR']+"/"+itemabbo["priapayer"];
+
+//console.log(paydata);
  $.ajax(paydatapath, {
     method: "GET",
     contentType: 'application/json',
@@ -76,7 +80,11 @@ console.log(paydata);
        
        
     }
-);   
+).fail(function(jqXHR, textStatus, error){
+
+   console.log(error);
+
+});   
 </script>
 {% endif %}
 {% endblock %}
