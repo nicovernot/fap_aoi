@@ -29,7 +29,7 @@ class PaiementController extends AbstractController
     { 
     $host = $request->server->get('HTTP_HOST'); 
     if ($request->isMethod('post')) {
-    $logger->info('We are logging!');
+    $logger->info('We are logging! paiments host request');
     $logger->info($host);
     $logger->info($request);
     $logger->info($request->request->get('page'));
@@ -91,7 +91,7 @@ class PaiementController extends AbstractController
     {
 
         $data = $request->getContent();
-        $logger->info('We are logging!');
+        $logger->info('We are logging paiement!');
         $logger->info($data);
         return new Response($data);
     }
