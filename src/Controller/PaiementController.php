@@ -77,7 +77,7 @@ class PaiementController extends AbstractController
 
      /**
      * @Route("/api/paiementretour")
-     * @Method({"POST"})
+     * @Method({"GET"})
      */
     public function newAction(Request $request,LoggerInterface $logger)
     {

@@ -12,11 +12,10 @@
 <div class="example-wrapper">
     <h1>{{ controller_name }}</h1>
 
-    Vous etes sur le point d'éffectuer un paiement:
+    <p id="paylabel">Vous etes sur le point d'éffectuer un paiement:</p>
 
     {{ form(paiementForm) }}
 </div>
-{% else %}
 <script>
 var datain =  {{data|json_encode()|raw}};
 var jsonform = JSON.stringify(datain);
@@ -24,7 +23,7 @@ var myParam = location.search.split('p=')[1]
 var decrypted = CryptoJS.AES.decrypt(myParam, "Secret Passphrase");
 var idabonement = decrypted.toString(CryptoJS.enc.Utf8);
 var itemabbo=[];
-alert(idabonement+" "+decrypted);
+
 if (typeof(Storage) !== "undefined") {
   // Store
  // localStorage.setItem("lastname", "Smith");
@@ -34,13 +33,38 @@ if (typeof(Storage) !== "undefined") {
 } else {
   //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
-
-console.log(itemabbo);
- $.ajax('api/paiementretour', {
-    method: "POST",
+itemabbo = JSON.parse(itemabbo);
+console.log(itemabbo["priapayer"]);
+$("#paylabel").append("<p> Prix à payer : "+itemabbo["priapayer"]+" Euros</p>");
+</script>
+{% else %}
+<script>
+var datain =  {{data|json_encode()|raw}};
+var jsonform = JSON.stringify(datain);
+var myParam = location.search.split('p=')[1]
+var decrypted = CryptoJS.AES.decrypt(myParam, "Secret Passphrase");
+var idabonement = decrypted.toString(CryptoJS.enc.Utf8);
+var itemabbo=[];
+console.log(datain['UUID'])
+if (typeof(Storage) !== "undefined") {
+  // Store
+ // localStorage.setItem("lastname", "Smith");
+  // Retrieve
+  itemabbo=localStorage.getItem(idabonement);
+  
+} else {
+  //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+}
+itemabbo = JSON.parse(itemabbo);
+var paydata = JSON.stringify({ uuid : datain['UUID'],cid : datain['CID'],cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
+var paydatapath = "api/paiementretour/"+ datain['UUID']+"/"+myParam+"/"+ datain['CARDNUMBER']+"/"+datain['MONTH']+"/"+datain['YEAR']+"/"+itemabbo["priapayer"];
+console.log(paydatapath);
+console.log(paydata);
+ $.ajax(paydatapath, {
+    method: "GET",
     contentType: 'application/json',
     processData: false,
-    data: jsonform
+    //data: paydata
     })
     
     .then(
