@@ -28,4 +28,6 @@ return [
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
     EightPoints\Bundle\GuzzleBundle\EightPointsGuzzleBundle::class => ['all' => true],
     Circle\RestClientBundle\CircleRestClientBundle::class => ['all' => true],
+    Metaer\CurlWrapperBundle\MetaerCurlWrapperBundle::class => ['all' => true],
+    Csa\Bundle\GuzzleBundle\CsaGuzzleBundle::class => ['all' => true],
 ];

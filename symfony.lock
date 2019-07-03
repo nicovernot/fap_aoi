@@ -29,6 +29,30 @@
     "composer/xdebug-handler": {
         "version": "1.1.0"
     },
+    "csa/guzzle-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "36a5a2e81228674d88ebc1d9774445210a0d0d06"
+        },
+        "files": [
+            "config/packages/csa_guzzle.yaml"
+        ]
+    },
+    "csa/guzzle-cache-middleware": {
+        "version": "v1.0.0"
+    },
+    "csa/guzzle-history-middleware": {
+        "version": "v1.0.0"
+    },
+    "csa/guzzle-stopwatch-middleware": {
+        "version": "v1.0.0"
+    },
+    "curl/curl": {
+        "version": "2.2.0"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -181,6 +205,9 @@
     },
     "mashape/unirest-php": {
         "version": "v3.0.4"
+    },
+    "metaer/curl-wrapper-bundle": {
+        "version": "1.0.4"
     },
     "monolog/monolog": {
         "version": "1.24.0"

@@ -19,10 +19,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Guzzle\Http\Client;
+
 
 class PaiementController extends AbstractController
 {
+ 
 
 
     /**
@@ -71,19 +72,28 @@ class PaiementController extends AbstractController
             $logger->info($host);
             $data = $form->getData();
             $uuid="8e39f14a-d44e-51bb-8782-89723e586aa5";
-            $client = new Client('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543');
-            $req = $client->get('/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
+            //$client = new Client('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543');
+            //$req = $client->get('/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
             //$client = new Client('127.0.0.1:8000');
-            //$req = $client->get('users');
-            $response = $req->send();
-            $logger->info($req);
+           
+            $curl = curl_init();
+            // Set some options - we are passing in a useragent too here
+            curl_setopt_array($curl, [
+                CURLOPT_RETURNTRANSFER => 1,
+                CURLOPT_URL => 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20',
+                CURLOPT_USERAGENT => 'Codular Sample cURL Request'
+            ]);
+            // Send the request & save response to $resp
+            $resp = curl_exec($curl);
+            // Close request to clear up some resources
+            curl_close($curl);
+            
+            $logger->info($resp);
             
             //$httpClient = HttpClient::create();
            // $response = $httpClient->request('GET', 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
            // return new RedirectResponse('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
-           return new Response(
-            '<html><body>Lucky number: 4</body></html>'
-        );
+           return $this->render('test.html.twig', ['number' => $curl]);
         }
 
         return $this->render('paiement/index.html.twig', [
