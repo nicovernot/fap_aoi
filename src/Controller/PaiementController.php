@@ -31,6 +31,7 @@ class PaiementController extends AbstractController
     if ($request->isMethod('post')) {
     $logger->info('We are logging!');
     $logger->info($host);
+    $logger->info($request);
     }
     $defaultData = ['message' => 'Merci de remplir tous les champs pour éffectuer le paiement'];
     $form = $this->createFormBuilder($defaultData)
