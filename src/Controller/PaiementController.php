@@ -18,9 +18,13 @@ use Symfony\Component\Validator\Constraints\NotBlank;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Guzzle\Http\Client;
 
 class PaiementController extends AbstractController
 {
+
+
     /**
      * @Route("/paiements", name="paiements")
      * 
@@ -28,12 +32,7 @@ class PaiementController extends AbstractController
     public function index(Request $request,LoggerInterface $logger)
     { 
     $host = $request->server->get('HTTP_HOST'); 
-    if ($request->isMethod('post')) {
-    $logger->info('We are logging! paiments host request');
-    $logger->info($host);
-    $logger->info($request);
-    $logger->info($request->request->get('page'));
-    }
+
     $defaultData = ['message' => 'Merci de remplir tous les champs pour éffectuer le paiement'];
     $form = $this->createFormBuilder($defaultData)
         ->add('UUID', HiddenType::class, ['data' => 'UUIDabcdef',])
@@ -68,17 +67,30 @@ class PaiementController extends AbstractController
        $form->handleRequest($request);
          //     var_dump($form);
         if ($form->isSubmitted() && $form->isValid()) {
-           
+            $logger->info('We are logging! paiments host request');
+            $logger->info($host);
             $data = $form->getData();
+            $uuid="8e39f14a-d44e-51bb-8782-89723e586aa5";
+            $client = new Client('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543');
+            $req = $client->get('/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
+            //$client = new Client('127.0.0.1:8000');
+            //$req = $client->get('users');
+            $response = $req->send();
+            $logger->info($req);
             
-            
+            //$httpClient = HttpClient::create();
+           // $response = $httpClient->request('GET', 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
+           // return new RedirectResponse('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
+           return new Response(
+            '<html><body>Lucky number: 4</body></html>'
+        );
         }
 
         return $this->render('paiement/index.html.twig', [
             'controller_name' => 'Paiement',
             'paiementForm' => $form->createView(),
             'data'=>$data,
-            'uuid'=>"8e39f14a-d44e-51bb-8782-89723e586aa5",
+            
             'host'=>$host,
         ]);
     }
