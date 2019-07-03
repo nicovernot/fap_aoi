@@ -53,9 +53,7 @@ if (typeof(Storage) !== "undefined") {
  // localStorage.setItem("lastname", "Smith");
   // Retrieve
   itemabbo=localStorage.getItem(idabonement);
-   $.get('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20", function(data, status){
-    alert("Data: " + data + "\nStatus: " + status);
-  });
+
 } else {
   //document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
 }
@@ -64,7 +62,9 @@ var x = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
 //var paydata = JSON.stringify({ uuid : datain['UUID'],cid : datain['CID'],cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
 var paydata = JSON.stringify({ uuid : "8e39f14a-d44e-51bb-8782-89723e586aa5",cid : "test01",cardnumber : datain['CARDNUMBER'],month : datain['MONTH'],year : datain['YEAR'],amount:itemabbo["priapayer"] });
 var paydatapath = "http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/"+ "8e39f14a-d44e-51bb-8782-89723e586aa5"+"/"+x+"/"+ datain['CARDNUMBER']+"/"+datain['MONTH']+"/"+datain['YEAR']+"/"+itemabbo["priapayer"];
-
+   $.get('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20", function(data, status){
+    alert("Data: " + data + "\nStatus: " + status);
+  });
 </script>
 {% endif %}
 {% endblock %}
