@@ -318,7 +318,7 @@ function detail_modif(id){
       var encrypted = CryptoJS.AES.encrypt(id, "Secret Passphrase");
      var decrypted = CryptoJS.AES.decrypt(encrypted, "Secret Passphrase");
      console.log(decrypted.toString(CryptoJS.enc.Utf8));
-     window.location.href = "/paiement?p="+ encrypted;
+     window.location.href = "/paiements?p="+ encrypted;
 
     }
 

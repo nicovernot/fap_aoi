@@ -22,7 +22,7 @@ use Psr\Log\LoggerInterface;
 class PaiementController extends AbstractController
 {
     /**
-     * @Route("/paiement", name="paiement")
+     * @Route("/paiements", name="paiements")
      * 
      */
     public function index(Request $request,LoggerInterface $logger)
@@ -32,6 +32,7 @@ class PaiementController extends AbstractController
     $logger->info('We are logging!');
     $logger->info($host);
     $logger->info($request);
+    $logger->info($request->request->get('page'));
     }
     $defaultData = ['message' => 'Merci de remplir tous les champs pour éffectuer le paiement'];
     $form = $this->createFormBuilder($defaultData)
@@ -83,8 +84,8 @@ class PaiementController extends AbstractController
     }
 
      /**
-     * @Route("/api/paiementretour")
-     * @Method({"GET"})
+     * @Route("/api/paiement")
+     * @Method({"POST"})
      */
     public function newAction(Request $request,LoggerInterface $logger)
     {
