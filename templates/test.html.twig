@@ -1,4 +1,18 @@
-<html><body>
-test
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<body>
+<h2 class="bg-info">Paiement</h2>
+
+
 {{dump(number)}}
+{{dump(usr)}}
+{{dump(today)}}
+{{dump(idabo)}}
+{{number starts with 'HTTP/1.1 200'? '<p id="status" class="bg-success">Le paiement a été prise en compte vous allez être redirigé</p>':"<p id='status' class='bg-danger'>Le paiement a échoué merci de réessayer ulterieurement! allez être redirigé</p>"}}
+
+<script>
+setTimeout(function() {
+   window.location.href = "/?ong=1&type=recherche&men=1&ssmen=1";
+}, 7000);
+</script>
 </body></html>
