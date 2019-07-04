@@ -90,9 +90,9 @@ class PaiementController extends AbstractController
             curl_close($c);
             $logger->info($resp);
  
-          return $this->render('test.html.twig', ['number' => $resp,
+          return $this->render('test.html.twig', [
+          'number' => $resp,
           'str'=>$strdata,
-         
           ]
         );
         }
