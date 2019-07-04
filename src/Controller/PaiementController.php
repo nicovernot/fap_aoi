@@ -22,7 +22,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use GuzzleHttp\ClientInterface;
 use App\Entity\Paiement;
 use App\Entity\Abonnement;
+use App\Entity\User;
 use App\Repository\AbonnementRepository;
+use App\Repository\UserRepository;
+
 class PaiementController extends AbstractController
 {
  
@@ -110,7 +113,7 @@ class PaiementController extends AbstractController
      * @Route("/paiement")
      * @Method({"POST"})
      */
-    public function newAction(Request $request,LoggerInterface $logger,AbonnementRepository $abonnementRepository)
+    public function newAction(Request $request,LoggerInterface $logger,AbonnementRepository $abonnementRepository,UserRepository $userRepository)
     {
 
         $data = $request->getContent();
@@ -118,12 +121,13 @@ class PaiementController extends AbstractController
         $logger->info($data); 
         $logger->info($request->request->get('cid'));
         $cid =$request->request->get('cid');   
-        $usr = $this->getUser();
+        $usr = substr($cid,strpos($cid, "-"),strpos($cid, "*"));
         $today = new \DateTime(); 
         $idabo =  substr($cid,0,strpos($cid, "-"));     
         $abbo = $abonnementRepository->findBy(['id' => $idabo]); 
+        $us = $userRepository->findBy(['id' => $usr]); 
         $paiement = new Paiement();
-        $paiement->setClient($usr);
+        $paiement->setClient($us);
         $paiement->setDate($today);
         $paiement->setIdpaiement($cid);
         $paiement->setAbonnement($abbo[0]);
