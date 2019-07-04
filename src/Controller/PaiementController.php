@@ -131,7 +131,7 @@ class PaiementController extends AbstractController
         $abbo = $abonnementRepository->findBy(['id' => $idabo]); 
         $us = $userRepository->findBy(['id' => $usr]); 
         $paiement = new Paiement();
-        $paiement->setClient($us);
+        $paiement->setClient($us[0]);
         $paiement->setDate($today);
         $paiement->setIdpaiement($cid);
         $paiement->setAbonnement($abbo[0]);
