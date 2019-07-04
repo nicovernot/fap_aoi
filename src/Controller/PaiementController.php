@@ -121,6 +121,7 @@ class PaiementController extends AbstractController
         $logger->info($data); 
         $logger->info($request->request->get('cid'));
         $cid =$request->request->get('cid'); 
+        $transaction=$request->request->get('transaction'); 
         $pos1=  strpos($cid, "-");
         ++$pos1;
         $pos2=  strpos($cid, "*");
@@ -133,7 +134,7 @@ class PaiementController extends AbstractController
         $paiement = new Paiement();
         $paiement->setClient($us[0]);
         $paiement->setDate($today);
-        $paiement->setIdpaiement($cid);
+        $paiement->setIdpaiement($transaction);
         $paiement->setAbonnement($abbo[0]);
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->persist($paiement);
