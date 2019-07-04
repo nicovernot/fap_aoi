@@ -115,20 +115,21 @@ class PaiementController extends AbstractController
 
         $data = $request->getContent();
         $logger->info('We are logging paiement iii!');
-        $logger->info($data);
-
-        $usr = $this->getUser();
-        $today = new \DateTime(); 
-        $idabo =  substr($data['cid'],0,strpos($data['cid'], "-"));     
-        $abbo = $abonnementRepository->findBy(['id' => $idabo]); 
-        $paiement = new Paiement();
-        $paiement->setClient($usr);
-        $paiement->setDate($today);
-        $paiement->setIdpaiement($data['transaction']);
-        $paiement->setAbonnement($abbo[0]);
-        $entityManager = $this->getDoctrine()->getManager();
-        $entityManager->persist($paiement);
-        $entityManager->flush();
+        $logger->info($data); 
+        $logger->info($data['cid']);
+           
+        //$usr = $this->getUser();
+        //$today = new \DateTime(); 
+        //$idabo =  substr($data['cid'],0,strpos($data['cid'], "-"));     
+        //$abbo = $abonnementRepository->findBy(['id' => $idabo]); 
+        //$paiement = new Paiement();
+        //$paiement->setClient($usr);
+        //$paiement->setDate($today);
+        //$paiement->setIdpaiement($data['transaction']);
+        //$paiement->setAbonnement($abbo[0]);
+        //$entityManager = $this->getDoctrine()->getManager();
+        //$entityManager->persist($paiement);
+        //$entityManager->flush();
 
         return new Response($data);
     }
