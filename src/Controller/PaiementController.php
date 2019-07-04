@@ -116,7 +116,7 @@ class PaiementController extends AbstractController
         $data = $request->getContent();
         $logger->info('We are logging paiement iii!');
         $logger->info($data); 
-        $logger->info($data['cid']);
+        $logger->info($request->request->get('cid'));
            
         //$usr = $this->getUser();
         //$today = new \DateTime(); 
