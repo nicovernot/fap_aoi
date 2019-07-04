@@ -93,7 +93,7 @@ class PaiementController extends AbstractController
             //$httpClient = HttpClient::create();
            // $response = $httpClient->request('GET', 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
            // return new RedirectResponse('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
-           return $this->render('test.html.twig', ['number' => $curl]);
+          // return $this->render('test.html.twig', ['number' => $curl]);
         }
 
         return $this->render('paiement/index.html.twig', [
