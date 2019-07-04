@@ -11,9 +11,15 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Sonata\AdminBundle\Route\RouteCollection;
 
 final class AbonnementAdmin extends AbstractAdmin
 {
+    protected function configureRoutes(RouteCollection $collection)
+{
+    $collection->add('rembourser', $this->getRouterIdParameter().'/rembourser');
+}
+
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
@@ -38,6 +44,9 @@ final class AbonnementAdmin extends AbstractAdmin
         ->add('dateremboursement')
 			->add('_action', null, [
                 'actions' => [
+                    'rembourser' => [
+                        'template' => 'list__action_rembourser.html.twig',
+                    ],
                     'show' => [],
                     'edit' => [],
                     'delete' => [],

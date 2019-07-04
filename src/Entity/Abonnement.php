@@ -303,6 +303,9 @@ class Abonnement
     }
 
 
-
+    public function __toString()
+    {
+        return $this->getMagazine()->getTitre() ?: '';
+    }
    
 }

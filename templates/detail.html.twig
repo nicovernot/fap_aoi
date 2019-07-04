@@ -1,7 +1,7 @@
 <h1>{{ong.onglib}}</h1>
  <button class="btn btn-info" id="btnmodif">Modifier</button> 
- <div class="container bg-light" id="mbinput1">
 <form action="/api/apicmptfilter" method="POST">
+ <div class="container bg-light" id="mbinput1">
    {% for ch in champs %}
                 <ul class="list-group">
             {% if ch.chptyp == 'integer' and ch.chpsai ==1 %}
@@ -79,25 +79,26 @@
      </ul>
 
         {% endfor %}
-             <input type="submit" value="Envoyer">
-</form>
              </div>
+             <input id="btnsend" type="submit" value="Envoyer">
+</form>
 
 
         <script>
 $(document).ready(function(){
  var apipath1="{{apipath|raw}}";
  var apipath = "/api/apicmptfilter"+apipath1;
+ $("#btnsend").hide();
 $('#mbinput1 :input').hide();
  $("#btnmodif").click(function(){
    if($("#btnmodif").text()=="Modifier"){
- $("[id^='para']").hide();
+    $("[id^='para']").hide();
     $('#mbinput1 :input').show();
     $("#btnmodif").text("Valider");
    }
     if($("#btnmodif").text()=="Valider"){
-
         //valider
+    $("#btnsend").show();
     }
     
   });
@@ -105,7 +106,7 @@ $('#mbinput1 :input').hide();
     });
 
 function detail_modif(id){
-    $("#btnsend").show();   
+    
      $('#btnsend').data('path',id);
       var $inputs = $('#mbinput1 :input');
      
@@ -113,7 +114,7 @@ function detail_modif(id){
     $(this).val("");
  });
   $.get(id, function(data, status){
-//console.log($inputs);
+
   
     
      $inputs.each(function() {
@@ -121,15 +122,15 @@ function detail_modif(id){
       
         $('#para'+chpnom).text(data[0][chpnom]);
         $('#in'+chpnom).val(data[0][chpnom]);
-      //console.log($('#in'+chpnom));
+      
 
           if($(this).attr('name')=='numeroRue'){
-    //console.log( $("#innumerorue"));
+    
     $("#innumerorue").val(data[0]["numeroRue"]);
   
     $('#paranumerorue').text($("#innumerorue").val().toString())
-    console.log(typeof $("#innumerorue").val());
-    //$("#titre").text(data[chpnom]);
+  
+   
     }
         if($(this).attr('type')=='date'){
          $('#in'+chpnom).val(data[0][chpnom].slice(0, 10));    
@@ -137,7 +138,6 @@ function detail_modif(id){
     })
  
   });
-    
     }
 
     function detail_voir(id,image){
@@ -164,6 +164,7 @@ function detail_modif(id){
             $('#myModal').modal('show');
         }); 
      }
+    
 
     }
 

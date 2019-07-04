@@ -22,15 +22,18 @@
       </div>
     </li>   
      {% endfor %}
+     {% if is_granted('ROLE_ADMIN') %}
       <li class="nav-item">
-      <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="{{path('api_entrypoint')}}">Api</a>
-    </li>
-        <li class="nav-item">
-      <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
-    </li>
+        <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{path('api_entrypoint')}}">Api</a>
+      </li>
+          <li class="nav-item">
+        <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
+      </li>
+    {% endif %}
+
 
     </ul>
 

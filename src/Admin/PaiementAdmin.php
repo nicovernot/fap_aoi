@@ -16,15 +16,20 @@ final class PaiementAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-			->add('id')
-			->add('date')
+        
+        ->add('client')
+        ->add('abonnement')
+    	->add('idpaiement')
+        ->add('date')
 			;
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-			->add('id')
+        ->add('client')
+        ->add('abonnement')
+    	->add('idpaiement')
 			->add('date')
 			->add('_action', null, [
                 'actions' => [
@@ -38,7 +43,9 @@ final class PaiementAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {
         $formMapper
-			->add('id')
+        ->add('client')
+        ->add('abonnement')
+    	->add('idpaiement')
 			->add('date')
 			;
     }
@@ -46,7 +53,9 @@ final class PaiementAdmin extends AbstractAdmin
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-			->add('id')
+        ->add('client')
+        ->add('abonnement')
+    	->add('idpaiement')
 			->add('date')
 			;
     }
