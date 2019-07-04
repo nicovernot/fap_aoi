@@ -124,7 +124,7 @@ class PaiementController extends AbstractController
         $pos1=  strpos($cid, "-");
         ++$pos1;
         $pos2=  strpos($cid, "*");
-        --$pos2;
+        $pos2=$pos2-2;
         $usr = substr($cid,$pos1,$pos2);
         $today = new \DateTime(); 
         $idabo =  substr($cid,0,strpos($cid, "-"));     
