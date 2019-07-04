@@ -121,7 +121,7 @@ class PaiementController extends AbstractController
         $logger->info($data); 
         $logger->info($request->request->get('cid'));
         $cid =$request->request->get('cid');   
-        $usr = substr($cid,strpos($cid, "-"),strpos($cid, "*"));
+        $usr = substr($cid,strpos($cid, "-")+1,strpos($cid, "*")-1);
         $today = new \DateTime(); 
         $idabo =  substr($cid,0,strpos($cid, "-"));     
         $abbo = $abonnementRepository->findBy(['id' => $idabo]); 
