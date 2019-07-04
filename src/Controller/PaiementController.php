@@ -19,7 +19,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-
+use GuzzleHttp\ClientInterface;
 
 class PaiementController extends AbstractController
 {
@@ -73,27 +73,30 @@ class PaiementController extends AbstractController
             $data = $form->getData();
             $uuid="8e39f14a-d44e-51bb-8782-89723e586aa5";
             //$client = new Client('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543');
-            //$req = $client->get('/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
+            //$req = $client->get('/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test0001/012345678912/1/2019/20');
             //$client = new Client('127.0.0.1:8000');
            
-            $curl = curl_init();
-            // Set some options - we are passing in a useragent too here
-            curl_setopt_array($curl, [
-                CURLOPT_RETURNTRANSFER => 1,
-                CURLOPT_URL => 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20',
-                CURLOPT_USERAGENT => 'Codular Sample cURL Request'
-            ]);
-            // Send the request & save response to $resp
-            $resp = curl_exec($curl);
+            $c = curl_init();
+            /*On indique à curl quelle url on souhaite télécharger*/
+            curl_setopt($c, CURLOPT_URL, "http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test0001/012345678912/1/2019/20");
+            /*On indique à curl de nous retourner le contenu de la requête plutôt que de l'afficher*/
+            curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+            /*On indique à curl de ne pas retourner les headers http de la réponse dans la chaine de retour*/
+            curl_setopt($c, CURLOPT_HEADER, true);
+            /*On execute la requete*/
+            $resp = curl_exec($c);
             // Close request to clear up some resources
-            curl_close($curl);
+            curl_close($c);
             
+            //$client = new GuzzleHttp\Client(['base_uri' => 'http://127.0.0.1:8000/api/']);
+            // Send a request to https://foo.com/api/test
+            //$response = $client->request('GET', 'users');
             $logger->info($resp);
             
             //$httpClient = HttpClient::create();
            // $response = $httpClient->request('GET', 'http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
            // return new RedirectResponse('http://ec2-52-47-88-142.eu-west-3.compute.amazonaws.com:6543/cardpay/8e39f14a-d44e-51bb-8782-89723e586aa5/test000/012345678912/1/2019/20');
-          // return $this->render('test.html.twig', ['number' => $curl]);
+          return $this->render('test.html.twig', ['number' => $resp]);
         }
 
         return $this->render('paiement/index.html.twig', [
@@ -113,7 +116,7 @@ class PaiementController extends AbstractController
     {
 
         $data = $request->getContent();
-        $logger->info('We are logging paiement!');
+        $logger->info('We are logging paiement iii!');
         $logger->info($data);
         return new Response($data);
     }
