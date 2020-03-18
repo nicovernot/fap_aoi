@@ -17,20 +17,19 @@ class GestionSchemaController extends AbstractController
        
         $nomtable= $request->query->get('nmtbl');
         $ong= $request->query->get("nglt");
-        var_dump($ong);
-        var_dump($nomtable);
+ 
         if(isset($ong) and isset($nomtable)){
-           $sql1 = "select *
-           from information_schema.columns
-           where table_name = '$nomtable';" ;
-         $seq = $connection->fetchAll("select nextval('champ_id_seq');");
-        $seq = $seq[0]["nextval"];
+           $sql1 = "SELECT * 
+           FROM `INFORMATION_SCHEMA`.`COLUMNS` 
+           WHERE `TABLE_NAME` = '$nomtable';" ;
+        // $seq = $connection->fetchAll("select nextval('champ_id_seq');");
+        // $seq = $seq[0]["nextval"];
          $cols = $connection->fetchAll($sql1);
        
        foreach ($cols as $key => $value) {
-        $seq = $connection->fetchAll("select nextval('champ_id_seq');");
-        $seq = $seq[0]["nextval"];
-         $connection->insert('champ', array('id' => $seq,'onglet_id' => $ong,'Chplib'=>$value["column_name"],'Chpcha'=>$value["column_name"],'Chpord'=>$value ["ordinal_position"],'Chptyp'=>$value ["data_type"],'Chplon'=>$value ["character_maximum_length"],'Chprec'=>1));
+       // $seq = $connection->fetchAll("select nextval('champ_id_seq');");
+       // $seq = $seq[0]["nextval"];
+         $connection->insert('champ', array('onglet_id' => $ong,'Chplib'=>$value["COLUMN_NAME"],'Chpcha'=>$value["COLUMN_NAME"],'Chpord'=>$value ["ORDINAL_POSITION"],'Chptyp'=>$value ["DATA_TYPE"],'Chplon'=>$value ["CHARACTER_MAXIMUM_LENGTH"],'Chprec'=>1));
        }  
         }
        

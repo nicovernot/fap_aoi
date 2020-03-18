@@ -54,7 +54,7 @@
 </div>
  
  {% endfor %}
-
+ <div id="root"></div>
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
@@ -64,6 +64,8 @@
             <h3>-L'onglet Génération de champs permet de générer les champs à afficher a partir d'une des tables de la base de donnéés .</h3>
           </div>
         </div>
+
+       
 {% endif %}
         
         {% set apipath = "" %}
@@ -139,4 +141,7 @@ ssmdiv.each(function() {
 </script>
     {% endif %}
 
+{% endblock %}
+{% block javascripts %}
+     {{ encore_entry_script_tags('app') }}
 {% endblock %}
