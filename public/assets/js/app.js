@@ -5,7 +5,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 class HelloMessage extends React.Component {
     render() {
       return (
-        <div>
+        <div className="primary">
           Hello {this.props.name}
         </div>
       );

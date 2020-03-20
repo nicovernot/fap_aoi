@@ -1,14 +1,14 @@
 {
     "devDependencies": {
         "@babel/preset-react": "^7.8.3",
-        "@symfony/webpack-encore": "^0.28.2",
+        "@symfony/webpack-encore": "^0.28.3",
         "axios": "^0.19.2",
-        "core-js": "^3.0.0",
+        "core-js": "^3.6.4",
         "prop-types": "^15.7.2",
         "react": "^16.13.0",
         "react-dom": "^16.13.0",
-        "regenerator-runtime": "^0.13.2",
-        "webpack-notifier": "^1.6.0"
+        "regenerator-runtime": "^0.13.5",
+        "webpack-notifier": "^1.8.0"
     },
     "license": "UNLICENSED",
     "private": true,
@@ -21,6 +21,15 @@
     "dependencies": {
         "@babel/plugin-proposal-class-properties": "^7.8.3",
         "@babel/plugin-transform-runtime": "^7.8.3",
-        "react-router-dom": "^5.1.2"
+        "bootstrap": "^4.4.1",
+        "classnames": "^2.2.6",
+        "material-ui": "^0.20.2",
+        "npm-upgrade": "^2.0.3",
+        "primeflex": "^1.0.0",
+        "primeicons": "^2.0.0",
+        "primereact": "^4.1.1",
+        "react-bootstrap": "^1.0.0-beta.17",
+        "react-router-dom": "^5.1.2",
+        "react-transition-group": "^4.3.0"
     }
 }
