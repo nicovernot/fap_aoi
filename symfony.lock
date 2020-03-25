@@ -20,6 +20,9 @@
     "ci/restclientbundle": {
         "version": "2.0.3"
     },
+    "clue/stream-filter": {
+        "version": "v1.4.1"
+    },
     "cocur/slugify": {
         "version": "v3.1"
     },
@@ -125,6 +128,15 @@
     "gedmo/doctrine-extensions": {
         "version": "v2.4.37"
     },
+    "guzzlehttp/guzzle": {
+        "version": "6.5.2"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.6.1"
+    },
     "guzzlehttp/ringphp": {
         "version": "1.1.1"
     },
@@ -151,6 +163,18 @@
     },
     "jms/metadata": {
         "version": "2.0.0"
+    },
+    "knplabs/github-api": {
+        "version": "2.6",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "2.6",
+            "ref": "a7d5781e4a8e84f1c238c43e4c9bb806f01d8a3f"
+        },
+        "files": [
+            "config/packages/github_api.yaml"
+        ]
     },
     "knplabs/knp-menu": {
         "version": "2.3.0"
@@ -218,6 +242,30 @@
     "php-cs-fixer/diff": {
         "version": "v1.2.0"
     },
+    "php-http/cache-plugin": {
+        "version": "1.7.0"
+    },
+    "php-http/client-common": {
+        "version": "1.10.0"
+    },
+    "php-http/discovery": {
+        "version": "1.7.4"
+    },
+    "php-http/guzzle6-adapter": {
+        "version": "v1.1.1"
+    },
+    "php-http/httplug": {
+        "version": "v1.1.0"
+    },
+    "php-http/message": {
+        "version": "1.8.0"
+    },
+    "php-http/message-factory": {
+        "version": "v1.0.2"
+    },
+    "php-http/promise": {
+        "version": "v1.0.0"
+    },
     "phpdocumentor/reflection-common": {
         "version": "1.0.1"
     },
@@ -236,11 +284,17 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.0.2"
+    },
+    "ralouphie/getallheaders": {
+        "version": "3.0.3"
     },
     "react/promise": {
         "version": "v2.7.1"
@@ -643,6 +697,9 @@
     },
     "symfony/yaml": {
         "version": "v4.0.3"
+    },
+    "takatost/php-trello-api": {
+        "version": "0.9.7"
     },
     "theofidry/alice-data-fixtures": {
         "version": "1.0",
