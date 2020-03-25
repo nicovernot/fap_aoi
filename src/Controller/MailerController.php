@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use App\Message\MailNotification;
 use Symfony\Component\Messenger\MessageBusInterface;
-
+use ivkos\Pushbullet;
 class MailerController extends AbstractController
 {
     /**
@@ -27,20 +27,14 @@ class MailerController extends AbstractController
     }
 
     /**
-     * @Route("/mail")
+     * @Route("/push")
      */
-    public function mail(\Swift_Mailer $mailer)
+    public function mail()
     { 
     
-     
-        $mail = (new \Swift_Message('Hello Email'))
-        ->setFrom('niveco13380@gmail.com')
-        ->setTo('nicovernot@gmail.com')
-        ->setBody('You should see me from the profiler!')
-    ;
-
-    $mailer->send($mail);
-    
+        $pb = new \Pushbullet\Pushbullet('o.BwhuAhQrjZo1GmR6yKThEiCOLbvvsCYT');
+       $devices = $pb->getDevices();
+       $pb->device("Motorola Moto G (5)")->sendSms("+33680263596", "Hello there!");
     return new Response(
         '<html><body>Lucky number: message envoyé</body></html>'
     );

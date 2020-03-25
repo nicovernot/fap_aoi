@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18bb9346c1d087476bed92b11e050b14",
+    "content-hash": "1c158d41b1b15eb1d3c3b6f994da1fc8",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -1973,6 +1973,55 @@
                 "image processing"
             ],
             "time": "2019-12-04T09:55:33+00:00"
+        },
+        {
+            "name": "ivkos/pushbullet",
+            "version": "3.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ivkos/Pushbullet-for-PHP.git",
+                "reference": "3de4a1732d14e8303a836a0a86a44e280e9cbee2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ivkos/Pushbullet-for-PHP/zipball/3de4a1732d14e8303a836a0a86a44e280e9cbee2",
+                "reference": "3de4a1732d14e8303a836a0a86a44e280e9cbee2",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">= 5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Pushbullet\\": "src/Pushbullet"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ivaylo Stoyanov",
+                    "email": "me@ivkos.com",
+                    "homepage": "https://github.com/ivkos"
+                }
+            ],
+            "description": "Push notifications to devices and browsers via Pushbullet",
+            "homepage": "https://github.com/ivkos/Pushbullet-for-PHP",
+            "keywords": [
+                "android",
+                "chrome",
+                "firefox",
+                "iphone",
+                "notifications",
+                "push",
+                "pushbullet",
+                "windows"
+            ],
+            "time": "2016-05-22T12:42:15+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
