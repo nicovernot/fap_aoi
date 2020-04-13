@@ -46,10 +46,14 @@ Encore
     .enableVersioning(Encore.isProduction())
     
     // enables @babel/preset-env polyfills
-    .configureBabel(() => {}, {
+    .configureBabel((config) => {
+        config.plugins = ["transform-object-rest-spread","transform-class-properties"]
+    }, {
         useBuiltIns: 'usage',
-        corejs: 3
+        corejs: 3,
+        
     })
+    
 ;
     
 module.exports = Encore.getWebpackConfig();

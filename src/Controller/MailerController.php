@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Message\MailNotification;
 use Symfony\Component\Messenger\MessageBusInterface;
 use ivkos\Pushbullet;
+use Github\Client;
 class MailerController extends AbstractController
 {
     /**
@@ -40,5 +41,16 @@ class MailerController extends AbstractController
     );
     }
 
+    /**
+     * @Route("/github")
+     */
+    public function github() {
+        $client = new \Github\Client();
+       
+        $commits = $client->api('repo')->commits()->all('nicovernot', 'fap_aoi', array('sha' => 'master'));
+       
+       dump($commits) ;
+        return new response ( '<html><body>github: message envoyé</body></html>');
+    }
 
 }

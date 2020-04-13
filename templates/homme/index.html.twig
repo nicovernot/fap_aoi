@@ -54,7 +54,8 @@
 </div>
  
  {% endfor %}
- <div id="root"></div>
+ <div id="root"  mmm="{{  app.user.username }}"></div>
+ 
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">
           <div class="container">
