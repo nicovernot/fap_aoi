@@ -73,7 +73,10 @@ class App extends React.Component {
      tst= (ssm,urlp)=> {
       window.history.pushState('page2', 'Title', urlp);
       this.setState({ ssm });
-      localStorage.setItem('ssm', JSON.stringify(ssm));
+      if(ssm)
+      {
+        localStorage.setItem('ssm', JSON.stringify(ssm));
+      } 
       let qchamps = []
       let query = ""  
     for (let [key, value] of Object.entries(ssm)) {
@@ -103,7 +106,7 @@ class App extends React.Component {
       this.setState({menu})
       const ssmlib = urlParams.get('ssm')
       const localssm = JSON.parse(localStorage.getItem("ssm"))
-     if(this.state.data.length==0){
+     if(this.state.data.length==0 && localssm){
        this.tst(localssm,queryString)
      }
     }
