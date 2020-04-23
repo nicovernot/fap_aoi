@@ -159,4 +159,8 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: admin, label: Paiement }
         public: true
+
+    App\Resolver\MagazineCollectionResolver:
+        tags:
+            - { name: api_platform.graphql.query_resolver }        
         

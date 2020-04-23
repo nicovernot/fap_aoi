@@ -4,25 +4,24 @@ import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar'
 import {
- 
+  
   Link,
- 
 } from "react-router-dom";
+
 function Menu(props)  {
   const menus = props.menus;
   
-
-const listItems = menus.map((men) =>    
-    men.node.ssmenus.edges.length > 0 ?
+  const listItems = menus.map((men) =>    
+  men.node.ssmenus.edges.length > 0 ?
     
     ( <NavDropdown title={men.node.mencom} key={men.node.id} id="nav-dropdown">
          
-          {men.node.ssmenus.edges.map((ssm) => <NavDropdown.Item  to="/?name=recherche"  onClick = {(e) => props.handler(ssm)} key={ssm.node.id}>{ssm.node.ssmlib}</NavDropdown.Item>) }
+          {men.node.ssmenus.edges.map((ssm) => <NavDropdown.Item  onClick = {(e) => props.handler(ssm,`?name=${ssm.node.ssmphp}&ssm=${ssm.node.ssmlib}&men=${men.node.mencom}`)} key={ssm.node.id}>{ssm.node.ssmlib}</NavDropdown.Item>) }
     </NavDropdown> )
      : 
     (<Nav.Item>
-        <Nav.Link key={men.node.mencom} > 
-          {men.node.mencom}
+        <Nav.Link href={"?name="+men.node.menphp} key={men.node.mencom} > 
+          {men.node.mencom} 
         </Nav.Link>
     </Nav.Item> ));
 

@@ -29,6 +29,9 @@ class GestionSchemaController extends AbstractController
        foreach ($cols as $key => $value) {
        // $seq = $connection->fetchAll("select nextval('champ_id_seq');");
        // $seq = $seq[0]["nextval"];
+       if ($value ["CHARACTER_MAXIMUM_LENGTH"]>350){
+        $value ["CHARACTER_MAXIMUM_LENGTH"]=350;
+       }
          $connection->insert('champ', array('onglet_id' => $ong,'Chplib'=>$value["COLUMN_NAME"],'Chpcha'=>$value["COLUMN_NAME"],'Chpord'=>$value ["ORDINAL_POSITION"],'Chptyp'=>$value ["DATA_TYPE"],'Chplon'=>$value ["CHARACTER_MAXIMUM_LENGTH"],'Chprec'=>1));
        }  
         }
