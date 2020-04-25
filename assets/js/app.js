@@ -21,6 +21,9 @@ class App extends React.Component {
         super();
      
         this.state = { 
+          user:'',
+          role:'',
+          url:'',
           menus: [],
           menu : '',
           name :'',
@@ -36,7 +39,8 @@ class App extends React.Component {
 
       gettree = (id,list,itemq) => {
         let finalquery =""
-        
+        const    url1 = localStorage.getItem("url")
+        console.log(url1)
         switch(id){
           case 1 : 
             finalquery =  qr.genQuery;
@@ -47,7 +51,7 @@ class App extends React.Component {
           }
          
                axios({
-                 url: 'http://localhost:8001/api/graphql',
+                 url: url1+'/api/graphql',
                  method: 'post',
                  data: {
                    query: finalquery
@@ -111,12 +115,18 @@ class App extends React.Component {
      }
     }
 
-
-
+ initapp = () => {
+ const    url = localStorage.getItem("url")
+  this.setState({url})
+  const    user = localStorage.getItem("username")
+  this.setState({user})
+  const    role = localStorage.getItem("role")
+  this.setState({role})
+ }
     componentDidMount() {
+       this.initapp()   
        this.gettree(1) 
        this.urlresolver()
-      
       }
       
 
@@ -125,7 +135,7 @@ class App extends React.Component {
       const ttl = <h1>title</h1>
       const arr = [ <Imgelement src="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>, <Imgelement src="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>]
       arr.push(ttl)
-      const el = document.getElementById('root');
+  
       return (
         <div className="bg-alert">
           <Menu handler = {this.tst} menus={this.state.menus}  />

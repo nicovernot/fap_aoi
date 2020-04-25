@@ -54,7 +54,13 @@
 </div>
  
  {% endfor %}
- <div id="root"  mmm="{{  app.user.username }}"></div>
+<script>
+localStorage.setItem("username", "{{  app.user.username }}" );
+localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
+localStorage.setItem("role", "{{app.user.roles[0]}}" );
+</script>
+
+ <div id="root"  user="{{  app.user.username }}" baseurl="{{ app.request.getSchemeAndHttpHost() }}" role={{app.user.roles[0]}}></div>
  
 {% if not app.request.get("ong") %}
         <div class="jumbotron jumbotron-fluid">
