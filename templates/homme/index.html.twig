@@ -40,17 +40,12 @@
 </nav>
   <p class="bg-success">Compte: {{ app.user.username }}</p>
   
-{% set mesabos = [] %}
 
-  {% for abo in app.user.getAbonnement()%}
-  
-  {% set mesabos = mesabos|merge( ["/api/magazines/"~abo.getMagazine().id] ) %}
- {% endfor %}
 
  {% for mes in app.user.getMessages()%}
  <div class="alert alert-success alert-dismissible">
   <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>Success!</strong>{{mes.message}}
+  <strong>{{mes.message}}</strong>
 </div>
  
  {% endfor %}
@@ -62,18 +57,7 @@ localStorage.setItem("role", "{{app.user.roles[0]}}" );
 
  <div id="root"  user="{{  app.user.username }}" baseurl="{{ app.request.getSchemeAndHttpHost() }}" role={{app.user.roles[0]}}></div>
  
-{% if not app.request.get("ong") %}
-        <div class="jumbotron jumbotron-fluid">
-          <div class="container">
-            <h1>Projet Gestion de Contenu</h1>      
-            <h3>-L'onglet admin permet la création de menu - sousmnu - onglets champs .</h3>
-            <h3>-L'Api web sert les donnés à afficher .</h3>
-            <h3>-L'onglet Génération de champs permet de générer les champs à afficher a partir d'une des tables de la base de donnéés .</h3>
-          </div>
-        </div>
 
-       
-{% endif %}
         
         {% set apipath = "" %}
         {% set onglet = "" %}

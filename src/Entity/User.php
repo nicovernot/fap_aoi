@@ -122,29 +122,20 @@ class User implements UserInterface
      */
     private $messages;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Abonnement", mappedBy="client")
-     * @Groups({"read", "write"})
-     */
-    private $abonnement;
+
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Appli", inversedBy="client")
      */
     private $appli;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Paiement", mappedBy="client")
-     */
-    private $paiements;
 
    
 
     public function __construct()
     {
         $this->messages = new ArrayCollection();
-        $this->abonnement = new ArrayCollection();
-        $this->paiements = new ArrayCollection();
+      
     }
 
     public function getId(): ?int
@@ -365,56 +356,7 @@ class User implements UserInterface
         return $this->getEmail() ?: '';
     }
 
-    /**
-     * @return Collection|Abonnement[]
-     */
-    public function getAbonnement(): Collection
-    {
-         // $user = $security->getUser();
-       // $user =$this->get('security.context')->getToken()->getUser();
-        return $this->abonnement;
-    }
-
-    public function getAbboClient()
-    {
-         $criteria = Criteria::create()
-            //->andWhere(Criteria::expr()->eq('chprec', 1))
-            ->orderBy(['id' => Criteria::ASC]);     
-           
-        return $this->getAbonnement()->matching($criteria);
-    }
-
-    public function getmesabo($id)
-    {
-         $criteria = Criteria::create()
-            ->andWhere(Criteria::expr()->eq('client', $id))
-           ;     
-           
-        return $this->getAbonnement()->matching($criteria);
-    }
-
-    public function addAbonnement(Abonnement $abonnement): self
-    {
-        if (!$this->abonnement->contains($abonnement)) {
-            $this->abonnement[] = $abonnement;
-            $abonnement->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAbonnement(Abonnement $abonnement): self
-    {
-        if ($this->abonnement->contains($abonnement)) {
-            $this->abonnement->removeElement($abonnement);
-            // set the owning side to null (unless already changed)
-            if ($abonnement->getClient() === $this) {
-                $abonnement->setClient(null);
-            }
-        }
-
-        return $this;
-    }
+  
 
     public function getAppli(): ?Appli
     {
@@ -428,36 +370,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Paiement[]
-     */
-    public function getPaiements(): Collection
-    {
-        return $this->paiements;
-    }
-
-    public function addPaiement(Paiement $paiement): self
-    {
-        if (!$this->paiements->contains($paiement)) {
-            $this->paiements[] = $paiement;
-            $paiement->setClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removePaiement(Paiement $paiement): self
-    {
-        if ($this->paiements->contains($paiement)) {
-            $this->paiements->removeElement($paiement);
-            // set the owning side to null (unless already changed)
-            if ($paiement->getClient() === $this) {
-                $paiement->setClient(null);
-            }
-        }
-
-        return $this;
-    }
-
+   
     
 }

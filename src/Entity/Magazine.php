@@ -17,7 +17,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\RangeFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(mercure=true)
  * @ORM\Entity(repositoryClass="App\Repository\MagazineRepository")
  * @ApiFilter(SearchFilter::class, properties={"id": "exact","titre" : "exact","presentation":"partial"}) 
  * @ApiFilter(OrderFilter::class, properties={"numerosparan": "DESC"})

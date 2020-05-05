@@ -132,17 +132,15 @@ class App extends React.Component {
 
   
   render() {
-      const ttl = <h1>title</h1>
-      const arr = [ <Imgelement src="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>, <Imgelement src="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>]
-      arr.push(ttl)
+     // const ttl = <h1>title</h1>
+     // const arr = [ <Imgelement img="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>, <Imgelement img="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>]
+     // arr.push(ttl)
   
       return (
         <div className="bg-alert">
           <Menu handler = {this.tst} menus={this.state.menus}  />
         
-          <ol>    
-  { arr.map(item => <div >{item}</div>) }
-</ol>
+
       <Router>
         <div>
          <QueryParam ssm={this.state.ssm}  menus={this.state.menus} getData={this.state.data}/>

@@ -12,6 +12,9 @@ use App\Message\MailNotification;
 use Symfony\Component\Messenger\MessageBusInterface;
 use ivkos\Pushbullet;
 use Github\Client;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Symfony\Component\Process\Process;
+
 class MailerController extends AbstractController
 {
     /**
@@ -48,8 +51,19 @@ class MailerController extends AbstractController
         $client = new \Github\Client();
        
         $commits = $client->api('repo')->commits()->all('nicovernot', 'fap_aoi', array('sha' => 'master'));
-       
-       dump($commits) ;
+       $message = $commits[0]["commit"]["message"];
+       $author = $commits[0]["commit"]["author"]["name"];
+       dump($author) ;
+       //'./update.sh'
+       $process = new Process(['ls']);
+$process->run();
+
+// executes after the command finishes
+if (!$process->isSuccessful()) {
+    throw new ProcessFailedException($process);
+}
+
+echo $process->getOutput();
         return new response ( '<html><body>github: message envoyé</body></html>');
     }
 

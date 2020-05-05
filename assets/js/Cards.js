@@ -5,16 +5,43 @@ import ListGroup from 'react-bootstrap/ListGroup'
 function Crd (props){
 const card = props.card
 const champs = props.champs
+
 const cardr = Object.entries(champs).map(([key,value])=>{
-      
-    return (
-    <li key={key}> {value.node.chplib} : {card[value.node.chpcha]}</li> 
-    );
+    console.log(value.node.chptyp)
+    switch(value.node.chptyp) {
+        case 'img':
+         
+          return (<div className="list-group-item"><Imgelement className="p-3"  img={card[value.node.chpcha]}/></div>);
+          break;
+         
+        case 'varchar':
+         
+            return (<li className="list-group-item" key={key}> {value.node.chplib} : {card[value.node.chpcha]}</li>);
+            break;  
+        
+        case 'int':
+         
+                return (<li className="list-group-item" key={key}> {value.node.chplib} : <span class="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
+                break;  
+        case 'double':
+         
+                    return (<li className="list-group-item" key={key}> {value.node.chplib} : <span class="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
+                    break;  
+            
+        default:
+        
+          return   (<li className="list-group-item" key={key}> {value.node.chplib} : {card[value.node.chpcha]}</li>); 
+          break;
+   
+      } 
+
   })
     return (
-        <Card border="primary" className="my-2"  className="bg-primary" style={{ width: '18rem' }}>
+   
+       <Card className="col">
             {cardr}
        </Card>
+    
     );
 }
 
@@ -29,9 +56,10 @@ function Cards (props){
       })
 
     return (
-        <ListGroup> 
+<div className="row bg-secondary p-3 " > 
             {cardList}
-        </ListGroup>
+</div>
+        
     );
 }
 
