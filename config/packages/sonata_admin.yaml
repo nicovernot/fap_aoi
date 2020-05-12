@@ -28,7 +28,7 @@ sonata_admin:
 
         blocks:
             -
-                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                class:    col-lg-2 col-xs-4          # twitter bootstrap responsive code
                 position: top                        # zone in the dashboard
                 type:     sonata.admin.block.stats   # block id
                 settings:
@@ -39,7 +39,7 @@ sonata_admin:
                     filters:                         # filter values
                         edited: { value: 1 }
             -
-                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                class:    col-lg-2 col-xs-4          # twitter bootstrap responsive code
                 position: top                        # zone in the dashboard
                 type:     sonata.admin.block.stats   # block id
                 settings:
@@ -51,7 +51,7 @@ sonata_admin:
                         edited: { value: 1 }
 
             -
-                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                class:    col-lg-2 col-xs-4          # twitter bootstrap responsive code
                 position: top                        # zone in the dashboard
                 type:     sonata.admin.block.stats   # block id
                 settings:
@@ -63,7 +63,7 @@ sonata_admin:
                         edited: { value: 1 }
 
             -
-                class:    col-lg-3 col-xs-6          # twitter bootstrap responsive code
+                class:    col-lg-2 col-xs-4          # twitter bootstrap responsive code
                 position: top                        # zone in the dashboard
                 type:     sonata.admin.block.stats   # block id
                 settings:

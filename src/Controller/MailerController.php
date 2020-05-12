@@ -44,27 +44,26 @@ class MailerController extends AbstractController
     );
     }
 
-    /**
-     * @Route("/github")
-     */
+
     public function github() {
-        $client = new \Github\Client();
+       $client = new \Github\Client();
        
-        $commits = $client->api('repo')->commits()->all('nicovernot', 'fap_aoi', array('sha' => 'master'));
-       $message = $commits[0]["commit"]["message"];
-       $author = $commits[0]["commit"]["author"]["name"];
-       dump($author) ;
-       //'./update.sh'
-       $process = new Process(['ls']);
-$process->run();
+       $commits = $client->api('repo')->commits()->all('nicovernot', 'fap_aoi', array('sha' => 'master'));
+       $process = new Process(['./gitstatus.sh']);
+       $process->run();
 
-// executes after the command finishes
-if (!$process->isSuccessful()) {
-    throw new ProcessFailedException($process);
-}
-
-echo $process->getOutput();
-        return new response ( '<html><body>github: message envoyé</body></html>');
+       // executes after the command finishes
+        if (!$process->isSuccessful()) {
+            throw new ProcessFailedException($process);
+        }
+        $localCommit = $process->getOutput();
+        $data = str_getcsv($localCommit);
+      
+    return $this->render('github/index.html.twig', [
+        'controller_name' => 'GestionSchemaController',
+        'local' => $data,
+         'commits' => $commits,
+    ]);
     }
 
 }

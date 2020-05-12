@@ -1,0 +1,29 @@
+<h1 class="bg-info"> Github</h1>
+
+<h3 class="bg-info"> dernier commit local </h3>
+<p> commiteur : {{local[0]}} </p>
+<p> email :  {{local[1]}} </p>
+<p> message : {{local[2]}} </p>
+<p> date :   {{local[3]}} </p>
+
+{% if local[2] == commits[0].commit.message %}
+<p class="bg-succes">Etat : à jour </p>
+{% endif %}
+
+<h3 class="bg-success"> Liste de commits depôt </h3>
+<ul>
+{% for commit in commits%}
+<p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#{{commit.sha}}" role="button" aria-expanded="false" aria-controls="collapseExample">
+  {{commit.commit.message}}
+  </a>
+  
+</p>
+<div class="collapse" id="{{commit.sha}}">
+  <div class="card card-body">
+     <li>auteur commit: {{commit.commit.committer.name}} email: {{commit.commit.committer.email}} date: {{commit.commit.committer.date}} </li>
+
+  </div>
+</div>
+{% endfor %}
+</ul>
