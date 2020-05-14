@@ -61,17 +61,7 @@ class Magazine
      */
     private $image;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Abonnement", mappedBy="magazine")
-     */
-    private $abonnement;
 
-    public function __construct()
-    {
-        $this->abonnement = new ArrayCollection();
-      
-    }
-   
   
 
    private $imgfilename;
@@ -155,34 +145,4 @@ class Magazine
         return $this->getTitre() ?: '';
     }
 
-    /**
-     * @return Collection|Abonnement[]
-     */
-    public function getAbonnement(): Collection
-    {
-        return $this->abonnement;
-    }
-
-    public function addAbonnement(Abonnement $abonnement): self
-    {
-        if (!$this->abonnement->contains($abonnement)) {
-            $this->abonnement[] = $abonnement;
-            $abonnement->setMagazine($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAbonnement(Abonnement $abonnement): self
-    {
-        if ($this->abonnement->contains($abonnement)) {
-            $this->abonnement->removeElement($abonnement);
-            // set the owning side to null (unless already changed)
-            if ($abonnement->getMagazine() === $this) {
-                $abonnement->setMagazine(null);
-            }
-        }
-
-        return $this;
-    }
 }

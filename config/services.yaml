@@ -107,12 +107,7 @@ services:
         public: true
         
 
-    admin.abonnement:
-        class: App\Admin\AbonnementAdmin
-        arguments: [~, App\Entity\Abonnement, App\Controller\AbonnementAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Abonnement }
-        public: true
+
 
     
     App\Service\FileUploader:  
@@ -153,12 +148,6 @@ services:
             - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
             - { name: api_platform.doctrine.orm.query_extension.item }        
 
-    admin.paiement:
-        class: App\Admin\PaiementAdmin
-        arguments: [~, App\Entity\Paiement, App\Controller\PaiementAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Paiement }
-        public: true
 
     App\Resolver\MagazineCollectionResolver:
         tags:
