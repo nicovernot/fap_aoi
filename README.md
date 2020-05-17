@@ -5,13 +5,12 @@
 
 ### - cache redis
 
-
 ### - rabbitmq messaging
 
-
 ### - notifications mercure
-
 
 ### - acces api : graphql
 
 ### - integration continue
+
+### - gestion de workflow
