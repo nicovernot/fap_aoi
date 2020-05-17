@@ -5,4 +5,4 @@ twig:
     form_themes: ['bootstrap_4_layout.html.twig']
 
     globals:
-        mercure_publish_url: '%env(MERCURE_PUBLISH_URL)%'
+        mercure_publish_local: '%env(MERCURE_PUBLISH_LOCAL)%'
