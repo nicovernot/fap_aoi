@@ -21,11 +21,11 @@ const cardr = Object.entries(champs).map(([key,value])=>{
         
         case 'int':
          
-                return (<li className="list-group-item" key={key}> {value.node.chplib} : <span class="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
+                return (<li className="list-group-item" key={key}> {value.node.chplib} : <span className="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
                 break;  
         case 'double':
          
-                    return (<li className="list-group-item" key={key}> {value.node.chplib} : <span class="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
+                    return (<li className="list-group-item" key={key}> {value.node.chplib} : <span className="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
                     break;  
             
         default:
