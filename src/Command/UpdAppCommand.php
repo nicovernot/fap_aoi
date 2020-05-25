@@ -3,6 +3,7 @@
 // src/Command/CreateUserCommand.php
 namespace App\Command;
 
+use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,6 +13,10 @@ use Symfony\Component\Filesystem\Filesystem;
 use Github\Client;
 use Symfony\Component\Process\Process;
 use Psr\Log\LoggerInterface;
+use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Component\Mime\Part\DataPart;
+use Symfony\Component\Mime\Part\Multipart\FormDataPart;
+
 
 class UpdAppCommand extends Command
 {
@@ -20,8 +25,9 @@ class UpdAppCommand extends Command
     protected $filesystem;
     protected $gitclient;
     private $logger;
+    private $client;
 
-    public function __construct(bool $requirePassword = false,Filesystem $filesystem,LoggerInterface $logger)
+    public function __construct(bool $requirePassword = false,Filesystem $filesystem,LoggerInterface $logger,HttpClientInterface $client)
     {
         // best practices recommend to call the parent constructor first and
         // then set your own properties. That wouldn't work in this case
@@ -29,7 +35,7 @@ class UpdAppCommand extends Command
         $this->requirePassword = $requirePassword;
         $this->filesystem =  new Filesystem();
         $this->gitclient = new \Github\Client();
-        
+        $this->client = $client;
         $this->logger = $logger;
         parent::__construct();
     }
@@ -70,21 +76,38 @@ class UpdAppCommand extends Command
     $message = $commits[0]["commit"]["message"];
     $author = $commits[0]["commit"]["author"]["name"];
     $output->write($message);
- 
-    $process = new Process(['ls']);
-    $process->run();
+
     
+    $process = new Process(['public/getbranch.sh']);
+    $process->run();
+    $localbranch = $process->getOutput();
     // executes after the command finishes
     if (!$process->isSuccessful()) {
         throw new ProcessFailedException($process);
     }
+
     $output->writeln('Username: '.$input->getArgument('username'));
     echo $process->getOutput();
+    $localCommit = $process->getOutput();
+    $response = $this->client->request('POST', 'https://eniybzrro26298t.m.pipedream.net', [
+        'json' => ['message' => $message,'author' => $author,'branch'=>$localbranch],
+    ]);
+    
+    $decodedPayload = $response; 
+    if (preg_match("/tdtt/", $message) and preg_match("/dev/", $localbranch) )
+    {
+        $this->logger->debug("the url $message contains guru");
+        $this->logger->debug($localbranch.date("Y-m-d h:i:sa") );
+        // ...
+        $this->logger->notice($author.date("Y-m-d h:i:sa") );
+    }
+    else
+    {
+        echo "the url $message does not contain guru";
+    }
     // $this->filesystem->touch('file.txt');
    // $this->filesystem->dumpFile('file.txt', 'Hello World');
-   $this->logger->debug('Some info'.date("Y-m-d h:i:sa") );
-   // ...
-   $this->logger->notice('Some more info'.date("Y-m-d h:i:sa") );
+
     return 0;
 }
 }
