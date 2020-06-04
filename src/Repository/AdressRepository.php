@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Abonnement;
+use App\Entity\Adress;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 
 /**
- * @method Abonnement|null find($id, $lockMode = null, $lockVersion = null)
- * @method Abonnement|null findOneBy(array $criteria, array $orderBy = null)
- * @method Abonnement[]    findAll()
- * @method Abonnement[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Adress|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Adress|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Adress[]    findAll()
+ * @method Adress[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class AbonnementRepository extends ServiceEntityRepository
+class AdressRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Abonnement::class);
+        parent::__construct($registry, Adress::class);
     }
 
     // /**
-    //  * @return Abonnement[] Returns an array of Abonnement objects
+    //  * @return Adress[] Returns an array of Adress objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class AbonnementRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Abonnement
+    public function findOneBySomeField($value): ?Adress
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

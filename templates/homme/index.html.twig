@@ -38,24 +38,19 @@
 
 </nav>
     {% endif %}
-  <p class="bg-success">Compte: {{ app.user.username }}</p>
+  <p class="alert alert-success animate__animated animate__fadeIn">{{ app.user ? 'Compte : '~ app.user.username : '<a href="/login">Se connecter</a>' }}</p>
   
 
-
- {% for mes in app.user.getMessages()%}
- <div class="alert alert-success alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>{{mes.message}}</strong>
-</div>
  
- {% endfor %}
 <script>
+{%if app.user %}
 localStorage.setItem("username", "{{  app.user.username }}" );
-localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
 localStorage.setItem("role", "{{app.user.roles[0]}}" );
+{% endif %}
+localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
 </script>
 
- <div id="root"  user="{{  app.user.username }}" baseurl="{{ app.request.getSchemeAndHttpHost() }}" role={{app.user.roles[0]}}></div>
+ <div id="root"  ></div>
  
 
 

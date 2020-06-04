@@ -33,7 +33,7 @@ function Titlelelement (props) {
 
     function Imgelement (props) {
     
-        const ue = <img  className="w-75"  src={props.img}/>
+        const ue = <img  className="w-30"  src={props.img}/>
         return (
             <div>
                 {ue}

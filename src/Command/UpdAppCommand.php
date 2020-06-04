@@ -78,17 +78,19 @@ class UpdAppCommand extends Command
     $output->write($message);
 
     
-    $process = new Process(['public/getbranch.sh']);
+    $process = new Process(['git','log','-n','1']);
+    $process->setWorkingDirectory('/app/myapp/');
     $process->run();
+   
     $localbranch = $process->getOutput();
     // executes after the command finishes
     if (!$process->isSuccessful()) {
         throw new ProcessFailedException($process);
     }
-
+    
     $output->writeln('Username: '.$input->getArgument('username'));
     echo $process->getOutput();
-    $localCommit = $process->getOutput();
+    
     $response = $this->client->request('POST', 'https://eniybzrro26298t.m.pipedream.net', [
         'json' => ['message' => $message,'author' => $author,'branch'=>$localbranch],
     ]);

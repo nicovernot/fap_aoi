@@ -81,40 +81,18 @@ class User implements UserInterface
     private $tel;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",name="datenaissance")
      * @Groups({"read", "write"})
      */
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,name="lieunaissance")
      * @Groups({"read", "write"})
      */
     private $lieuNaissance;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private $rue;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
-     */
-    private $numeroRue;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
-     */
-    private $codepostal;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="client")
@@ -129,12 +107,23 @@ class User implements UserInterface
      */
     private $appli;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Adress", mappedBy="user")
+     */
+    private $adress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apitoken;
+
 
    
 
     public function __construct()
     {
         $this->messages = new ArrayCollection();
+        $this->adress = new ArrayCollection();
       
     }
 
@@ -276,53 +265,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
-
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
-
-        return $this;
-    }
-
-    public function getNumeroRue(): ?int
-    {
-        return $this->numeroRue;
-    }
-
-    public function setNumeroRue(int $numeroRue): self
-    {
-        $this->numeroRue = $numeroRue;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getCodepostal(): ?int
-    {
-        return $this->codepostal;
-    }
-
-    public function setCodepostal(int $codepostal): self
-    {
-        $this->codepostal = $codepostal;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Message[]
@@ -351,6 +293,7 @@ class User implements UserInterface
 
         return $this;
     }
+    
     public function __toString()
     {
         return $this->getEmail() ?: '';
@@ -366,6 +309,49 @@ class User implements UserInterface
     public function setAppli(?Appli $appli): self
     {
         $this->appli = $appli;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adress[]
+     */
+    public function getAdress(): Collection
+    {
+        return $this->adress;
+    }
+
+    public function addAdress(Adress $adress): self
+    {
+        if (!$this->adress->contains($adress)) {
+            $this->adress[] = $adress;
+            $adress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adress $adress): self
+    {
+        if ($this->adress->contains($adress)) {
+            $this->adress->removeElement($adress);
+            // set the owning side to null (unless already changed)
+            if ($adress->getUser() === $this) {
+                $adress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getApitoken(): ?string
+    {
+        return $this->apitoken;
+    }
+
+    public function setApitoken(?string $apitoken): self
+    {
+        $this->apitoken = $apitoken;
 
         return $this;
     }

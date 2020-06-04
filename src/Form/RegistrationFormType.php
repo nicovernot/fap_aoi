@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,6 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -25,10 +27,6 @@ class RegistrationFormType extends AbstractType
         ->add('dateNaissance', DateTimeType::class)
         ->add('lieuNaissance', TextType::class)
         ->add('tel', TelType::class)
-        ->add('rue', TextType::class)
-        ->add('numeroRue', NumberType::class)
-        ->add('ville', TextType::class)
-        ->add('codepostal', NumberType::class)
         ->add('email', EmailType::class)
         ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
@@ -53,6 +51,7 @@ class RegistrationFormType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+           
         ]);
     }
 }

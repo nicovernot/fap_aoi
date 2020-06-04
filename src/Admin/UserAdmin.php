@@ -24,10 +24,8 @@ final class UserAdmin extends AbstractAdmin
 			->add('tel')
 			->add('dateNaissance')
 			->add('lieuNaissance')
-			->add('rue')
-			->add('numeroRue')
-			->add('ville')
-			->add('codepostal')
+			->add('adress')
+			
 			;
     }
 
@@ -43,10 +41,7 @@ final class UserAdmin extends AbstractAdmin
 			->add('tel')
 			->add('dateNaissance')
 			->add('lieuNaissance')
-			->add('rue')
-			->add('numeroRue')
-			->add('ville')
-			->add('codepostal')
+	
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -68,29 +63,23 @@ final class UserAdmin extends AbstractAdmin
 			->add('tel')
 			->add('dateNaissance')
 			->add('lieuNaissance')
-			->add('rue')
-			->add('numeroRue')
-			->add('ville')
-			->add('codepostal')
+			->add('adress')
 			;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
+		$AdresseFieldOptions = [];
         $showMapper
 		
 			->add('email')
-			
-		
 			->add('nom')
 			->add('prenom')
 			->add('tel')
 			->add('dateNaissance')
 			->add('lieuNaissance')
-			->add('rue')
-			->add('numeroRue')
-			->add('ville')
-			->add('codepostal')
+			->add('adress', ModelType::class, $AdresseFieldOptions)
+			
 			;
     }
 }

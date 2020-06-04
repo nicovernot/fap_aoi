@@ -77,37 +77,47 @@ services:
             - [addChild, ['@admin.Ssmenu']]
 
 
-
-    admin.image:
-        class: App\Admin\ImageAdmin
-        arguments: [~, App\Entity\Image, App\Controller\ImageAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Image }
-        public: true
-
-    admin.magazine:
-        class: App\Admin\MagazineAdmin
-        arguments: [~, App\Entity\Magazine, App\Controller\MagazineAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Magazine }
-        public: true
-
-    admin.type_message:
+    projet.type_message:
         class: App\Admin\TypeMessageAdmin
         arguments: [~, App\Entity\TypeMessage, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeMessage }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: TypeMessage }
         public: true
 
-    admin.message:
+    projet.message:
         class: App\Admin\MessageAdmin
         arguments: [~, App\Entity\Message, App\Controller\MessageAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Message }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Message }
         public: true
         
+    projet.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: User }
+        public: true
 
+    admin.appli:
+        class: App\Admin\AppliAdmin
+        arguments: [~, App\Entity\Appli, App\Controller\AppliAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Appli }
+        public: true
 
+    projet.image:
+        class: App\Admin\ImageAdmin
+        arguments: [~, App\Entity\Image, App\Controller\ImageAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Image }
+        public: true
+
+    projet.magazine:
+        class: App\Admin\MagazineAdmin
+        arguments: [~, App\Entity\Magazine, App\Controller\MagazineAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Magazine }
+        public: true
 
     
     App\Service\FileUploader:  
@@ -124,19 +134,7 @@ services:
         arguments:
             $imagePath: '%image_directory%'
 
-    admin.user:
-        class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
-        public: true
 
-    admin.appli:
-        class: App\Admin\AppliAdmin
-        arguments: [~, App\Entity\Appli, App\Controller\AppliAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Appli }
-        public: true
 
     App\Doctrine\CurrentUserExtension:
         tags:

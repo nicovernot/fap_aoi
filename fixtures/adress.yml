@@ -1,0 +1,13 @@
+App\Entity\Adress:
+    adress:
+        ville: <city()>
+        nrue: <buildingNumber()>
+        nomrue: <name()>
+        codepostal: <postcode()>  
+        user: '@user'
+    adress{1..10}:
+        ville: <city()>
+        nrue: <buildingNumber()>
+        nomrue: <name()>
+        codepostal: 13013 
+        user: '@user*'

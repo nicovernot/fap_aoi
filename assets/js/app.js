@@ -1,12 +1,14 @@
 import React, { Component,useState,useEffect,useCallback } from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import raw from './airtable.json'
 import qr from './services/QueryService'
 import Menu from './Menu';
 import Tableau from './Tableau'
 import axios from 'axios';
 import {Strelement,Urlelement,Titlelelement,Imgelement,Btnelement} from './Element'
 import Cards from './Cards'
+import Home from './Home'
 import {
   BrowserRouter as Router,
   Redirect,
@@ -39,20 +41,39 @@ class App extends React.Component {
 
       gettree = (id,list,itemq) => {
         let finalquery =""
-        const    url1 = localStorage.getItem("url")
-        console.log(url1)
+        let key = raw.key
+        let headers = {
+         
+          'Authorization': `Bearer ${key}` 
+        }
+        
+        let  url1 = localStorage.getItem("url")
+           url1 =    url1+'/api/graphql'   
+         let method 
         switch(id){
           case 1 : 
             finalquery =  qr.genQuery;
+            method ='post'
             break;
           case 2:
             finalquery = list;  
+            method ='post'
             break;
+          case 3:
+              url1 = raw.url  
+              const key = raw.key
+              finalquery = '{}';  
+              let headers = {
+               
+                'Authorization': `Baerer ${raw.key}̀`             }
+              method ='get'
+              break;  
           }
          
                axios({
-                 url: url1+'/api/graphql',
-                 method: 'post',
+                 url: url1,
+                 method: method,
+                 headers: headers,
                  data: {
                    query: finalquery
                  }
@@ -64,8 +85,23 @@ class App extends React.Component {
                     localStorage.setItem('menus', JSON.stringify(menus));
                   break;
                   case 2:
-                    const x = itemq
-                    const data = result.data.data[x].edges;
+                    let x = itemq
+                    let data = result.data.data[x].edges;
+                    console.log(data)
+                    this.setState({ data });
+                  break;  
+                  case 3:
+                    let x1 = itemq
+                    const data1 = result.data.records ;
+
+                    let reduc1 = []
+                    let temp = []
+                    data1.forEach(element => {
+                     //temp.push(element.fields)
+                     reduc1.push({node: element.fields});    
+                    });
+                    data = reduc1   
+                    //console.log(reduc1)
                     this.setState({ data });
                   break;  
                 }
@@ -76,6 +112,7 @@ class App extends React.Component {
 
      tst= (ssm,urlp)=> {
       window.history.pushState('page2', 'Title', urlp);
+      
       this.setState({ ssm });
       if(ssm)
       {
@@ -99,8 +136,9 @@ class App extends React.Component {
     this.setState({ listchmp });
      const ongquery = qr.list(listchmp,query)
      this.setState({ ongquery });
-   
-     this.gettree(2,ongquery,query) 
+     // definir dams admin ssmenu sscom le type de requete pour le sous menu 
+    
+     this.gettree(parseInt(ssm.node.ssmcom),ongquery,query) 
     }
 
     urlresolver = () => {
@@ -113,20 +151,25 @@ class App extends React.Component {
      if(this.state.data.length==0 && localssm){
        this.tst(localssm,queryString)
      }
+
     }
 
- initapp = () => {
- const    url = localStorage.getItem("url")
-  this.setState({url})
-  const    user = localStorage.getItem("username")
-  this.setState({user})
-  const    role = localStorage.getItem("role")
-  this.setState({role})
- }
+ 
+
+    initapp = () => {
+    const    url = localStorage.getItem("url")
+      this.setState({url})
+      const    user = localStorage.getItem("username")
+      this.setState({user})
+      const    role = localStorage.getItem("role")
+      this.setState({role})
+      console.log(raw.key)
+    }
     componentDidMount() {
        this.initapp()   
        this.gettree(1) 
        this.urlresolver()
+      
       }
       
 
@@ -142,12 +185,13 @@ class App extends React.Component {
         
 
       <Router>
-        <div>
+        <div className="container">
          <QueryParam ssm={this.state.ssm}  menus={this.state.menus} getData={this.state.data}/>
         
         </div>
-   
       </Router>
+
+     
         </div>
       );
     }
@@ -160,17 +204,17 @@ class App extends React.Component {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString)
     const menu = urlParams.get('name')
- 
     const ssm = props.ssm
     let ong = []
     let data = []
     data = props.getData
-
+    console.log(data)
     for (let [key, value] of Object.entries(ssm)) {
+      console.log(value.onglet.edges[0].node.champs.edges)
       ong = value.onglet.edges[0].node.champs.edges
     }
+
    
-    
     const Child = props => 
      <div>
     {menu ? (
@@ -183,7 +227,7 @@ class App extends React.Component {
   </div>;
 
     return (
-      <div>
+      <div >
      
         <Child/>
         
@@ -197,13 +241,16 @@ class App extends React.Component {
     let reduc = []
     let listchmp =[]
     result.forEach(element => {
+    
      reduc.push({Header: element.node.chplib,accessor:element.node.chplib});    
      listchmp.push(element.node.chplib)
     });
     let nodedata = []
     data1.forEach(element => {
-    nodedata.push(element.node)
+        nodedata.push(element.node)
     });   
+    
+    console.log(data1)
 
     const columns = React.useMemo(
       () => reduc,
@@ -229,20 +276,12 @@ class App extends React.Component {
         break;  
       case 'cards':
        
-        return <Cards columns={result} data={data}/>;
+        return <Cards  columns={result} data={data}/>;
         break;    
     }
   }
 
  
-  
-  function Home() {
-    return (
-      <div>
-        <h2>Home</h2>
-      </div>
-    );
-  }
 
   function About() {
     return (

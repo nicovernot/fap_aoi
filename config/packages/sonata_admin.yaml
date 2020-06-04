@@ -23,6 +23,9 @@ sonata_admin:
 
             admin:
 
+
+            projet:
+
     
 
 
@@ -86,12 +89,12 @@ sonata_admin:
                 settings:
                     template : dash.html.twig 
             -
-                position: right
+                position: left
                 type: sonata.block.service.rss
-                roles: [POST_READER]
+                
                 settings:
-                    title: Sonata Project's Feeds
-                    url: https://sonata-project.org/blog/archive.rss
+                    title: Trello's Feeds
+                    url: https://zapier.com/engine/rss/7591280/trellorss
     breadcrumbs:
   # use this to change the default route used to generate the link
        # to the parent object inside a breadcrumb, when in a child admin
