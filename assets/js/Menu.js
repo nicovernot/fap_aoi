@@ -33,8 +33,8 @@ function Menu(props)  {
         return (
          
 
-<Navbar bg="light" expand="lg" className="justify-content-between sticky-top">
-<Navbar.Brand href="#home">Mes projets</Navbar.Brand>
+<Navbar bg="light" expand="lg" className="justify-content-between sticky-top lead">
+<Navbar.Brand href="#home"><i class='fas fa-leaf' style={{'font-size':'36px'}}></i> Mes projets </Navbar.Brand>
 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 <Navbar.Collapse id="basic-navbar-nav">
 <Nav defaultActiveKey="/home" as="ul">
