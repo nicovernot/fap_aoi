@@ -266,10 +266,7 @@ class App extends React.Component {
        
         return <Home/>;
         break;
-      case 'contact':
-      
-        return <About/>;
-        break;
+ 
       case 'recherche':
        
         return <Tableau columns={columns} data={data}/>;
@@ -283,14 +280,6 @@ class App extends React.Component {
 
  
 
-  function About() {
-    return (
-      <div>
-        <h2>About</h2>
-      </div>
-    );
-  }
-  
  
 
   ReactDOM.render(

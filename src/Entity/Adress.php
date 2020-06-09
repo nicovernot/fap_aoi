@@ -43,6 +43,11 @@ class Adress
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\EnergieApresTravaux")
+     */
+    private $energie;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -112,4 +117,17 @@ class Adress
         $retour =$this->getVille().' '.$this->getNrue().' '.$this->getNomrue().' '.$this->getCodepostal();
         return $retour ?: '';
     }
+
+    public function getEnergie(): ?EnergieApresTravaux
+    {
+        return $this->energie;
+    }
+
+    public function setEnergie(?EnergieApresTravaux $energie): self
+    {
+        $this->energie = $energie;
+
+        return $this;
+    }
 }
+

@@ -46,7 +46,7 @@ const cardr = Object.entries(champs).map(([key,value])=>{
   })
     return (
    
-       <Card className="mx-auto col p-3 alert alert-primary w-40 animate__animated animate__fadeIn">
+       <Card className="mx-auto col p-3 alert alert-primary w-40 ">
             {cardr}
        </Card>
     

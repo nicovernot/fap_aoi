@@ -25,7 +25,7 @@ function Menu(props)  {
      : 
     (<Nav.Item>
         <Nav.Link href={"?name="+men.node.menphp} key={men.node.mencom} > 
-          {men.node.mencom} 
+         {men.node.mencom}
         </Nav.Link>
     </Nav.Item> ));
 
@@ -34,12 +34,12 @@ function Menu(props)  {
          
 
 <Navbar bg="light" expand="lg" className="justify-content-between sticky-top lead">
-<Navbar.Brand href="#home"><i class='fas fa-leaf' style={{'font-size':'36px'}}></i> Mes projets </Navbar.Brand>
+<Navbar.Brand className="alert-secondary" href="#home"><i class='fas fa-leaf' style={{'font-size':'36px'}}></i>Mes projets </Navbar.Brand>
 <Navbar.Toggle aria-controls="basic-navbar-nav" />
 <Navbar.Collapse id="basic-navbar-nav">
 <Nav defaultActiveKey="/home" as="ul">
               <Nav.Item>
-           <Nav.Link href="/">home</Nav.Link>
+           <Nav.Link href="/">home </Nav.Link>
              </Nav.Item>
           {listItems}
           </Nav>

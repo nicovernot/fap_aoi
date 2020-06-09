@@ -16,7 +16,7 @@ class AdressType extends AbstractType
             ->add('nrue')
             ->add('nomrue')
             ->add('codepostal')
-            ->add('user')
+           /// ->add('user')
         ;
     }
 

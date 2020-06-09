@@ -42,6 +42,11 @@ class Message
      */
     private $typeMessages;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="message")
+     */
+    private $projet;
+
     public function __construct()
     {
         $this->client = new ArrayCollection();
@@ -131,6 +136,18 @@ class Message
             $this->typeMessages->removeElement($typeMessage);
             $typeMessage->removeMessage($this);
         }
+
+        return $this;
+    }
+
+    public function getProjet(): ?Projet
+    {
+        return $this->projet;
+    }
+
+    public function setProjet(?Projet $projet): self
+    {
+        $this->projet = $projet;
 
         return $this;
     }

@@ -117,6 +117,21 @@ class User implements UserInterface
      */
     private $apitoken;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="user")
+     */
+    private $documents;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="user")
+     */
+    private $projets;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="projectadmin")
+     */
+    private $adminprojs;
+
 
    
 
@@ -124,6 +139,9 @@ class User implements UserInterface
     {
         $this->messages = new ArrayCollection();
         $this->adress = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->projets = new ArrayCollection();
+        $this->adminprojs = new ArrayCollection();
       
     }
 
@@ -352,6 +370,99 @@ class User implements UserInterface
     public function setApitoken(?string $apitoken): self
     {
         $this->apitoken = $apitoken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getUser() === $this) {
+                $document->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjets(): Collection
+    {
+        return $this->projets;
+    }
+
+    public function addProjet(Projet $projet): self
+    {
+        if (!$this->projets->contains($projet)) {
+            $this->projets[] = $projet;
+            $projet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        if ($this->projets->contains($projet)) {
+            $this->projets->removeElement($projet);
+            // set the owning side to null (unless already changed)
+            if ($projet->getUser() === $this) {
+                $projet->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getAdminprojs(): Collection
+    {
+        return $this->adminprojs;
+    }
+
+    public function addAdminproj(Projet $adminproj): self
+    {
+        if (!$this->adminprojs->contains($adminproj)) {
+            $this->adminprojs[] = $adminproj;
+            $adminproj->setProjectadmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdminproj(Projet $adminproj): self
+    {
+        if ($this->adminprojs->contains($adminproj)) {
+            $this->adminprojs->removeElement($adminproj);
+            // set the owning side to null (unless already changed)
+            if ($adminproj->getProjectadmin() === $this) {
+                $adminproj->setProjectadmin(null);
+            }
+        }
 
         return $this;
     }

@@ -84,4 +84,5 @@ class TypeMessage
 
         return $this;
     }
+    
 }

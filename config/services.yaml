@@ -157,4 +157,39 @@ services:
 
     App\Mercure\CookieGenerator:
         arguments:
-            $secret: '%env(MERCURE_JWT_KEY)%'    
+            $secret: '%env(MERCURE_JWT_KEY)%'
+
+    projet.document:
+        class: App\Admin\DocumentAdmin
+        arguments: [~, App\Entity\Document, App\Controller\DocumentAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Document }
+        public: true
+
+    admin.type_projet:
+        class: App\Admin\TypeProjetAdmin
+        arguments: [~, App\Entity\TypeProjet, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeProjet }
+        public: true
+
+    admin.famille_projet:
+        class: App\Admin\FamilleProjetAdmin
+        arguments: [~, App\Entity\FamilleProjet, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: FamilleProjet }
+        public: true
+
+    admin.condition:
+        class: App\Admin\ConditionAdmin
+        arguments: [~, App\Entity\Condition, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Condition }
+        public: true
+
+    admin.projet:
+        class: App\Admin\ProjetAdmin
+        arguments: [~, App\Entity\Projet, App\Controller\ProjetAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Projet }
+        public: true

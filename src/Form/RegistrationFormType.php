@@ -16,6 +16,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -28,6 +29,11 @@ class RegistrationFormType extends AbstractType
         ->add('lieuNaissance', TextType::class)
         ->add('tel', TelType::class)
         ->add('email', EmailType::class)
+        ->add('adress', CollectionType::class, [
+            'entry_type' => AdressType::class,
+            'entry_options' => ['label' => false],
+            'allow_add' => true,
+        ])
         ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -45,6 +51,7 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
