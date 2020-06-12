@@ -81,14 +81,14 @@ services:
         class: App\Admin\TypeMessageAdmin
         arguments: [~, App\Entity\TypeMessage, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: TypeMessage }
+            - { name: sonata.admin, manager_type: orm, group: message, label: TypeMessage }
         public: true
 
     projet.message:
         class: App\Admin\MessageAdmin
         arguments: [~, App\Entity\Message, App\Controller\MessageAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: Message }
+            - { name: sonata.admin, manager_type: orm, group: message, label: Message }
         public: true
         
     projet.user:
@@ -159,37 +159,86 @@ services:
         arguments:
             $secret: '%env(MERCURE_JWT_KEY)%'
 
-    projet.document:
+    admin.document:
         class: App\Admin\DocumentAdmin
         arguments: [~, App\Entity\Document, App\Controller\DocumentAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Document }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Document }
         public: true
 
     admin.type_projet:
         class: App\Admin\TypeProjetAdmin
         arguments: [~, App\Entity\TypeProjet, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeProjet }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: TypeProjet }
         public: true
 
     admin.famille_projet:
         class: App\Admin\FamilleProjetAdmin
         arguments: [~, App\Entity\FamilleProjet, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: FamilleProjet }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: FamilleProjet }
         public: true
 
     admin.condition:
         class: App\Admin\ConditionAdmin
         arguments: [~, App\Entity\Condition, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Condition }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Condition }
         public: true
 
     admin.projet:
         class: App\Admin\ProjetAdmin
         arguments: [~, App\Entity\Projet, App\Controller\ProjetAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Projet }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Projet }
+        public: true
+
+    admin.energie_apres_travaux:
+        class: App\Admin\EnergieApresTravauxAdmin
+        arguments: [~, App\Entity\EnergieApresTravaux, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: EnergieApresTravaux }
+        public: true
+
+    admin.departement:
+        class: App\Admin\DepartementAdmin
+        arguments: [~, App\Entity\Departement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: Departement }
+        public: true
+
+    admin.type_habitation:
+        class: App\Admin\TypeHabitationAdmin
+        arguments: [~, App\Entity\TypeHabitation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: TypeHabitation }
+        public: true
+
+    admin.taille_surface:
+        class: App\Admin\TailleSurfaceAdmin
+        arguments: [~, App\Entity\TailleSurface, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: TailleSurface }
+        public: true
+
+    admin.adress:
+        class: App\Admin\AdressAdmin
+        arguments: [~, App\Entity\Adress, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: Adress }
+        public: true
+
+    admin.place:
+        class: App\Admin\PlaceAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: Place }
+        public: true
+
+    admin.type_place:
+        class: App\Admin\TypePlaceAdmin
+        arguments: [~, App\Entity\TypePlace, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: TypePlace }
         public: true

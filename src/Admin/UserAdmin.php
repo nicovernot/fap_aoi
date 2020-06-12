@@ -81,7 +81,7 @@ final class UserAdmin extends AbstractAdmin
 		
 			->add('email')
 			->add('nom')
-			//->add('roles')	
+			->add('roles')	
 			->add('prenom')
 			->add('tel')
 			->add('dateNaissance')

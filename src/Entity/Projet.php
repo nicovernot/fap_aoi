@@ -66,6 +66,11 @@ class Projet
      */
     private $nom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Adress", inversedBy="projet")
+     */
+    private $adress;
+
     public function __construct()
     {
         $this->message = new ArrayCollection();
@@ -223,6 +228,18 @@ class Projet
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+    public function getAdress(): ?Adress
+    {
+        return $this->adress;
+    }
+
+    public function setAdress(?Adress $adress): self
+    {
+        $this->adress = $adress;
 
         return $this;
     }

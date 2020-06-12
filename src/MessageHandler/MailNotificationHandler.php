@@ -35,17 +35,17 @@ class MailNotificationHandler implements MessageHandlerInterface
     }
 
     public function __invoke(MailNotification $message)
-    {
-        
+    { 
+       $content = $message->getContent();  
         $mail = (new \Swift_Message('Hello Email'))
         ->setFrom('niveco13380@gmail.com')
-        ->setTo('nicovernot@gmail.com')
-        ->setBody('You should see me from the profiler!')
+        ->setTo($message->getUserMail())
+        ->setBody($content)
     ;
-
+var_dump($message);
     $this->mailer->send($mail);
     
-    $this->logger->info('I just got the logger');
+    $this->logger->info($content);
     $this->logger->error('An error occurred');
 
     }

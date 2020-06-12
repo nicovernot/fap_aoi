@@ -32,25 +32,31 @@ class Message
 
 
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="messages")
-     */
-    private $client;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\TypeMessage", mappedBy="message")
-     */
-    private $typeMessages;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Projet", inversedBy="message")
      */
     private $projet;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="destinatairemessages")
+     */
+    private $destinataire;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="emeteurmesages")
+     */
+    private $emeteur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeMessage", inversedBy="messages")
+     */
+    private $typemessage;
+
     public function __construct()
     {
-        $this->client = new ArrayCollection();
-        $this->typeMessages = new ArrayCollection();
+   
     }
 
     public function getId(): ?int
@@ -86,59 +92,6 @@ class Message
         return $this;
     }
 
-    /**
-     * @return Collection|User[]
-     */
-    public function getClient(): Collection
-    {
-        return $this->client;
-    }
-
-    public function addClient(User $client): self
-    {
-        if (!$this->client->contains($client)) {
-            $this->client[] = $client;
-        }
-
-        return $this;
-    }
-
-    public function removeClient(User $client): self
-    {
-        if ($this->client->contains($client)) {
-            $this->client->removeElement($client);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|TypeMessage[]
-     */
-    public function getTypeMessages(): Collection
-    {
-        return $this->typeMessages;
-    }
-
-    public function addTypeMessage(TypeMessage $typeMessage): self
-    {
-        if (!$this->typeMessages->contains($typeMessage)) {
-            $this->typeMessages[] = $typeMessage;
-            $typeMessage->addMessage($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTypeMessage(TypeMessage $typeMessage): self
-    {
-        if ($this->typeMessages->contains($typeMessage)) {
-            $this->typeMessages->removeElement($typeMessage);
-            $typeMessage->removeMessage($this);
-        }
-
-        return $this;
-    }
 
     public function getProjet(): ?Projet
     {
@@ -148,6 +101,46 @@ class Message
     public function setProjet(?Projet $projet): self
     {
         $this->projet = $projet;
+
+        return $this;
+    }
+
+    public function getDestinataire(): ?User
+    {
+        return $this->destinataire;
+    }
+
+    public function setDestinataire(?User $destinataire): self
+    {
+        $this->destinataire = $destinataire;
+
+        return $this;
+    }
+    public function __toString()
+    {
+        return "message" ?: '';
+    }
+
+    public function getEmeteur(): ?User
+    {
+        return $this->emeteur;
+    }
+
+    public function setEmeteur(?User $emeteur): self
+    {
+        $this->emeteur = $emeteur;
+
+        return $this;
+    }
+
+    public function getTypemessage(): ?TypeMessage
+    {
+        return $this->typemessage;
+    }
+
+    public function setTypemessage(?TypeMessage $typemessage): self
+    {
+        $this->typemessage = $typemessage;
 
         return $this;
     }

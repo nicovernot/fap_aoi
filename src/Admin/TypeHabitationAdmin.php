@@ -10,25 +10,22 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
-final class ConditionAdmin extends AbstractAdmin
+final class TypeHabitationAdmin extends AbstractAdmin
 {
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-           
+         
             ->add('nom')
-            ->add('description')
             ;
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-           
+          
             ->add('nom')
-            ->add('description')
-            ->add('place')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -43,18 +40,14 @@ final class ConditionAdmin extends AbstractAdmin
         $formMapper
            
             ->add('nom')
-            ->add('description')
-            ->add('place')
             ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-          
+         
             ->add('nom')
-            ->add('description')
-            ->add('place')
             ;
     }
 }

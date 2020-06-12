@@ -26,7 +26,7 @@ class TypeProjet
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=600)
      */
     private $description;
 
@@ -39,6 +39,11 @@ class TypeProjet
      * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="typeprojet")
      */
     private $projets;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\FamilleProjet", inversedBy="typeProjets")
+     */
+    private $familleprojet;
 
     public function __construct()
     {
@@ -139,5 +144,17 @@ class TypeProjet
     public function __toString()
     {
         return $this->getNom() ?: '';
+    }
+
+    public function getFamilleprojet(): ?FamilleProjet
+    {
+        return $this->familleprojet;
+    }
+
+    public function setFamilleprojet(?FamilleProjet $familleprojet): self
+    {
+        $this->familleprojet = $familleprojet;
+
+        return $this;
     }
 }

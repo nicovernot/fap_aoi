@@ -93,15 +93,6 @@ class User implements UserInterface
     private $lieuNaissance;
 
 
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="client")
-     * @Groups({"read", "write"})
-     */
-    private $messages;
-
-
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Appli", inversedBy="client")
      */
@@ -132,16 +123,28 @@ class User implements UserInterface
      */
     private $adminprojs;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="destinataire")
+     */
+    private $destinatairemessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="emeteur")
+     */
+    private $emeteurmesages;
+
 
    
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+       
         $this->adress = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->projets = new ArrayCollection();
         $this->adminprojs = new ArrayCollection();
+        $this->destinatairemessages = new ArrayCollection();
+        $this->emeteurmesages = new ArrayCollection();
       
     }
 
@@ -284,33 +287,7 @@ class User implements UserInterface
     }
 
 
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
 
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->addClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            $message->removeClient($this);
-        }
-
-        return $this;
-    }
     
     public function __toString()
     {
@@ -461,6 +438,68 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($adminproj->getProjectadmin() === $this) {
                 $adminproj->setProjectadmin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getDestinatairemessages(): Collection
+    {
+        return $this->destinatairemessages;
+    }
+
+    public function addDestinatairemessage(Message $destinatairemessage): self
+    {
+        if (!$this->destinatairemessages->contains($destinatairemessage)) {
+            $this->destinatairemessages[] = $destinatairemessage;
+            $destinatairemessage->setDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDestinatairemessage(Message $destinatairemessage): self
+    {
+        if ($this->destinatairemessages->contains($destinatairemessage)) {
+            $this->destinatairemessages->removeElement($destinatairemessage);
+            // set the owning side to null (unless already changed)
+            if ($destinatairemessage->getDestinataire() === $this) {
+                $destinatairemessage->setDestinataire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getEmeteurmesages(): Collection
+    {
+        return $this->emeteurmesages;
+    }
+
+    public function addEmeteurmesage(Message $emeteurmesage): self
+    {
+        if (!$this->emeteurmesages->contains($emeteurmesage)) {
+            $this->emeteurmesages[] = $emeteurmesage;
+            $emeteurmesage->setEmeteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmeteurmesage(Message $emeteurmesage): self
+    {
+        if ($this->emeteurmesages->contains($emeteurmesage)) {
+            $this->emeteurmesages->removeElement($emeteurmesage);
+            // set the owning side to null (unless already changed)
+            if ($emeteurmesage->getEmeteur() === $this) {
+                $emeteurmesage->setEmeteur(null);
             }
         }
 
