@@ -28,7 +28,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('projectadmin')
             ->add('documents')
             ->add('adress')   
-            ->add('place')
+      
             ;
     }
 
@@ -43,7 +43,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('projectadmin')
             ->add('documents')
             ->add('adress')   
-            ->add('place')
+         
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -56,13 +56,16 @@ final class ProjetAdmin extends AbstractAdmin
     protected function configureFormFields(FormMapper $formMapper): void
     {    
        
-        
+
         $formMapper
            
             ->add('datedevis')
             ->add('datefacture')
             ->add('nom')
             ->add('user')
+            ;
+
+            $formMapper  
             ->add('projectadmin',ModelAutocompleteType::class, [
                 'property' => 'email', 
                 
@@ -80,24 +83,8 @@ final class ProjetAdmin extends AbstractAdmin
                 },
             ])
             ->add('documents')
-            ->add('adress', ModelAutocompleteType::class, [
-                'property' => 'adress',
-                'placeholder' => "Adresse",
-                'req_params' => function($entity, $property) {
-                    return $entity->getUser();
-                },
-                'callback' => function ($admin, $property, $value) {
-                    $datagrid = $admin->getDatagrid();
-                    $queryBuilder = $datagrid->getQuery();
-                    $admin->getRequest()->get('req_params');
-                    $queryBuilder
-                        ->andWhere($queryBuilder->getRootAlias() . '.user=:user')
-                        ->setParameter('user', 2 )
-                    ;
-                    $datagrid->setValue($property, null, $value);
-                },
-            ])   
-            ->add('place')
+            ->add('adress')   
+   
             ;
     }
 
@@ -117,7 +104,7 @@ final class ProjetAdmin extends AbstractAdmin
         ->add('projectadmin')
         ->add('documents')
         ->add('adress')   
-        ->add('place')
+ 
             // ...
         ->end()
     ->end()

@@ -47,9 +47,9 @@ class Projet
     private $documents;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Place")
+     * @ORM\Column(type="string", length=100,options={"default":"draft"})
      */
-    private $place;
+    private $place1;
 
     /**
      * @ORM\Column(type="date", nullable=true)
@@ -180,15 +180,20 @@ class Projet
         return $this;
     }
 
-    public function getPlace(): ?Place
+
+    public function getPlace1(): ?string
     {
-        return $this->place;
+        return $this->place1;
     }
 
-    public function setPlace(?Place $place): self
+    /**
+     * @param string $place1
+     *
+     * @return Projet
+     */
+    public function setPlace1(string $place1): self
     {
-        $this->place = $place;
-
+        $this->place1 = $place1;
         return $this;
     }
 

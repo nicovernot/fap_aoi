@@ -54,6 +54,11 @@ class Message
      */
     private $typemessage;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $sent;
+
     public function __construct()
     {
    
@@ -141,6 +146,18 @@ class Message
     public function setTypemessage(?TypeMessage $typemessage): self
     {
         $this->typemessage = $typemessage;
+
+        return $this;
+    }
+
+    public function getSent(): ?bool
+    {
+        return $this->sent;
+    }
+
+    public function setSent(bool $sent): self
+    {
+        $this->sent = $sent;
 
         return $this;
     }

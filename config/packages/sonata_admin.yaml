@@ -1,7 +1,11 @@
 sonata_admin:
+
     title: 'Project Admin'
     title_logo: ieilogo.png
-    
+    extensions:
+        admin.extension.workflow.projet:
+            admins:
+                - admin.projet     
     dashboard:
         groups:
             Divers:

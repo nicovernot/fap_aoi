@@ -1,12 +1,10 @@
 framework:
     workflows: 
-         projet_publishing:
-            type: 'workflow' # or 'state_machine'
-            audit_trail:
-                enabled: true
+         projet:
+            type: 'state_machine'
             marking_store:
                 type: 'method'
-                property: 'place'
+                property: 'place1'
             supports:
                 - App\Entity\Projet
             initial_marking: draft

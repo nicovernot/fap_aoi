@@ -32,7 +32,7 @@ final class MessageAdmin extends AbstractAdmin
 			->add('message')
             ->add('date')
             ->add('typemessage')
-            
+            ->add('sent')
 			;
     }
 
@@ -44,7 +44,8 @@ final class MessageAdmin extends AbstractAdmin
 			->add('message')
             ->add('date')
             ->add('typemessage')
-            
+            ->add('sent')
+         
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -66,7 +67,9 @@ final class MessageAdmin extends AbstractAdmin
             ->add('message')
             ->add('typemessage')
 			->add('date')
-			;
+            ->add('sent')
+
+            ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
@@ -77,6 +80,8 @@ final class MessageAdmin extends AbstractAdmin
 		->add('message')
 		->add('date')
         ->add('typemessage')
-			;
+        ->add('sent')
+
+        ;
     }
 }

@@ -112,12 +112,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: projet, label: Image }
         public: true
 
-    projet.magazine:
-        class: App\Admin\MagazineAdmin
-        arguments: [~, App\Entity\Magazine, App\Controller\MagazineAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: Magazine }
-        public: true
+
 
     
     App\Service\FileUploader:  
@@ -170,29 +165,40 @@ services:
         class: App\Admin\TypeProjetAdmin
         arguments: [~, App\Entity\TypeProjet, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: TypeProjet }
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: TypeProjet }
         public: true
 
     admin.famille_projet:
         class: App\Admin\FamilleProjetAdmin
         arguments: [~, App\Entity\FamilleProjet, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: FamilleProjet }
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: FamilleProjet }
         public: true
 
-    admin.condition:
+    
+
+    projet.condition:
         class: App\Admin\ConditionAdmin
         arguments: [~, App\Entity\Condition, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: projet, label: Condition }
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: Condition }
         public: true
 
     admin.projet:
         class: App\Admin\ProjetAdmin
-        arguments: [~, App\Entity\Projet, App\Controller\ProjetAdminController]
+        arguments: [~, App\Entity\Projet, App\Controller\ProjetAdminController, Yokai\SonataWorkflow\Controller\WorkflowController]
         tags:
             - { name: sonata.admin, manager_type: orm, group: projet, label: Projet }
         public: true
+     
+    admin.extension.workflow.projet:
+        class: Yokai\SonataWorkflow\Admin\Extension\WorkflowExtension
+        arguments:
+            - '@workflow.registry'
+            - transitions_icons:
+                  to_review: fa fa-question
+                  publish: fa fa-edit
+                  reject: fa fa-question
 
     admin.energie_apres_travaux:
         class: App\Admin\EnergieApresTravauxAdmin
@@ -242,3 +248,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: workflow, label: TypePlace }
         public: true
+
+    App\EventListener\ProjetSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }    
