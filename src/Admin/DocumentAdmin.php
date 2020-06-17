@@ -20,6 +20,7 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('nom')
             ->add('fichier')
             ->add('valide')
+            ->add('conditionplace')
             ;
     }
 
@@ -30,6 +31,7 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('nom')
             ->add('fichier')
             ->add('valide')
+            ->add('conditionplace')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -46,6 +48,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('nom')
             ->add('fichier')
             ->add('valide')
+            ->add('conditionplace')
+
             ;
     }
 
@@ -56,6 +60,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('nom')
             ->add('fichier')
             ->add('valide')
+            ->add('conditionplace')
+
             ;
     }
 }

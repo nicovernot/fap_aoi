@@ -4,7 +4,9 @@ framework:
             async:
                 dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
                 serializer: App\Messenger\Serializer\JsonSerializer
+               
 
         routing:
             # async is whatever name you gave your transport above
             'App\Message\MailNotification':  async
+            'App\Message\UploadLinkNotification':  async

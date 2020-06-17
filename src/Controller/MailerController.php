@@ -22,8 +22,8 @@ class MailerController extends AbstractController
      */
     public function index(MessageBusInterface $bus)
     { 
-    
-    $bus->dispatch(new MailNotification('Look! I created a message!','eno31o5qmu5yziu@pipedream.net'));    
+    $mess = array('a' => "titre", 'b' => "body text");
+    $bus->dispatch(new MailNotification(json_encode($mess),'eno31o5qmu5yziu@pipedream.net'));    
     
     return new Response(
         '<html><body>Lucky number: message envoyé</body></html>'

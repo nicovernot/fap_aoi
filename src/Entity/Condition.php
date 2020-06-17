@@ -77,6 +77,7 @@ class Condition
 
     public function __toString()
     {
-        return $this->getNom() ?: '';
+        $retour = $this->getNom()." : ".$this->getDescription();
+        return $retour ?: '';
     }
 }

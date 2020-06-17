@@ -42,7 +42,7 @@ class MailNotificationHandler implements MessageHandlerInterface
         ->setTo($message->getUserMail())
         ->setBody($content)
     ;
-var_dump($message);
+
     $this->mailer->send($mail);
     
     $this->logger->info($content);

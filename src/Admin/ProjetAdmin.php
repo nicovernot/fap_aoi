@@ -28,7 +28,8 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('projectadmin')
             ->add('documents')
             ->add('adress')   
-      
+            ->add('typeprojet') 
+            ->add('place1') 
             ;
     }
 
@@ -43,7 +44,8 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('projectadmin')
             ->add('documents')
             ->add('adress')   
-         
+            ->add('typeprojet') 
+            ->add('place1') 
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -63,6 +65,8 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('datefacture')
             ->add('nom')
             ->add('user')
+            ->add('typeprojet') 
+
             ;
 
             $formMapper  
@@ -104,7 +108,8 @@ final class ProjetAdmin extends AbstractAdmin
         ->add('projectadmin')
         ->add('documents')
         ->add('adress')   
- 
+        ->add('typeprojet') 
+        ->add('place1')  
             // ...
         ->end()
     ->end()
