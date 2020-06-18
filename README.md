@@ -15,5 +15,3 @@
 
 ### - gestion de workflow
 
-### - api platform
-
