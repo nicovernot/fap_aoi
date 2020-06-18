@@ -17,6 +17,8 @@ use Sonata\AdminBundle\Admin\AdminInterface;
 final class OngletAdmin extends AbstractAdmin
 {
 
+	
+
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
         if (!$childAdmin && !in_array($action, ['edit', 'show'])) {
@@ -126,6 +128,7 @@ final class OngletAdmin extends AbstractAdmin
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
+
         $showMapper
 			->add('id')
 			->add('ssmenu')

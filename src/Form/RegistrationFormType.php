@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -14,6 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -25,11 +28,12 @@ class RegistrationFormType extends AbstractType
         ->add('dateNaissance', DateTimeType::class)
         ->add('lieuNaissance', TextType::class)
         ->add('tel', TelType::class)
-        ->add('rue', TextType::class)
-        ->add('numeroRue', NumberType::class)
-        ->add('ville', TextType::class)
-        ->add('codepostal', NumberType::class)
         ->add('email', EmailType::class)
+        ->add('adress', CollectionType::class, [
+            'entry_type' => AdressType::class,
+            'entry_options' => ['label' => false],
+            'allow_add' => true,
+        ])
         ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
@@ -47,12 +51,14 @@ class RegistrationFormType extends AbstractType
                 ],
             ])
         ;
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'data_class' => User::class,
+           
         ]);
     }
 }

@@ -1,2 +1,25 @@
 framework:
-    workflows: null
+    workflows: 
+         projet:
+            type: 'state_machine'
+            marking_store:
+                type: 'method'
+                property: 'place1'
+            supports:
+                - App\Entity\Projet
+            initial_marking: draft
+            places:
+                - draft
+                - reviewed
+                - rejected
+                - fini
+            transitions:
+                to_review:
+                    from: draft
+                    to:   reviewed
+                publish:
+                    from: reviewed
+                    to:   fini
+                reject:
+                    from: reviewed
+                    to:   rejected   

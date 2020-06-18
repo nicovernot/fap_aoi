@@ -77,42 +77,42 @@ services:
             - [addChild, ['@admin.Ssmenu']]
 
 
-
-    admin.image:
-        class: App\Admin\ImageAdmin
-        arguments: [~, App\Entity\Image, App\Controller\ImageAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Image }
-        public: true
-
-    admin.magazine:
-        class: App\Admin\MagazineAdmin
-        arguments: [~, App\Entity\Magazine, App\Controller\MagazineAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Magazine }
-        public: true
-
-    admin.type_message:
+    projet.type_message:
         class: App\Admin\TypeMessageAdmin
         arguments: [~, App\Entity\TypeMessage, ~]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: TypeMessage }
+            - { name: sonata.admin, manager_type: orm, group: message, label: TypeMessage }
         public: true
 
-    admin.message:
+    projet.message:
         class: App\Admin\MessageAdmin
         arguments: [~, App\Entity\Message, App\Controller\MessageAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Message }
+            - { name: sonata.admin, manager_type: orm, group: message, label: Message }
         public: true
         
-
-    admin.abonnement:
-        class: App\Admin\AbonnementAdmin
-        arguments: [~, App\Entity\Abonnement, App\Controller\AbonnementAdminController]
+    projet.user:
+        class: App\Admin\UserAdmin
+        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Abonnement }
+            - { name: sonata.admin, manager_type: orm, group: projet, label: User }
         public: true
+
+    admin.appli:
+        class: App\Admin\AppliAdmin
+        arguments: [~, App\Entity\Appli, App\Controller\AppliAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: Appli }
+        public: true
+
+    projet.image:
+        class: App\Admin\ImageAdmin
+        arguments: [~, App\Entity\Image, App\Controller\ImageAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Image }
+        public: true
+
+
 
     
     App\Service\FileUploader:  
@@ -129,19 +129,7 @@ services:
         arguments:
             $imagePath: '%image_directory%'
 
-    admin.user:
-        class: App\Admin\UserAdmin
-        arguments: [~, App\Entity\User, App\Controller\UserAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: User }
-        public: true
 
-    admin.appli:
-        class: App\Admin\AppliAdmin
-        arguments: [~, App\Entity\Appli, App\Controller\AppliAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Appli }
-        public: true
 
     App\Doctrine\CurrentUserExtension:
         tags:
@@ -153,12 +141,6 @@ services:
             - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
             - { name: api_platform.doctrine.orm.query_extension.item }        
 
-    admin.paiement:
-        class: App\Admin\PaiementAdmin
-        arguments: [~, App\Entity\Paiement, App\Controller\PaiementAdminController]
-        tags:
-            - { name: sonata.admin, manager_type: orm, group: admin, label: Paiement }
-        public: true
 
     App\Resolver\MagazineCollectionResolver:
         tags:
@@ -170,4 +152,103 @@ services:
 
     App\Mercure\CookieGenerator:
         arguments:
-            $secret: '%env(MERCURE_JWT_KEY)%'    
+            $secret: '%env(MERCURE_JWT_KEY)%'
+
+    admin.document:
+        class: App\Admin\DocumentAdmin
+        arguments: [~, App\Entity\Document, App\Controller\DocumentAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Document }
+        public: true
+
+    admin.type_projet:
+        class: App\Admin\TypeProjetAdmin
+        arguments: [~, App\Entity\TypeProjet, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: TypeProjet }
+        public: true
+
+    admin.famille_projet:
+        class: App\Admin\FamilleProjetAdmin
+        arguments: [~, App\Entity\FamilleProjet, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: FamilleProjet }
+        public: true
+
+    
+
+    projet.condition:
+        class: App\Admin\ConditionAdmin
+        arguments: [~, App\Entity\Condition, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: Condition }
+        public: true
+
+    admin.projet:
+        class: App\Admin\ProjetAdmin
+        arguments: [~, App\Entity\Projet, App\Controller\ProjetAdminController, Yokai\SonataWorkflow\Controller\WorkflowController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: projet, label: Projet }
+        public: true
+     
+    admin.extension.workflow.projet:
+        class: Yokai\SonataWorkflow\Admin\Extension\WorkflowExtension
+        arguments:
+            - '@workflow.registry'
+            - transitions_icons:
+                  to_review: fa fa-question
+                  publish: fa fa-edit
+                  reject: fa fa-question
+
+    admin.energie_apres_travaux:
+        class: App\Admin\EnergieApresTravauxAdmin
+        arguments: [~, App\Entity\EnergieApresTravaux, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: EnergieApresTravaux }
+        public: true
+
+    admin.departement:
+        class: App\Admin\DepartementAdmin
+        arguments: [~, App\Entity\Departement, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: Departement }
+        public: true
+
+    admin.type_habitation:
+        class: App\Admin\TypeHabitationAdmin
+        arguments: [~, App\Entity\TypeHabitation, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: TypeHabitation }
+        public: true
+
+    admin.taille_surface:
+        class: App\Admin\TailleSurfaceAdmin
+        arguments: [~, App\Entity\TailleSurface, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: TailleSurface }
+        public: true
+
+    admin.adress:
+        class: App\Admin\AdressAdmin
+        arguments: [~, App\Entity\Adress, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: adresse, label: Adress }
+        public: true
+
+    admin.place:
+        class: App\Admin\PlaceAdmin
+        arguments: [~, App\Entity\Place, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: Place }
+        public: true
+
+    admin.type_place:
+        class: App\Admin\TypePlaceAdmin
+        arguments: [~, App\Entity\TypePlace, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: workflow, label: TypePlace }
+        public: true
+
+    App\EventListener\ProjetSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }    

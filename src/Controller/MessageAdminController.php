@@ -5,6 +5,7 @@
 namespace App\Controller;
 
 use Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class MessageAdminController extends CRUDController
 {
@@ -23,7 +24,7 @@ class MessageAdminController extends CRUDController
         // to set its id to null !
         $clonedObject = clone $object;
 
-        $clonedObject->setMessage($object-getMessage().' (Clone)');
+        $clonedObject->setMessage($object->getMessage().' (Clone)');
 
         $this->admin->create($clonedObject);
 

@@ -43,11 +43,7 @@ class Image
 
 
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Magazine", mappedBy="image", cascade={"persist", "remove"})
-     * @ApiSubresource
-     */
-    private $magazine;
+
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -96,22 +92,7 @@ class Image
 
     }
 
-    public function getMagazine(): ?Magazine
-    {
-        return $this->magazine;
-    }
-
-    public function setMagazine(Magazine $magazine): self
-    {
-        $this->magazine = $magazine;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $magazine->getImage()) {
-            $magazine->setImage($this);
-        }
-
-        return $this;
-    }
+  
 
     public function __toString()
     {

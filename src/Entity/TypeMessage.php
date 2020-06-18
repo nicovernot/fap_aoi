@@ -25,14 +25,17 @@ class TypeMessage
      */
     private $typemessage;
 
+
+
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Message", inversedBy="typeMessages")
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="typemessage")
      */
-    private $message;
+    private $messages;
 
     public function __construct()
     {
-        $this->message = new ArrayCollection();
+    
+        $this->messages = new ArrayCollection();
     }
 
 
@@ -62,15 +65,16 @@ class TypeMessage
     /**
      * @return Collection|Message[]
      */
-    public function getMessage(): Collection
+    public function getMessages(): Collection
     {
-        return $this->message;
+        return $this->messages;
     }
 
     public function addMessage(Message $message): self
     {
-        if (!$this->message->contains($message)) {
-            $this->message[] = $message;
+        if (!$this->messages->contains($message)) {
+            $this->messages[] = $message;
+            $message->setTypemessage($this);
         }
 
         return $this;
@@ -78,10 +82,17 @@ class TypeMessage
 
     public function removeMessage(Message $message): self
     {
-        if ($this->message->contains($message)) {
-            $this->message->removeElement($message);
+        if ($this->messages->contains($message)) {
+            $this->messages->removeElement($message);
+            // set the owning side to null (unless already changed)
+            if ($message->getTypemessage() === $this) {
+                $message->setTypemessage(null);
+            }
         }
 
         return $this;
     }
+
+    
+    
 }

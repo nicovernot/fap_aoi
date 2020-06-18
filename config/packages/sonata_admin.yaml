@@ -1,7 +1,11 @@
 sonata_admin:
+
     title: 'Project Admin'
     title_logo: ieilogo.png
-    
+    extensions:
+        admin.extension.workflow.projet:
+            admins:
+                - admin.projet     
     dashboard:
         groups:
             Divers:
@@ -22,6 +26,18 @@ sonata_admin:
                       
 
             admin:
+
+
+            projet:
+
+
+            workflow:
+
+
+            message:
+
+
+            adresse:
 
     
 
@@ -86,12 +102,12 @@ sonata_admin:
                 settings:
                     template : dash.html.twig 
             -
-                position: right
+                position: left
                 type: sonata.block.service.rss
-                roles: [POST_READER]
+                
                 settings:
-                    title: Sonata Project's Feeds
-                    url: http://www.ademe.fr/rss-actualites/archive.rss
+                    title: Trello's Feeds
+                    url: https://zapier.com/engine/rss/7591280/trellorss
     breadcrumbs:
   # use this to change the default route used to generate the link
        # to the parent object inside a breadcrumb, when in a child admin

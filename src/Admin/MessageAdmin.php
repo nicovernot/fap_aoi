@@ -27,24 +27,25 @@ final class MessageAdmin extends AbstractAdmin
     protected function configureDatagridFilters(DatagridMapper $datagridMapper): void
     {
         $datagridMapper
-			
+            ->add('destinataire')
+			->add('emeteur')
 			->add('message')
             ->add('date')
-            ->add('client')
-            ->add('typeMessages')
-            
+            ->add('typemessage')
+            ->add('sent')
 			;
     }
 
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-			
+            ->add('destinataire')
+		    ->add('emeteur')
 			->add('message')
             ->add('date')
-            ->add('client')
-            ->add('typeMessages')
-            
+            ->add('typemessage')
+            ->add('sent')
+         
 			->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -61,20 +62,26 @@ final class MessageAdmin extends AbstractAdmin
     {
         $formMapper
 			
+            ->add('emeteur')
+            ->add('destinataire')
             ->add('message')
-            ->add('client')
-            ->add('typeMessages')
+            ->add('typemessage')
 			->add('date')
-			;
+            ->add('sent')
+
+            ;
     }
 
     protected function configureShowFields(ShowMapper $showMapper): void
     {
         $showMapper
-        ->add('client')
-        ->add('typeMessages')
-			->add('message')
-			->add('date')
-			;
+        ->add('emeteur')
+        ->add('destinataire')
+		->add('message')
+		->add('date')
+        ->add('typemessage')
+        ->add('sent')
+
+        ;
     }
 }

@@ -3,12 +3,27 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+<div class="container alert-info">
+    <h1>Je m'inscris</h1>
+    L’inscription sur le site et la réception de la lettre d’engagement  pour la Prime Eco Travaux  doivent être réalisées AVANT :
+    - La date de signature de devis
+    - La date de commande
+    - La date d’achat du matériel
+    - La date du versement d’acompte
+    - La date de début des travaux
+    - La date de livraison
+    - La date de facture
+Si les travaux sont réalisés avant l’inscription au site internet et la réception de la lettre d’engagement, la prime ne pourra pas être versée. 
 
     {{ form_start(registrationForm) }}
+       <h2 ><span class="badge badge-secondary">Vos identifiants</badge></h2>
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.plainPassword) }}
+       <h2><span class="badge badge-secondary">Vos Coordonnées</badge></h2>
          {{ form_widget(registrationForm) }}
+       
+         {{ form_widget(registrationForm.adress) }}
         <button class="btn-primary">Register</button>
     {{ form_end(registrationForm) }}
+    </div>
 {% endblock %}

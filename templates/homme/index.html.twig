@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Magazines Plus{% endblock %}
+{% block title %}Mes projets {% endblock %}
 
 {% block body %}
 
 
+     {% if is_granted('ROLE_ADMIN') %}
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item active">
@@ -22,7 +23,6 @@
       </div>
     </li>   
      {% endfor %}
-     {% if is_granted('ROLE_ADMIN') %}
       <li class="nav-item">
         <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
       </li>
@@ -32,105 +32,27 @@
           <li class="nav-item">
         <a class="nav-link" href="{{path('gestion_schema')}}">Génération de Champs</a>
       </li>
-    {% endif %}
 
 
     </ul>
 
 </nav>
-  <p class="bg-success">Compte: {{ app.user.username }}</p>
+    {% endif %}
+  <p class="alert alert-success animate__animated animate__fadeIn">{{ app.user ? 'Compte : '~ app.user.username : '<a href="/login">Se connecter</a>' }}</p>
   
 
-
- {% for mes in app.user.getMessages()%}
- <div class="alert alert-success alert-dismissible">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <strong>{{mes.message}}</strong>
-</div>
  
- {% endfor %}
 <script>
+{%if app.user %}
 localStorage.setItem("username", "{{  app.user.username }}" );
-localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
 localStorage.setItem("role", "{{app.user.roles[0]}}" );
+{% endif %}
+localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
 </script>
 
- <div id="root"  user="{{  app.user.username }}" baseurl="{{ app.request.getSchemeAndHttpHost() }}" role={{app.user.roles[0]}}></div>
+ <div id="root"  ></div>
  
 
-        
-        {% set apipath = "" %}
-        {% set onglet = "" %}
-        {% set chmparr = [] %} 
-        <br>
-        <ul class="nav nav-pills" id="ssm">
-
-        {% for smen in ssmenu %}
-        {% if smen.getMenu().id == app.request.get('men') %}
-         <li class="nav-item  dropdown">
-                    <a class="nav-link {{smen.id==app.request.get('ssmen')? 'active' :'' }}  dropdown-toggle" data-toggle="dropdown" href="#" id="ssm{{smen.id}}" >{{smen.ssmlib}}</a>
-        <div class="dropdown-menu" id="divssm{{smen.id}}">
-
-    </div>
-       </li>
-        {% endif %}
-        {% endfor %}
-        </ul>
-        {% set ongarr=[] %}
-  {# affichge de la rechercher       #}      
-      {%for ssmen in ssmenu %}
-      {%for ong in ssmen.getOngbyId(ong) %}
-      {% set apipath = ong.ongsql %}
-{% if ong.ongcon ==2 %}
-  {% if ong.id ==3 %}
-      {% set apipath = apipath~"?id="~app.user.id %}
-  {% else %}
-      {% set apipath = apipath~"?client="~app.user.id %}
-  {% endif %}
-{% endif %}
-{% set ongarr = ong %}     
-{% set chmparr = ong.getChampsOrd() %}   
-   
-      {% if app.request.get('type')=='recherche' %}
-      
-      {% include "recherche.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
-    
-      {% include "modal.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
-      {% endif %}
-      {% if app.request.get('type')=='detail' %}
-      <div class="container">
-      {% include "detail.html.twig" with {"champs" : ong.getChampsOrd(),"apipath":apipath} %}
-      </div>
-      {% endif %}
-      {% endfor %}
-      {% endfor %}
-
-
- {%if app.request.get('ong') %}
-<script>
-$(document).ready(function(){
-
-var ssmdiv=$("div[id*='divssm']");
- var path='{{app.request.schemeAndHttpHost ~ app.request.baseUrl~path('api_entrypoint')}}';
-     // generation des sous Menus     
-ssmdiv.each(function() {
-  var idv = this.id;
-   var iddiv= idv.slice(6,idv.length);
-   //console.log(iddiv) ;
-   $.get(path+"/ssmenus/"+iddiv+"/onglets", function(data, status){
-   var onglets = data["hydra:member"];
-   for (var prop in onglets) {
-    // console.log(data)
-   $("#"+idv).append('<a class="dropdown-item" href="?ong='+onglets[prop].id+'&con='+onglets[prop].ongcon+'&type='+onglets[prop].ongphp+'&men='+'{{app.request.get('men')}}">'+onglets[prop].onglib+'</a>');
-}
-  });
-
-     });
-    
-   
-});
-</script>
-    {% endif %}
 
 {% endblock %}
 {% block javascripts %}

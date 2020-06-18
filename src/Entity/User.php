@@ -81,47 +81,16 @@ class User implements UserInterface
     private $tel;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime",name="datenaissance")
      * @Groups({"read", "write"})
      */
     private $dateNaissance;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,name="lieunaissance")
      * @Groups({"read", "write"})
      */
     private $lieuNaissance;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private $rue;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
-     */
-    private $numeroRue;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"read", "write"})
-     */
-    private $ville;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Groups({"read", "write"})
-     */
-    private $codepostal;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Message", mappedBy="client")
-     * @Groups({"read", "write"})
-     */
-    private $messages;
-
 
 
     /**
@@ -129,12 +98,53 @@ class User implements UserInterface
      */
     private $appli;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Adress", mappedBy="user")
+     */
+    private $adress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $apitoken;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Document", mappedBy="user")
+     */
+    private $documents;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="user")
+     */
+    private $projets;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Projet", mappedBy="projectadmin")
+     */
+    private $adminprojs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="destinataire")
+     */
+    private $destinatairemessages;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Message", mappedBy="emeteur")
+     */
+    private $emeteurmesages;
+
 
    
 
     public function __construct()
     {
-        $this->messages = new ArrayCollection();
+       
+        $this->adress = new ArrayCollection();
+        $this->documents = new ArrayCollection();
+        $this->projets = new ArrayCollection();
+        $this->adminprojs = new ArrayCollection();
+        $this->destinatairemessages = new ArrayCollection();
+        $this->emeteurmesages = new ArrayCollection();
       
     }
 
@@ -276,81 +286,9 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getRue(): ?string
-    {
-        return $this->rue;
-    }
 
-    public function setRue(string $rue): self
-    {
-        $this->rue = $rue;
 
-        return $this;
-    }
-
-    public function getNumeroRue(): ?int
-    {
-        return $this->numeroRue;
-    }
-
-    public function setNumeroRue(int $numeroRue): self
-    {
-        $this->numeroRue = $numeroRue;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(string $ville): self
-    {
-        $this->ville = $ville;
-
-        return $this;
-    }
-
-    public function getCodepostal(): ?int
-    {
-        return $this->codepostal;
-    }
-
-    public function setCodepostal(int $codepostal): self
-    {
-        $this->codepostal = $codepostal;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Message[]
-     */
-    public function getMessages(): Collection
-    {
-        return $this->messages;
-    }
-
-    public function addMessage(Message $message): self
-    {
-        if (!$this->messages->contains($message)) {
-            $this->messages[] = $message;
-            $message->addClient($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMessage(Message $message): self
-    {
-        if ($this->messages->contains($message)) {
-            $this->messages->removeElement($message);
-            $message->removeClient($this);
-        }
-
-        return $this;
-    }
+    
     public function __toString()
     {
         return $this->getEmail() ?: '';
@@ -366,6 +304,204 @@ class User implements UserInterface
     public function setAppli(?Appli $appli): self
     {
         $this->appli = $appli;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Adress[]
+     */
+    public function getAdress(): Collection
+    {
+        return $this->adress;
+    }
+
+    public function addAdress(Adress $adress): self
+    {
+        if (!$this->adress->contains($adress)) {
+            $this->adress[] = $adress;
+            $adress->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdress(Adress $adress): self
+    {
+        if ($this->adress->contains($adress)) {
+            $this->adress->removeElement($adress);
+            // set the owning side to null (unless already changed)
+            if ($adress->getUser() === $this) {
+                $adress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getApitoken(): ?string
+    {
+        return $this->apitoken;
+    }
+
+    public function setApitoken(?string $apitoken): self
+    {
+        $this->apitoken = $apitoken;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getUser() === $this) {
+                $document->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getProjets(): Collection
+    {
+        return $this->projets;
+    }
+
+    public function addProjet(Projet $projet): self
+    {
+        if (!$this->projets->contains($projet)) {
+            $this->projets[] = $projet;
+            $projet->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProjet(Projet $projet): self
+    {
+        if ($this->projets->contains($projet)) {
+            $this->projets->removeElement($projet);
+            // set the owning side to null (unless already changed)
+            if ($projet->getUser() === $this) {
+                $projet->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Projet[]
+     */
+    public function getAdminprojs(): Collection
+    {
+        return $this->adminprojs;
+    }
+
+    public function addAdminproj(Projet $adminproj): self
+    {
+        if (!$this->adminprojs->contains($adminproj)) {
+            $this->adminprojs[] = $adminproj;
+            $adminproj->setProjectadmin($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAdminproj(Projet $adminproj): self
+    {
+        if ($this->adminprojs->contains($adminproj)) {
+            $this->adminprojs->removeElement($adminproj);
+            // set the owning side to null (unless already changed)
+            if ($adminproj->getProjectadmin() === $this) {
+                $adminproj->setProjectadmin(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getDestinatairemessages(): Collection
+    {
+        return $this->destinatairemessages;
+    }
+
+    public function addDestinatairemessage(Message $destinatairemessage): self
+    {
+        if (!$this->destinatairemessages->contains($destinatairemessage)) {
+            $this->destinatairemessages[] = $destinatairemessage;
+            $destinatairemessage->setDestinataire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDestinatairemessage(Message $destinatairemessage): self
+    {
+        if ($this->destinatairemessages->contains($destinatairemessage)) {
+            $this->destinatairemessages->removeElement($destinatairemessage);
+            // set the owning side to null (unless already changed)
+            if ($destinatairemessage->getDestinataire() === $this) {
+                $destinatairemessage->setDestinataire(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getEmeteurmesages(): Collection
+    {
+        return $this->emeteurmesages;
+    }
+
+    public function addEmeteurmesage(Message $emeteurmesage): self
+    {
+        if (!$this->emeteurmesages->contains($emeteurmesage)) {
+            $this->emeteurmesages[] = $emeteurmesage;
+            $emeteurmesage->setEmeteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEmeteurmesage(Message $emeteurmesage): self
+    {
+        if ($this->emeteurmesages->contains($emeteurmesage)) {
+            $this->emeteurmesages->removeElement($emeteurmesage);
+            // set the owning side to null (unless already changed)
+            if ($emeteurmesage->getEmeteur() === $this) {
+                $emeteurmesage->setEmeteur(null);
+            }
+        }
 
         return $this;
     }

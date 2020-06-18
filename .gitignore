@@ -19,7 +19,7 @@
 ###> liip/imagine-bundle ###
 /public/media/cache/
 ###< liip/imagine-bundle ###
-/public/img
+
 ###> symfony/webpack-encore-bundle ###
 /node_modules/
 /public/build/

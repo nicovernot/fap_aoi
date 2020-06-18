@@ -10,6 +10,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 
+
 final class ChampAdmin extends AbstractAdmin
 {
 
@@ -91,7 +92,8 @@ if ($this->isChild()) {
      $builder->andWhere($builder->getRootAlias() . '.onglet=:id')->setParameter(':id', $id );
     
         }
- 
+		
+		
     return $query;
  }
 }
