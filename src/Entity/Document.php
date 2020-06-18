@@ -24,7 +24,7 @@ class Document
     private $nom;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $fichier;
 

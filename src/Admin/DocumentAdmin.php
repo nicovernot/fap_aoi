@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Templating\TemplateRegistry;
 
 final class DocumentAdmin extends AbstractAdmin
 {
@@ -21,6 +22,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('fichier')
             ->add('valide')
             ->add('conditionplace')
+            ->add('user')
+            ->add('projet')
             ;
     }
 
@@ -29,9 +32,11 @@ final class DocumentAdmin extends AbstractAdmin
         $listMapper
            
             ->add('nom')
-            ->add('fichier')
+            ->add('fichier',null, ['template' => 'urlfield.html.twig'])
             ->add('valide')
             ->add('conditionplace')
+            ->add('user')
+            ->add('projet')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -49,7 +54,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('fichier')
             ->add('valide')
             ->add('conditionplace')
-
+            ->add('user')
+            ->add('projet')
             ;
     }
 
@@ -61,7 +67,8 @@ final class DocumentAdmin extends AbstractAdmin
             ->add('fichier')
             ->add('valide')
             ->add('conditionplace')
-
+            ->add('user')
+            ->add('projet')
             ;
     }
 }

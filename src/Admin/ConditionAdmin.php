@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
 
 final class ConditionAdmin extends AbstractAdmin
 {
@@ -29,6 +30,7 @@ final class ConditionAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('place')
+            ->add('typedocument')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -44,7 +46,10 @@ final class ConditionAdmin extends AbstractAdmin
            
             ->add('nom')
             ->add('description')
-            ->add('place')
+            ->add('place' ,ModelAutocompleteType::class, [
+                'property' => 'nom'
+            ])
+            ->add('typedocument')
             ;
     }
 
@@ -55,6 +60,7 @@ final class ConditionAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('place')
+            ->add('typedocument')
             ;
     }
 }

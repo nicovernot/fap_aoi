@@ -46,7 +46,7 @@ class MailNotificationHandler implements MessageHandlerInterface
     $this->mailer->send($mail);
     
     $this->logger->info($content);
-    $this->logger->error('An error occurred');
+    
 
     }
 }

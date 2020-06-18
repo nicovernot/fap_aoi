@@ -34,6 +34,11 @@ class Condition
      */
     private $place;
 
+    /**
+     * @ORM\Column(type="string", length=150)
+     */
+    private $typedocument;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -79,5 +84,17 @@ class Condition
     {
         $retour = $this->getNom()." : ".$this->getDescription();
         return $retour ?: '';
+    }
+
+    public function getTypedocument(): ?string
+    {
+        return $this->typedocument;
+    }
+
+    public function setTypedocument(string $typedocument): self
+    {
+        $this->typedocument = $typedocument;
+
+        return $this;
     }
 }

@@ -25,7 +25,7 @@ final class AdressAdmin extends AbstractAdmin
             ->add('energie')
             ->add('taillesurface')
             ->add('typehabitat')
-            
+            ->add('user')
             ;
     }
 

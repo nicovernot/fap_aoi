@@ -30,6 +30,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('adress')   
             ->add('typeprojet') 
             ->add('place1') 
+
             ;
     }
 
@@ -43,7 +44,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('user')
             ->add('projectadmin')
             ->add('documents')
-            ->add('adress')   
+            ->add('adress' )   
             ->add('typeprojet') 
             ->add('place1') 
             ->add('_action', null, [
@@ -87,7 +88,9 @@ final class ProjetAdmin extends AbstractAdmin
                 },
             ])
             ->add('documents')
-            ->add('adress')   
+            ->add('adress', ModelAutocompleteType::class, [
+                'property' => 'user'
+            ])   
    
             ;
     }
