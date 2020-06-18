@@ -1,0 +1,7 @@
+﻿id,nom,min,max
+1,"moins de 30 m",0,30
+2,"entre 30 m et 60 m",31,60
+3,"entre 60 m et 70 m",61,70
+4,"entre 70 m et 90 m",71,90
+5,"entre 110 m et 130 m",111,130
+6,"plus de 130 m",131,500
