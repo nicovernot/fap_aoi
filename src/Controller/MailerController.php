@@ -14,6 +14,8 @@ use ivkos\Pushbullet;
 use Github\Client;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 use Symfony\Component\Process\Process;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class MailerController extends AbstractController
 {
@@ -43,6 +45,17 @@ class MailerController extends AbstractController
         '<html><body>Lucky number: message envoyé</body></html>'
     );
     }
+
+    /**
+    * @Route("/simulation")
+    */
+    public function simulation(Request $request)
+    { 
+        $data = json_encode($request->getContent());
+
+        return new JsonResponse($data); 
+    }
+
 
 
     public function github() {

@@ -1,3 +1,4 @@
 { "key" : "keyR8YRU3rWxqIsyK",
-  "url" : "https://api.airtable.com/v0/appS8SMikgu7mx6aU/tblXoOTd8ExktTWaM?fields%5B%5D=Nom&fields%5B%5D=Notes&fields%5B%5D=Name.Client&fields%5B%5D=id.Client&fields%5B%5D=Attachments&maxRecords=100&view=Grid+view" 
+  "url" : "https://api.airtable.com/v0/appS8SMikgu7mx6aU/tblXoOTd8ExktTWaM?fields%5B%5D=Nom&fields%5B%5D=Notes&fields%5B%5D=id.cat&fields%5B%5D=Attachments&maxRecords=100&view=Grid+view" ,
+  "url1" : "https://api.airtable.com/v0/appS8SMikgu7mx6aU/tblWVV2dTLWrnOZ9w?fields%5B%5D=nom&fields%5B%5D=description" 
 }

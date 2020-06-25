@@ -20,6 +20,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('familleprojet')
+
+            ->add('priseencharge')
             ;
     }
 
@@ -30,6 +32,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('familleprojet')
+            ->add('contientsuraface')
+            ->add('priseencharge')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -46,6 +50,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('familleprojet')
+            ->add('contientsuraface')
+            ->add('priseencharge')
             ;
     }
 
@@ -56,6 +62,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('nom')
             ->add('description')
             ->add('familleprojet')
+            ->add('contientsuraface')
+            ->add('priseencharge')
             ;
     }
 }

@@ -55,6 +55,7 @@ final class MenuAdmin extends AbstractAdmin
 			->add('menphp')
             ->add('mensql')
             ->add('appli')
+            ->add('public')
 			;
     }
 
@@ -70,6 +71,7 @@ final class MenuAdmin extends AbstractAdmin
 			->add('menphp')
 			->add('mensql')
             ->add('appli')
+            ->add('public')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -91,7 +93,7 @@ final class MenuAdmin extends AbstractAdmin
 			->add('menphp')
 			->add('mensql')
              ->add('appli')
-
+             ->add('public')
             ;
     }
 
@@ -107,7 +109,7 @@ final class MenuAdmin extends AbstractAdmin
 			->add('menphp')
 			->add('mensql')
             ->add('appli')
-
+            ->add('public')
             ;
     }
 

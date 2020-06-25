@@ -216,13 +216,13 @@ const Header = () => {
 N’attendez-plus: Faites une
 simulation ! </H1hover>
           </div>
-          <div class="row">
+          <div  className="row">
             <DivHover className={' jumbotron alert-primary col text-center text-secondary  m-4 shadow-lg '}  
-             id="div1" ><i class="fas fa-file-alt" style={{"fontSize":"36px"}}></i><h3>Notre Démarche</h3></DivHover>
-            <DivHover className={'jumbotron alert-danger col text-center text-secondary  m-4 shadow-lg '}><i class="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i><h3>Simulez votre prime </h3> </DivHover>
-            <DivHover className={'jumbotron alert-success col text-center text-secondary m-4 shadow-lg '}><i class=" far fa-id-card" 
+             id="div1" ><i className="fas fa-file-alt" style={{"fontSize":"36px"}}></i><h3>Notre Démarche</h3></DivHover>
+            <DivHover className={'jumbotron alert-danger col text-center text-secondary  m-4 shadow-lg '}><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i><h3>Simulez votre prime </h3> </DivHover>
+            <DivHover className={'jumbotron alert-success col text-center text-secondary m-4 shadow-lg '}><i  className=" far fa-id-card" 
             style={{"fontSize":"36px"}}></i><h3>Inscrivez vous</h3></DivHover>
-            <DivHover className={'jumbotron alert-dark col text-center text-secondary m-4 shadow-lg '}><i class="fas fa-eye" style={{"fontSize":"36px"}}></i><h3>Infos</h3></DivHover>
+            <DivHover className={'jumbotron alert-dark col text-center text-secondary m-4 shadow-lg '}><i  className="fas fa-eye" style={{"fontSize":"36px"}}></i><h3>Infos</h3></DivHover>
            </div>
     </div>
   )
@@ -231,11 +231,11 @@ simulation ! </H1hover>
 const Footer = () => {
   return (
     <div>
-       <div class="row">
-            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><i class="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</DivHover>
-            <DivHover className="col text-center jumbotron alert-success m-1 shadow-lg"><i class="fas fa-pencil-alt" style={{"fontSize":"36px"}}></i> inscription gratuite</DivHover>
-            <DivHover className="col text-center jumbotron alert-danger m-1 shadow-lg"><i class="fas fa-home" style={{"fontSize":"36px"}}></i>+ de 15 travaux élegibles</DivHover>
-            <DivHover className="col text-center jumbotron alert-dark m-1 shadow-lg"><i class="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i> jusqu'à 400€ remboursés</DivHover>
+       <div  className="row">
+            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><i  className="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</DivHover>
+            <DivHover className="col text-center jumbotron alert-success m-1 shadow-lg"><i  className="fas fa-pencil-alt" style={{"fontSize":"36px"}}></i> inscription gratuite</DivHover>
+            <DivHover className="col text-center jumbotron alert-danger m-1 shadow-lg"><i  className="fas fa-home" style={{"fontSize":"36px"}}></i>+ de 15 travaux élegibles</DivHover>
+            <DivHover className="col text-center jumbotron alert-dark m-1 shadow-lg"><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i> jusqu'à 400€ remboursés</DivHover>
         </div> 
        
     </div>
@@ -275,7 +275,7 @@ const Midle = () => {
         <Midle/>
           <br></br>
 
-        <Mapimage class="container">
+        <Mapimage className="container">
            <img className="w-120 col " src="/img/econrj.jpeg" style={{width: "100%","margin": "auto"}} />
             <div className="bottom-left"><h2>Bottom Left</h2></div>
             <div className="top-left"><h2>Top Left</h2></div>

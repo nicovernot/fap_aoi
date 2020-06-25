@@ -54,7 +54,7 @@ final class UserUserExtension implements QueryCollectionExtensionInterface, Quer
         if (User::class !== $resourceClass || null === $user = $this->security->getUser()) {
             return;
         }
-        
+
         $rootAlias = $queryBuilder->getRootAliases()[0];
         $queryBuilder->andWhere(sprintf('%s.id = :current_user', $rootAlias));
         $queryBuilder->setParameter('current_user', $user);

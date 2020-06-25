@@ -1,35 +1,48 @@
-import React, { Component } from 'react';
+import React, { Component,useState, useEffect  } from 'react';
 import {Strelement,Urlelement,Titlelelement,Imgelement,Btnelement} from './Element'
 import Card from 'react-bootstrap/Card'
-import ListGroup from 'react-bootstrap/ListGroup'
+import Accordio from 'react-bootstrap/Accordion'
+
 import ReactMarkdown from "react-markdown";
+
 
 function Crd (props){
 const card = props.card
 const champs = props.champs
+const [count, setCount] = useState(0);
+    useEffect(() => {   
+        // Met à jour le titre du document via l’API du navigateur    
+        document.title = `Vous avez cliqué ${count} fois`; 
+       
+    });
 
 const cardr = Object.entries(champs).map(([key,value])=>{
-   
+
+  
     switch(value.node.chptyp) {
         case 'img':
          
-          return (<div className="list-group-item"><Imgelement className="p-3"  img={card[value.node.chpcha]}/></div>);
+          return (<div  key={value.node.chpcha} className="list-group-item"><Imgelement className="p-3"  img={card[value.node.chpcha]}/></div>);
           break;
           case 'imgarray':
          
-            return (<div className="list-group-item">{ card[value.node.chpcha]? <Imgelement className="p-3" style="width: 18rem;"  img={card[value.node.chpcha][0]['url']}/>: ''}</div>);
-            break;        
+            return (<div  key={value.node.chpcha} className="list-group-item">{ card[value.node.chpcha]? <Imgelement className="p-3" style="width: 18rem;"  img={card[value.node.chpcha][0]['url']}/>: ''}</div>);
+            break;     
+        case 'txtarray':
+        
+                return (<div   key={value.node.chpcha} className="list-group-item">{ card[value.node.chpcha]? <h3><span className="badge badge-secondary">{card[value.node.chpcha][0]}</span></h3>: ''}</div>);
+            break;                  
         case 'varchar':
 
-            return (<li className="list-group-item" key={key}> <span className="badge badge-secondary"> {value.node.chplib} : </span><ReactMarkdown source={card[value.node.chpcha]} />  </li>);
+            return (<li id={key}  key={value.node.chpcha} className="list-group-item" key={key}> <span className="badge badge-secondary"> {value.node.chplib} : </span><ReactMarkdown source={card[value.node.chpcha]} />  </li>);
             break;  
         case 'title':
          
-            return (<li className="list-group-item" key={key}> <h3>{card[value.node.chpcha]}</h3></li>);
+            return (<li id={key} key={value.node.chpcha} className="list-group-item" key={key}> <h3>{card[value.node.chpcha]}</h3></li>);
             break;          
         case 'int':
          
-                return (<li className="list-group-item" key={key}> {value.node.chplib} : <span className="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
+                return (<li  key={value.node.chpcha} className="list-group-item" key={key}> {value.node.chplib} : <span className="badge badge-secondary">{card[value.node.chpcha]}</span></li>);
                 break;  
         case 'double':
          

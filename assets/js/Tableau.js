@@ -21,9 +21,9 @@ function Table({ columns, data }) {
   const [count, setCount] = useState(0);
  
   // Render the UI for your table
-  return (
-    <table {...getTableProps()} className="table table-dark" style={{ border: 'solid 1px blue' }}>
-      <thead>
+  return  data.length >0 ? (
+    <table {...getTableProps()} className="table alert-secondary" >
+      <thead className="thead-dark">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
@@ -58,7 +58,7 @@ function Table({ columns, data }) {
         })}
       </tbody>
     </table>
-  )
+  ) : (<div className="jumbotron jumbotron-fluid bg-info"><h1 className="texst-white text-center"> Pas d'infos pour cette page </h1></div>)
 }
 
 function Tableau(props) {

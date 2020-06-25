@@ -27,6 +27,7 @@
         "bootstrap": "^4.4.1",
         "classnames": "^2.2.6",
         "file-system": "^2.2.2",
+        "formik": "^2.1.4",
         "fs": "^0.0.1-security",
         "npm-upgrade": "^2.0.3",
         "react-bootstrap": "^1.0.0",

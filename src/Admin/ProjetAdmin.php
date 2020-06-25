@@ -30,7 +30,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('adress')   
             ->add('typeprojet') 
             ->add('place1') 
-
+            ->add('surface') 
             ;
     }
 
@@ -47,6 +47,7 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('adress' )   
             ->add('typeprojet') 
             ->add('place1') 
+            ->add('surface') 
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -67,8 +68,8 @@ final class ProjetAdmin extends AbstractAdmin
             ->add('nom')
             ->add('user')
             ->add('typeprojet') 
-
-            ;
+            ->add('surface') 
+           ;
 
             $formMapper  
             ->add('projectadmin',ModelAutocompleteType::class, [
@@ -113,7 +114,7 @@ final class ProjetAdmin extends AbstractAdmin
         ->add('adress')   
         ->add('typeprojet') 
         ->add('place1')  
-            // ...
+        ->add('surface') 
         ->end()
     ->end()
             

@@ -1,9 +1,9 @@
 const parent = "menus"
-const parentquery = [ "id","mencom","menord","menphp"]
+const parentquery = [ "id","mencom","menlib","menord","menphp","public"]
 const fils = "ssmenus"
 const filsquery = ["id","ssmlib","ssmord","ssmphp","ssmcom"]
 const ptitfils = "onglet"
-const ptfilsquery = ["id","onglib","ongord","ongsqlcre","ongsql"]
+const ptfilsquery = ["id","onglib","ongord","ongsqlcre","ongsql","ongcom"]
 const list = (list,query) => { 
  
   const q =`
@@ -18,6 +18,22 @@ const list = (list,query) => {
 }
 `
   return q }
+
+
+  const filteredlist = (list,query,filter,filtervalue) => { 
+ 
+    const q =`
+  {
+    ${query} (${filter}:"${filtervalue}") {
+      edges {
+        node{
+         ${list},
+        }
+      }
+    }
+  }
+  `
+    return q }  
 
 const genQuery = `
 {
@@ -40,6 +56,7 @@ const genQuery = `
                       chplib,
                       chpcha,
                       chpord,
+                      chpsel
                       chprec
                       chptyp  
                       }
@@ -57,22 +74,7 @@ const genQuery = `
 }
   `
 
-const qmag =`
-{
-  magazines {
-    edges {
-      node{
-        id,
-        image {
-          filename,
-         
-                }
-        ,presentation
-      }
-    }
-  }
-}
-`
+
 const description = `
 query introspectionType {
 
@@ -107,5 +109,5 @@ const schema = `
 }
 `
 
-  export default {genQuery,qmag,list } ;
+  export default {genQuery,list,filteredlist } ;
  

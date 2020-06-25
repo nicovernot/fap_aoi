@@ -7,11 +7,18 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Criteria;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+
 
 /**
- * @ApiResource()
+ * @ApiResource(attributes={"order"={"menord": "ASC"}})
+ * @ApiFilter(OrderFilter::class, properties={"menord": "ASC"})
  * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
+ * @ApiFilter(BooleanFilter::class, properties={"public"})
  */
 class Menu
 {
@@ -67,6 +74,11 @@ class Menu
      * @ORM\ManyToOne(targetEntity="App\Entity\Appli", inversedBy="menu")
      */
     private $appli;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $public;
 
     public function __construct()
     {
@@ -251,6 +263,18 @@ class Menu
      public function setAppli(?Appli $appli): self
      {
          $this->appli = $appli;
+
+         return $this;
+     }
+
+     public function getPublic(): ?bool
+     {
+         return $this->public;
+     }
+
+     public function setPublic(bool $public): self
+     {
+         $this->public = $public;
 
          return $this;
      }

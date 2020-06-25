@@ -11,18 +11,8 @@
     <li class="nav-item active">
       <a class="nav-link" href="{{path('homme')}}">Home</a>
     </li>
-     {% for men in menu %}
-      <li class="nav-item dropdown">
-      <a class="nav-link dropdown-toggle"  href="#" id="navbardrop" data-toggle="dropdown">{{men.menlib}} </a>
-       <div class="dropdown-menu">
-            {%for ssmen in men.getSsmenusChildren(men.id) %}
-                  {%for ch in ssmen.getOngChildren1(men.id) %}
-                         <a class="dropdown-item" href="?ong={{ch.id~"&type="~ch.ongphp~"&men="~men.id~"&ssmen="~ssmen.id}}">{{(ssmen.ssmlib)}}</a>
-                  {%endfor%}
-            {% endfor %}
-      </div>
-    </li>   
-     {% endfor %}
+
+
       <li class="nav-item">
         <a class="nav-link" href="{{path('sonata_admin_dashboard')}}">Admin</a>
       </li>
@@ -48,6 +38,16 @@ localStorage.setItem("username", "{{  app.user.username }}" );
 localStorage.setItem("role", "{{app.user.roles[0]}}" );
 {% endif %}
 localStorage.setItem("url", "{{ app.request.getSchemeAndHttpHost() }}" );
+var t1 =new Date()
+var t2 = localStorage.getItem("data1");
+if(t2==null){
+  localStorage.setItem("data1",t1);    
+}
+  if(t1>t2){
+    console.log("plusgrand");
+    localStorage.removeItem("menus");
+  }
+
 </script>
 
  <div id="root"  ></div>

@@ -6,10 +6,23 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     attributes={"security"="is_granted('ROLE_USER')"},
+ *     collectionOperations={
+ *         "get",
+ *         "post"={"security"="is_granted('ROLE_ADMIN')"}
+ *     },
+ *     itemOperations={
+ *         "get",
+ *         "put"={"security"="is_granted('ROLE_ADMIN') or object.user == user"},
+ *     }
+ * )
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "user.email": "exact","typeprojet.nom": "exact", "projectadmin.email": "exact","adress.departement.nom":"partial"}) 
  */
 class Projet
 {
@@ -70,6 +83,11 @@ class Projet
      * @ORM\ManyToOne(targetEntity="App\Entity\Adress", inversedBy="projet")
      */
     private $adress;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $surface;
 
     public function __construct()
     {
@@ -245,6 +263,18 @@ class Projet
     public function setAdress(?Adress $adress): self
     {
         $this->adress = $adress;
+
+        return $this;
+    }
+
+    public function getSurface(): ?int
+    {
+        return $this->surface;
+    }
+
+    public function setSurface(?int $surface): self
+    {
+        $this->surface = $surface;
 
         return $this;
     }

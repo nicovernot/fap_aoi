@@ -6,10 +6,13 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
  * @ApiResource()
  * @ORM\Entity(repositoryClass="App\Repository\TypeProjetRepository")
+ * @ApiFilter(SearchFilter::class, properties={"id": "exact", "nom": "exact", "description": "partial","familleprojet.nom":"exact"})
  */
 class TypeProjet
 {
@@ -44,6 +47,16 @@ class TypeProjet
      * @ORM\ManyToOne(targetEntity="App\Entity\FamilleProjet", inversedBy="typeProjets")
      */
     private $familleprojet;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $contientsuraface;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $priseencharge;
 
     public function __construct()
     {
@@ -154,6 +167,30 @@ class TypeProjet
     public function setFamilleprojet(?FamilleProjet $familleprojet): self
     {
         $this->familleprojet = $familleprojet;
+
+        return $this;
+    }
+
+    public function getContientsuraface(): ?bool
+    {
+        return $this->contientsuraface;
+    }
+
+    public function setContientsuraface(bool $contientsuraface): self
+    {
+        $this->contientsuraface = $contientsuraface;
+
+        return $this;
+    }
+
+    public function getPriseencharge(): ?float
+    {
+        return $this->priseencharge;
+    }
+
+    public function setPriseencharge(float $priseencharge): self
+    {
+        $this->priseencharge = $priseencharge;
 
         return $this;
     }
