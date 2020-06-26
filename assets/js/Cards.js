@@ -10,11 +10,7 @@ function Crd (props){
 const card = props.card
 const champs = props.champs
 const [count, setCount] = useState(0);
-    useEffect(() => {   
-        // Met à jour le titre du document via l’API du navigateur    
-        document.title = `Vous avez cliqué ${count} fois`; 
-       
-    });
+ 
 
 const cardr = Object.entries(champs).map(([key,value])=>{
 
@@ -57,6 +53,7 @@ const cardr = Object.entries(champs).map(([key,value])=>{
       } 
 
   })
+
     return (
    
        <Card className="mx-auto col p-3 alert alert-primary w-40 ">

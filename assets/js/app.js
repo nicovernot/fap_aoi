@@ -295,7 +295,7 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
     let reduc = []
     let listchmp =[]
     result.forEach(element => {
-    console.log(element)
+    
      reduc.push({Header: element.node.chplib,accessor:element.node.chplib});    
      listchmp.push(element.node.chplib)
     });

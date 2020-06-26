@@ -14,7 +14,8 @@ const form = (props) => {
   const [surface , setSurface ] = useState(0);
   const [arrform,setArrform] = useState([]);
   const [asurface,setAsurface] = useState(false);
-
+  const [formfilled,setFormfilled] = useState(false)
+  
   const columns = props.columns
 
   const querytest = () => {
@@ -23,14 +24,38 @@ const form = (props) => {
   // console.log(q)
 
   }
+  
+  
 
+  const afficheresult =  Object.entries(arrform).map(([key,value])=>{
+    const result = columns.filter(function(word) {
+     
+    
+      
+    
+      return word.node.chpcha == value.name;
+    });
+  
+   
+    if(result[0]) {
+
+      return (<div key={key}><li class="list-group-item"><span class="badge badge-secondary">{result[0].node.chplib}</span><p >{value.value}</p></li></div>)
+    } else{
+      return;
+    }
+      
+    })
+
+  
 
   const onButtonClick =(e)=> {
       
     e.preventDefault()
-    
+    const formdata =  Object.values($("#simform").serializeArray());
+    setArrform(formdata)
 
-
+  setFormfilled(true)
+/*
      axios({
       url: "/simulation",
       method: "POST",
@@ -39,7 +64,7 @@ const form = (props) => {
       console.log(result)
     })
   
-      
+  */    
   }; 
 
     const onNext = ()=>{
@@ -47,8 +72,7 @@ const form = (props) => {
     }
     const onInputchange = (val) => {
       setNext(true)
-      console.log("inp ch")
-      console.log(val.value)
+    
       setSurface(val.value)
       const temparr = []
       temparr["surface"] = val.value
@@ -60,28 +84,25 @@ const form = (props) => {
      if(e.nativeEvent.target.selectedIndex) {
        let index = e.nativeEvent.target.selectedIndex;
        let label = e.nativeEvent.target[index].text;
-        console.log(label);
-
+       
         if(val=="familleprojet"){
           const opthide = $("#typeprojet_id option").hide();
           const tp = $("#typeprojet_id option[data-familleprojet='"+label+"']").show(); 
-          console.log(tp)
+       
         } 
         if(val=="typeprojet_id"){
           const boolsurf = $("#typeprojet_id option:selected").data( "asurface" );
         //  const hidesurf = $("#inpt").hide();
-          console.log(typeof(boolsurf))
+         
          if(boolsurf){
        setAsurface("true")
          }
         }
      }
-     console.log(e)
+     
      if(e.target.value){
        setNext(true)
-       console.log(e.target.value)
-       console.log(val)
-       console.log("depuis change")
+      
       }
       
     }; 
@@ -103,14 +124,14 @@ const form = (props) => {
         switch (col.node.chptyp) {
         case "inputnumber":
               return  asurface=="true"? (
-             <div className={key==0? "carousel-item active": "carousel-item"}  id="inpt"  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2><Imputelement handler={onInputchange} col={col}  />
+             <div className={key==0? "carousel-item active": "carousel-item"}  id="inpt"  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2><Imputelement  handler={onInputchange} col={col}  />
               </div>):""
               break;
         case "select":
-          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Selectelement  handler={onSelectchange}  col={col}/></div>
+          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Selectelement typeval="labelvalue" handler={onSelectchange}  col={col}/></div>
         break;    
         case "btnsend":
-          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Btnelement handler={onButtonClick} col={col} label={col.node.chplib}/></div>
+          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Btnelement  handler={onButtonClick} col={col} label={col.node.chplib}/></div>
         break;    
         default:
         break;
@@ -137,7 +158,9 @@ const form = (props) => {
           <a className="carousel-control-next " onClick={onNext}  id="next" href="#simul" data-slide="next">
                 <span className="carousel-control-next-icon bg-success"></span>
           </a> 
-          </form> 
+          </form>
+          {formfilled ? (<div className="bg-light"><h2 className="text-center">Votre projet</h2>{afficheresult}</div>) : ""} 
+        
     </div>
      );
 }

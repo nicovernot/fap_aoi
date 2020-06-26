@@ -109,7 +109,7 @@ function Titlelelement (props) {
       
         const ue = <select id={props.col.node.chpcha}  onChange={(e)=> setSelitem([...selitem,{[props.col.node.chpcha]:e.target.value}]), (e) =>props.handler(props.col.node.chpcha,e)} className="form-control"  name={props.col.node.chpcha}>
             <option>Faites un choix</option>
-       { selctdata.map((option,index)=><option key={option.node.id} data-asurface={ option.node.contientsuraface ? option.node.contientsuraface :""	} data-pe={option.node.priseencharge ? option.node.priseencharge : "" } data-familleprojet={ option.node.familleprojet? option.node.familleprojet["nom"] :"" } id={option.node.id} value={option.node.id}>{option.node.nom}</option>)}
+       { selctdata.map((option,index)=><option key={option.node.id} data-asurface={ option.node.contientsuraface ? option.node.contientsuraface :""	} data-pe={option.node.priseencharge ? option.node.priseencharge : "" } data-familleprojet={ option.node.familleprojet? option.node.familleprojet["nom"] :"" } id={option.node.id} value={props.typeval=="labelvalue" ? option.node.nom : option.node.id }>{option.node.nom}</option>)}
       
       </select>
         return (
