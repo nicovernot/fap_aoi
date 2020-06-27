@@ -39,7 +39,7 @@ const form = (props) => {
    
     if(result[0]) {
 
-      return (<div key={key}><li class="list-group-item"><span class="badge badge-secondary">{result[0].node.chplib}</span><p >{value.value}</p></li></div>)
+      return (<div key={key}><li class="list-group-item"><span class="badge badge-secondary">{result[0].node.chplib}</span><h3 className="text-center">{value.value}</h3></li></div>)
     } else{
       return;
     }
@@ -50,11 +50,11 @@ const form = (props) => {
 
   const onButtonClick =(e)=> {
       
-    e.preventDefault()
-    const formdata =  Object.values($("#simform").serializeArray());
-    setArrform(formdata)
-
+  e.preventDefault()
+  const formdata =  Object.values($("#simform").serializeArray());
+  setArrform(formdata)
   setFormfilled(true)
+  const brnhide = $("#btndiv").hide();
 /*
      axios({
       url: "/simulation",
@@ -124,14 +124,14 @@ const form = (props) => {
         switch (col.node.chptyp) {
         case "inputnumber":
               return  asurface=="true"? (
-             <div className={key==0? "carousel-item active": "carousel-item"}  id="inpt"  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2><Imputelement  handler={onInputchange} col={col}  />
+             <div className={key==0? "carousel-item active": "carousel-item"}  id="inpt"  key={col.node.id}><br></br><h2 className="text-center" >{col.node.chplib} :</h2><Imputelement  handler={onInputchange} col={col}  />
               </div>):""
               break;
         case "select":
-          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Selectelement typeval="labelvalue" handler={onSelectchange}  col={col}/></div>
+          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2 className="text-center">{col.node.chplib} :</h2 > <Selectelement typeval="labelvalue" handler={onSelectchange}  col={col}/></div>
         break;    
         case "btnsend":
-          return  <div className={key==0? "carousel-item active": "carousel-item"}  key={col.node.id}><br></br><h2>{col.node.chplib} :</h2> <Btnelement  handler={onButtonClick} col={col} label={col.node.chplib}/></div>
+          return  <div className={key==0? "carousel-item active": "carousel-item"} id="btndiv" key={col.node.id}><br></br><h2 className="text-center">{col.node.chplib} :</h2> <Btnelement  handler={onButtonClick} col={col} label={col.node.chplib}/></div>
         break;    
         default:
         break;

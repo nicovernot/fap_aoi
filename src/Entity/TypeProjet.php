@@ -58,6 +58,16 @@ class TypeProjet
      */
     private $priseencharge;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $plafondbool;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $montantplafond;
+
     public function __construct()
     {
         $this->places = new ArrayCollection();
@@ -191,6 +201,30 @@ class TypeProjet
     public function setPriseencharge(float $priseencharge): self
     {
         $this->priseencharge = $priseencharge;
+
+        return $this;
+    }
+
+    public function getPlafondbool(): ?bool
+    {
+        return $this->plafondbool;
+    }
+
+    public function setPlafondbool(bool $plafondbool): self
+    {
+        $this->plafondbool = $plafondbool;
+
+        return $this;
+    }
+
+    public function getMontantplafond(): ?float
+    {
+        return $this->montantplafond;
+    }
+
+    public function setMontantplafond(float $montantplafond): self
+    {
+        $this->montantplafond = $montantplafond;
 
         return $this;
     }

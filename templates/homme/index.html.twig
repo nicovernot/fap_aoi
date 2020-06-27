@@ -33,6 +33,9 @@
 
  
 <script>
+localStorage.clear();
+
+
 {%if app.user %}
 localStorage.setItem("username", "{{  app.user.username }}" );
 localStorage.setItem("role", "{{app.user.roles[0]}}" );
@@ -44,9 +47,15 @@ if(t2==null){
   localStorage.setItem("data1",t1);    
 }
   if(t1>t2){
-    console.log("plusgrand");
+    
     localStorage.removeItem("menus");
   }
+  var initssm = localStorage.getItem("ssm");
+    console.log(initssm);
+  if (!initssm ){
+    
+    localStorage.setItem("ssmloaded","false")
+  } 
 
 </script>
 

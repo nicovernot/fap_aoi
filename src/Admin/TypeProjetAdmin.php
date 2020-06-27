@@ -33,7 +33,9 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('description')
             ->add('familleprojet')
             ->add('contientsuraface')
-            ->add('priseencharge')
+            ->add('priseencharge') 
+            ->add('plafondbool')
+            ->add('montantplafond')
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],
@@ -52,6 +54,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('familleprojet')
             ->add('contientsuraface')
             ->add('priseencharge')
+            ->add('plafondbool')
+            ->add('montantplafond')
             ;
     }
 
@@ -64,6 +68,8 @@ final class TypeProjetAdmin extends AbstractAdmin
             ->add('familleprojet')
             ->add('contientsuraface')
             ->add('priseencharge')
+            ->add('plafondbool')
+            ->add('montantplafond')
             ;
     }
 }

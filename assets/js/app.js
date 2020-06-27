@@ -36,10 +36,16 @@ class App extends React.Component {
           qchamps : [],
           listchmp: [],
           ongquery : "",
+          loaded : false
         }
 
         
       }
+
+      handleSsm = (ssmValue) => {
+        this.setState({ssm: ssmValue});
+    }
+
 // execution de la requette preparé dans la fonction ts avec trois pramettres  id du type de requette , li
       gettree = (id,list,itemq,filter) => {
         let finalquery =""
@@ -152,7 +158,7 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
 //function que recupere info du menu tels que : sousmenu , construit la requete a éffecuter dans l'pi graphql ( les champs à afficher) et les met dans l'état react
      tst= (ssm,urlp)=> {
       window.history.pushState('page2', 'Title', urlp);
-      
+      console.log(ssm)
       this.setState({ ssm });
       if(ssm)
       {
@@ -183,6 +189,8 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
      this.gettree(parseInt(ssm.node.ssmcom),ongquery,query,filter) 
     }
 
+
+
     //function que initialise les params de 'url suita à click dans menu
     urlresolver = () => {
       const queryString = window.location.search;
@@ -191,9 +199,13 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
       this.setState({menu})
       const ssmlib = urlParams.get('ssm')
       const localssm = JSON.parse(localStorage.getItem("ssm"))
-     if(this.state.data.length==0 && localssm){
+      
+     if(this.state.data.length==0 && localssm ){
+      localStorage.setItem('ssmloaded',"true") 
+      
        this.tst(localssm,queryString)
      }
+    
 
     }
 
@@ -217,7 +229,17 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
       
       }
       
-
+    componentDidUpdate() {
+        // A whole lotta functions here, fired after every render.
+        const localssmloaded = localStorage.getItem("ssmloaded")
+        const localssm = JSON.parse(localStorage.getItem("ssm"))
+        if(localssmloaded=="false" && localssm != null){
+        console.log(localssm)
+        this.urlresolver()
+        localStorage.setItem("ssmloaded","true")    
+       // document.location.reload(true)
+        }
+    } 
   
   render() {
      // const ttl = <h1>title</h1>
@@ -258,7 +280,31 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString)
     const menu = urlParams.get('name')
-    const ssm = props.ssm
+    const ssmurl = urlParams.get('ssm')
+    let ssm = props.ssm
+    const menus = props.menus
+    if(ssm.length==0 || menu != "home" ){
+      const arr = []
+      if(ssmurl){
+            menus.forEach(function(element){
+              if (element.node.ssmenus.edges.length==1) arr.push(element.node.ssmenus.edges[0])
+              if (element.node.ssmenus.edges.length>1) {
+              element.node.ssmenus.edges.forEach(element => arr.push(element));
+              }
+            });
+            const res2 = arr.filter(function(ssm,key){
+            return ssm.node.ssmlib == ssmurl
+            });
+            res2.forEach(function(element){
+            ssm = element    
+            console.log(ssm)
+            localStorage.setItem('ssm', JSON.stringify(ssm));
+        
+            
+            })
+
+      }
+    }
     let ong = []
     let data = []
     data = props.getData

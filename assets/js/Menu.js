@@ -23,7 +23,7 @@ function Menu(props)  {
   men.node.ssmenus.edges.length > 0 ?
   user !="" || men.node.public==true ? ( <NavDropdown className={ menu_url===men.node.menlib ? "alert-info":`alert-secondary`}  title={men.node.mencom} key={men.node.id} id="nav-dropdown">
          
-          {men.node.ssmenus.edges.map((ssm) => <NavDropdown.Item  onClick = {(e) => props.handler(ssm,`?name=${ssm.node.ssmphp}&ssm=${ssm.node.ssmlib}&men=${men.node.menlib}`)} key={ssm.node.id}>{ssm.node.ssmlib}</NavDropdown.Item>) }
+          {men.node.ssmenus.edges.map((ssm) => <NavDropdown.Item id={"ssm"+ssm.node.ssmlib}   onClick = {(e) => props.handler(ssm,`?name=${ssm.node.ssmphp}&ssm=${ssm.node.ssmlib}&men=${men.node.menlib}`)} key={ssm.node.id}>{ssm.node.ssmlib}</NavDropdown.Item>) }
     </NavDropdown> ) : ""
      : 
     user !="" || men.node.public==true ?

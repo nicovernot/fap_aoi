@@ -229,13 +229,14 @@ simulation ! </H1hover>
 }
 
 const Footer = () => {
+
   return (
     <div>
        <div  className="row">
-            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><i  className="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</DivHover>
-            <DivHover className="col text-center jumbotron alert-success m-1 shadow-lg"><i  className="fas fa-pencil-alt" style={{"fontSize":"36px"}}></i> inscription gratuite</DivHover>
-            <DivHover className="col text-center jumbotron alert-danger m-1 shadow-lg"><i  className="fas fa-home" style={{"fontSize":"36px"}}></i>+ de 15 travaux élegibles</DivHover>
-            <DivHover className="col text-center jumbotron alert-dark m-1 shadow-lg"><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i> jusqu'à 400€ remboursés</DivHover>
+            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><a  ><i  className="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</a></DivHover>
+            <DivHover className="col text-center jumbotron alert-success m-1 shadow-lg"><a href="/register"><i  className="fas fa-pencil-alt" style={{"fontSize":"36px"}}></i> inscription gratuite</a></DivHover>
+            <DivHover className="col text-center jumbotron alert-danger m-1 shadow-lg"><a href="/?name=cards&ssm=Les énergies renouvelables&men=Travaux éligibles"><i  className="fas fa-home" style={{"fontSize":"36px"}}></i>+ de 15 travaux élegibles</a></DivHover>
+            <DivHover className="col text-center jumbotron alert-dark m-1 shadow-lg"><a href="/?name=form&ssm=Simuler%20 projet&men=Simulateur"><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i> jusqu'à 400€ remboursés</a></DivHover>
         </div> 
        
     </div>
@@ -277,11 +278,11 @@ const Midle = () => {
 
         <Mapimage className="container">
            <img className="w-120 col " src="/img/econrj.jpeg" style={{width: "100%","margin": "auto"}} />
-            <div className="bottom-left"><h2>Bottom Left</h2></div>
-            <div className="top-left"><h2>Top Left</h2></div>
-            <div className="top-right"><h2>Top Right</h2></div>
-            <div className="bottom-right"><h2>Bottom Right</h2></div>
-            <div className="centered"><h2>Centered</h2></div>
+            <div className="bottom-left"><a href="/?name=cards&ssm=L’isolation&men=Travaux éligibles"><h3>L'isolation</h3></a></div>
+            <div className="top-left"><a href="/?name=cards&ssm=Le chauffage et la régulation&men=Travaux éligibles"><h3>Le chauffage et la régulation</h3></a></div>
+            <div className="top-right"><a href="/?name=cards&ssm=Les énergies renouvelables&men=Travaux éligibles"><h3>Les énergies renouvelables</h3></a></div>
+            <div className="bottom-right"><a href="/?name=cards&ssm=La ventilation&men=Travaux éligibles"><h3>La ventilation</h3></a></div>
+            <div className="centered"><a href="/?name=cards&ssm=Les Primes Energie&men=Les Primes Energie"><h3>Les Primes Energie</h3></a></div>
         </Mapimage> 
           <br></br>
         <Footer/>
