@@ -233,7 +233,7 @@ const Footer = () => {
   return (
     <div>
        <div  className="row">
-            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><a  ><i  className="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</a></DivHover>
+            <DivHover className="col text-center jumbotron alert-info m-1 shadow-lg"><a href="/?name=cards&ssm=Les Primes Energie&men=Les Primes Energie" ><i  className="fas fa-question" style={{"fontSize":"36px"}}></i> Une question</a></DivHover>
             <DivHover className="col text-center jumbotron alert-success m-1 shadow-lg"><a href="/register"><i  className="fas fa-pencil-alt" style={{"fontSize":"36px"}}></i> inscription gratuite</a></DivHover>
             <DivHover className="col text-center jumbotron alert-danger m-1 shadow-lg"><a href="/?name=cards&ssm=Les énergies renouvelables&men=Travaux éligibles"><i  className="fas fa-home" style={{"fontSize":"36px"}}></i>+ de 15 travaux élegibles</a></DivHover>
             <DivHover className="col text-center jumbotron alert-dark m-1 shadow-lg"><a href="/?name=form&ssm=Simuler%20 projet&men=Simulateur"><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i> jusqu'à 400€ remboursés</a></DivHover>
