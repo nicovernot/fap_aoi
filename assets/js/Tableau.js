@@ -22,7 +22,7 @@ function Table({ columns, data }) {
  
   // Render the UI for your table
   return  data.length >0 ? (
-    <table {...getTableProps()} className="table alert-secondary" >
+    <table {...getTableProps()} className="table exemple alert-secondary" >
       <thead className="thead-dark">
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -64,10 +64,12 @@ function Table({ columns, data }) {
 function Tableau(props) {
  const columns = props.columns
  const data = props.data 
-
+ const queryString = window.location.search;
+ const urlParams = new URLSearchParams(queryString)
+ const ssmtitle = urlParams.get('ssm')
   return (
    <div>
-
+<h2 className="text-center alert-danger">{ssmtitle}</h2>
      <Table columns={columns} data={data} />
    </div>
  

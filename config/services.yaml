@@ -135,16 +135,17 @@ services:
         tags:
             - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
             - { name: api_platform.doctrine.orm.query_extension.item }
+
+    App\Doctrine\ProjectUserExtension:
+        tags:
+            - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
+            - { name: api_platform.doctrine.orm.query_extension.item }            
     
     App\Doctrine\UserUserExtension:
         tags:
             - { name: api_platform.doctrine.orm.query_extension.collection , priority: 9}
             - { name: api_platform.doctrine.orm.query_extension.item }        
-
-
-    App\Resolver\MagazineCollectionResolver:
-        tags:
-            - { name: api_platform.graphql.query_resolver }    
+  
 
     App\Mercure\JwtProvider:
         arguments:

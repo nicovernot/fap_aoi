@@ -10,7 +10,7 @@ function Crd (props){
 const card = props.card
 const champs = props.champs
 const [count, setCount] = useState(0);
- 
+
 
 const cardr = Object.entries(champs).map(([key,value])=>{
 
@@ -66,6 +66,9 @@ const cardr = Object.entries(champs).map(([key,value])=>{
 function Cards (props){
     const champs = props.columns
     const data = props.data
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString)
+    const ssmtitle = urlParams.get('ssm')
     const cardList = Object.entries(data).map(([key,value])=>{
        
         return (
@@ -75,6 +78,7 @@ function Cards (props){
 
     return (
 <div className="bg-dark" > 
+<h2 className="text-center alert-danger">{ssmtitle}</h2>
             {cardList}
 </div>
         

@@ -6,7 +6,6 @@ import qr from './services/QueryService'
 import Menu from './Menu';
 import Tableau from './Tableau'
 import axios from 'axios';
-import {Strelement,Urlelement,Titlelelement,Imgelement,Btnelement} from './Element'
 import Cards from './Cards'
 import Home from './Home'
 import Form from './Form'
@@ -158,7 +157,7 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
 //function que recupere info du menu tels que : sousmenu , construit la requete a éffecuter dans l'pi graphql ( les champs à afficher) et les met dans l'état react
      tst= (ssm,urlp)=> {
       window.history.pushState('page2', 'Title', urlp);
-      console.log(ssm)
+      
       this.setState({ ssm });
       if(ssm)
       {
@@ -297,7 +296,7 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
             });
             res2.forEach(function(element){
             ssm = element    
-            console.log(ssm)
+            
             localStorage.setItem('ssm', JSON.stringify(ssm));
         
             
@@ -381,7 +380,8 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
        case 'form':
        
          return <Form  columns={result} simplequery={simplequery} />;
-       break;                
+       break;  
+              
     }
   }
 

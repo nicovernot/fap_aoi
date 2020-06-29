@@ -8,13 +8,13 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Extension\QueryItemExtensionInterface;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Util\QueryNameGeneratorInterface;
 use Doctrine\ORM\QueryBuilder;
 use App\Entity\User;
-use App\Entity\Adress;
+use App\Entity\Projet;
 use Symfony\Component\Security\Core\Security;
 use Psr\Log\LoggerInterface;
 
 
 
-final class AdressUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
+final class ProjectUserExtension implements QueryCollectionExtensionInterface, QueryItemExtensionInterface
 {
     private $security;
     private $logger;
@@ -52,7 +52,7 @@ final class AdressUserExtension implements QueryCollectionExtensionInterface, Qu
 
     private function addWhere(QueryBuilder $queryBuilder, string $resourceClass): void
     {
-        if (Adress::class !== $resourceClass || null === $user = $this->security->getUser()) {
+        if (Projet::class !== $resourceClass || null === $user = $this->security->getUser()) {
             return;
         }
 
