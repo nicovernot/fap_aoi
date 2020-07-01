@@ -10,7 +10,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 
 /**
- * @ApiResource()
+ * @ApiResource(mercure=true)
  * @ORM\Entity(repositoryClass="App\Repository\ProjetRepository")
  * @ApiFilter(SearchFilter::class, properties={"id": "exact", "user.email": "exact","typeprojet.nom": "exact", "projectadmin.email": "exact","adress.departement.nom":"partial"}) 
  */

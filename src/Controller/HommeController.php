@@ -15,6 +15,16 @@ class HommeController extends AbstractController
      */
     public function index(Request $request)
     {
+        $hostName = $request->server->get('HTTP_HOST');
+        $user = $this->getUser();
+        $projets = [];
+        if($user){
+        $projetstemp =$user->getProjets();
+        foreach($projetstemp as $value){
+        $tempvalue = "http://".$hostName."/api/projets/".strval($value->getId());    
+        array_push($projets,$tempvalue);
+        }
+        }
         $ong=0;
         $type=0;
         $men=0;
@@ -34,6 +44,7 @@ class HommeController extends AbstractController
         return $this->render('homme/index.html.twig', [
             'controller_name' => 'HommeController',
             'menu'=> $menu,
+            'projets' => $projets,
             'ssmenu'=>$ssmenu,
             'ong' =>$ong,
             'type'=>$type,

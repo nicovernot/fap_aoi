@@ -233,7 +233,7 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
         const localssmloaded = localStorage.getItem("ssmloaded")
         const localssm = JSON.parse(localStorage.getItem("ssm"))
         if(localssmloaded=="false" && localssm != null){
-        console.log(localssm)
+       
         this.urlresolver()
         localStorage.setItem("ssmloaded","true")    
        // document.location.reload(true)

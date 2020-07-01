@@ -13,6 +13,7 @@ use Symfony\Component\Messenger\Handler\MessageHandlerInterface;
 class MailNotificationHandler implements MessageHandlerInterface
 {
 
+    private $templating;
 
     /**
      * @var Swift_Mailer
@@ -28,24 +29,39 @@ class MailNotificationHandler implements MessageHandlerInterface
      * @param \Swift_Mailer $mailer
     
      */
-    public function __construct(Swift_Mailer $mailer,LoggerInterface $logger)
+    public function __construct(Swift_Mailer $mailer,LoggerInterface $logger,\Twig_Environment $templating)
     {
         $this->mailer = $mailer;
         $this->logger = $logger;
+        $this->templating = $templating;
     }
 
     public function __invoke(MailNotification $message)
     { 
        $content = $message->getContent();  
-        $mail = (new \Swift_Message('Hello Email'))
+       $condition = json_decode($content);
+       $url = $condition->formurl;
+       $nomprojet = $condition->nomprojet;
+       $conditions = $condition->conditions;
+        $mail = (new \Swift_Message('Mise a jour'))
         ->setFrom('niveco13380@gmail.com')
         ->setTo($message->getUserMail())
-        ->setBody($content)
+        ->setBody( $this->templating->render(
+
+            'emails/workflow.html.twig',
+            ['url' => $url,
+             'condition' => $conditions,
+             'nom' => $message->getUserMail(),
+             'nomprojet' => $nomprojet
+            ]
+        ),
+        'text/html'
+        )
     ;
 
     $this->mailer->send($mail);
     
-    $this->logger->info($content);
+    $this->logger->info($url);
     
 
     }

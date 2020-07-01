@@ -28,7 +28,7 @@
 
 </nav>
     {% endif %}
-  <p class="alert alert-success animate__animated animate__fadeIn">{{ app.user ? 'Compte : '~ app.user.username : '<a href="/login">Se connecter</a>' }}</p>
+  <p class="alert alert-success animate__animated animate__fadeIn">{{ app.user ? 'Compte : '~ app.user.username : '<a href="/login">Se connecter</a>       <a href="/register">S\'enregistrer</a>' }}</p>
   
 
  
@@ -37,6 +37,24 @@ localStorage.clear();
 
 
 {%if app.user %}
+projets = {{projets |json_encode()|raw}}
+const url = new URL('{{mercure_publish_local}}');
+if( projets.length > 0 ){
+  projets.forEach(element => {
+url.searchParams.append('topic', element);
+});
+}
+
+const eventSource = new EventSource(url);
+
+// The callback will be called every time an update is published
+eventSource.onmessage = function ({data}) {
+   
+    let data1 = JSON.parse(data)
+    alert("le projet : " +data1.nom + " a été mise a jour" )
+    console.log(data);
+};
+
 localStorage.setItem("username", "{{  app.user.username }}" );
 localStorage.setItem("role", "{{app.user.roles[0]}}" );
 {% endif %}

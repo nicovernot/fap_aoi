@@ -49,6 +49,8 @@ class ProjetSubscriber implements EventSubscriber
         if ($entity instanceof Projet) {
             $tp = $entity->getTypeprojet();
             $placename = $entity->getPlace1();    
+            $user = $entity->getUser();   
+            $useremail = $user->getEmail();
             $query = $this->em->createQuery(
                 'SELECT p
                 FROM App\Entity\Place p
@@ -61,6 +63,8 @@ class ProjetSubscriber implements EventSubscriber
             $messs1= $query->getResult();
             $conditions ['conditions'] = $messs1[0]->getConditions();
             $conditions['place']=$entity->getPlace1();
+            $conditions['nomprojet']=$entity->getNom();
+            $conditions['formurl'] = "https://form.jotform.com/201351467044347"; 
             $jsonContent = $this->serializer->serialize($conditions, 'json');
             $this->logger->info($jsonContent);
         $changefield = $uow->getEntityChangeSet($entity);
@@ -69,22 +73,22 @@ class ProjetSubscriber implements EventSubscriber
             case "draft":
                 $this->logger->info("bus ---> mail ");
                 $this->logger->info($jsonContent);
-                $this->bus->dispatch(new MailNotification($jsonContent,'eno31o5qmu5yziu@pipedream.net'));   ;
+                $this->bus->dispatch(new MailNotification($jsonContent,$useremail));   ;
                 break;
             case "reviewed":
                 $this->logger->info("bus ---> mail ");
                 $this->logger->info($jsonContent);
-                $this->bus->dispatch(new MailNotification($jsonContent,'eno31o5qmu5yziu@pipedream.net'));   
+                $this->bus->dispatch(new MailNotification($jsonContent,$useremail));   
                 break;
             case "fini":
                 $this->logger->info("bus ---> mail ");
                 $this->logger->info($jsonContent);
-                $this->bus->dispatch(new MailNotification($jsonContent,'eno31o5qmu5yziu@pipedream.net'));                 
+                $this->bus->dispatch(new MailNotification($jsonContent,$useremail));                 
                 break;
             case "rejected":
                 $this->logger->info("bus ---> mail ");
                 $this->logger->info($jsonContent);
-                $this->bus->dispatch(new MailNotification($jsonContent,'eno31o5qmu5yziu@pipedream.net')); 
+                $this->bus->dispatch(new MailNotification($jsonContent,$useremail)); 
                 break;                
         }
            // $this->logger->info($changefield['place1'][0]."old value - new value ".$changefield['place1'][1]);
@@ -101,7 +105,9 @@ class ProjetSubscriber implements EventSubscriber
         $entityManager = $args->getObjectManager();
         if ($entity instanceof Projet) {
         $tp = $entity->getTypeprojet();
-        $placename = $entity->getPlace1();    
+        $placename = $entity->getPlace1(); 
+        $user = $entity->getUser();   
+        $useremail = $user->getEmail();
         $query = $this->em->createQuery(
             'SELECT p
             FROM App\Entity\Place p
@@ -112,11 +118,13 @@ class ProjetSubscriber implements EventSubscriber
         $query->setParameter('typeprojet', $tp);
         $query->setParameter('place', $placename);
         $messs1= $query->getResult();
-        $conditions ['conditions'] = $messs1[0]->getConditions();
+        $conditions['conditions'] = $messs1[0]->getConditions();
+        $conditions['nomprojet']=$entity->getNom();
         $conditions['place']=$entity->getPlace1();
+        $conditions['formurl'] = "https://form.jotform.com/201351467044347"; 
         $jsonContent = $this->serializer->serialize( $conditions, 'json');
         $this->logger->info($jsonContent);
-        $this->bus->dispatch(new MailNotification($jsonContent,'eno31o5qmu5yziu@pipedream.net'));    
+        $this->bus->dispatch(new MailNotification($jsonContent,$useremail));    
         }
        
         

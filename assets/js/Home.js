@@ -218,11 +218,11 @@ simulation ! </H1hover>
           </div>
           <div  className="row">
             <DivHover className={' jumbotron alert-primary col text-center text-secondary  m-4 shadow-lg '}  
-             id="div1" ><i className="fas fa-file-alt" style={{"fontSize":"36px"}}></i><h3>Notre Démarche</h3></DivHover>
-            <DivHover className={'jumbotron alert-danger col text-center text-secondary  m-4 shadow-lg '}><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i><h3>Simulez votre prime </h3> </DivHover>
-            <DivHover className={'jumbotron alert-success col text-center text-secondary m-4 shadow-lg '}><i  className=" far fa-id-card" 
-            style={{"fontSize":"36px"}}></i><h3>Inscrivez vous</h3></DivHover>
-            <DivHover className={'jumbotron alert-dark col text-center text-secondary m-4 shadow-lg '}><i  className="fas fa-eye" style={{"fontSize":"36px"}}></i><h3>Infos</h3></DivHover>
+             id="div1" ><a href="/?name=cards&ssm=Les Primes Energie&men=Les Primes Energie"><i className="fas fa-file-alt" style={{"fontSize":"36px"}}></i><h3>Notre Démarche</h3></a></DivHover>
+            <DivHover className={'jumbotron alert-danger col text-center text-secondary  m-4 shadow-lg '}><a href="/?name=form&ssm=Simuler%20 projet&men=Simulateur"><i  className="far fa-money-bill-alt" style={{"fontSize":"36px"}}></i><h3>Simulez votre prime </h3> </a></DivHover>
+            <DivHover className={'jumbotron alert-success col text-center text-secondary m-4 shadow-lg '}><a href="/register"><i  className=" far fa-id-card" 
+            style={{"fontSize":"36px"}}><h3>Inscrivez vous</h3></i></a></DivHover>
+            <DivHover className={'jumbotron alert-dark col text-center text-secondary m-4 shadow-lg '}><a href="/?name=cards&ssm=Les Primes Energie&men=Les Primes Energie"><i  className="fas fa-eye" style={{"fontSize":"36px"}}><h3>Infos</h3></i></a></DivHover>
            </div>
     </div>
   )

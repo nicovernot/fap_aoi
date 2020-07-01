@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block body %}
   <div class="container">
+  <div class="alert alert-success alert-dismissible">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <strong>Success!</strong> Indicates a successful or positive action.
+</div>
     <h1>AFSY - Mercure and Symfony</h1>
     <div id="mercure-content-receiver"></div>
     <form id="mercure-message-form" action="{{ path('sendMessage') }}" method="post">
@@ -14,7 +18,7 @@
   <script type="text/javascript">
     const _receiver = document.getElementById('mercure-content-receiver');
     const userName = prompt('Hi! I need your name for the Chat please :)');
-    const sendMessage = (message, user = 'ChatBot') => {
+    const sendMessage = (message, user = "{{  app.user.username }}") => {
       if (message === '') {
         return;
       }

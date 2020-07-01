@@ -37,17 +37,15 @@ final class ProjetAdmin extends AbstractAdmin
     protected function configureListFields(ListMapper $listMapper): void
     {
         $listMapper
-            
-            ->add('datedevis')
-            ->add('datefacture')
+
             ->add('nom')
             ->add('user')
-            ->add('projectadmin')
+
             ->add('documents')
             ->add('adress' )   
             ->add('typeprojet') 
             ->add('place1') 
-            ->add('surface') 
+ 
             ->add('_action', null, [
                 'actions' => [
                     'show' => [],

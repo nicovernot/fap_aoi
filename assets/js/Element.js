@@ -57,7 +57,7 @@ function Titlelelement (props) {
     function Imputelement (props) {
         const [inputvalue, setInputvalue] = useState([])
         var e = new Event('input', { bubbles: true });
-        const ue = <input onChange={(e) => setInputvalue([...inputvalue,{[props.col.node.chpcha]:e.target.value}]),(e) =>props.handler(e.target)}  type="number"  className="form-control" name={props.col.node.chpcha} />
+        const ue = <input onChange={(e) => setInputvalue([...inputvalue,{[props.col.node.chpcha]:e.target.value}]),(e) =>props.handler(e.target)}  type="number"  className="form-control" name={props.col.node.chpcha} id={props.col.node.chpcha}/>
         return (
             <div>
                 {ue}

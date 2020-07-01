@@ -45,12 +45,13 @@ const form = (props) => {
 
   const onButtonClick =(e)=> {
       e.preventDefault()
+      console.log(arrpost)
       const formdata =  Object.values($("#simform").serializeArray());
       setArrform(formdata)
       setFormfilled(true)
       const brnhide = $("#btndiv").hide();
       if(ssmtitle=="Créer projet"){
-        console.log("Créer projet")
+        
         let  temparr = []
         
         temparr["place1"] = "draft"
@@ -64,11 +65,24 @@ const form = (props) => {
         setArrpost(arrpost)
         arrpost.splice(2,1)
         setArrpost(arrpost)
+        temparr = []
+        const inptval = $("#surface").val() 
+        if(inptval!="" && parseInt(inptval) > 0 ){
+          temparr["surface"] = parseInt(inptval)
+          arrpost.push(temparr)
+          setArrpost(arrpost)
+          console.log(arrpost)
+        }
+
         
         let bodyq = "{";
         for (const [key, value] of Object.entries(arrpost)) {
           for (const [index, val] of Object.entries(value)) {
+           if(index=="surface"){
+            bodyq=bodyq.concat(`"${index}": ${val},`);
+           } else{
             bodyq=bodyq.concat(`"${index}": "${val}",`);
+           }
           }
         }
         bodyq = bodyq.slice(0, bodyq.length-1)
@@ -77,7 +91,6 @@ const form = (props) => {
         const qerypost = `mutation{createProjet(input:{${bodyq}}){ projet{ nom } }
        }`
 
-        console.log(bodyq)
         let  url1 = localStorage.getItem("url")
         url1 =    url1+'/api/projets'   
         axios({
@@ -104,9 +117,10 @@ const form = (props) => {
   const onInputchange = (val) => {
       setNext(true)
       setSurface(parseInt(val.value))
-      const temparr = []
+      let temparr = []
       temparr["surface"] = val.value
       setArrform(temparr)
+
 
   }
 

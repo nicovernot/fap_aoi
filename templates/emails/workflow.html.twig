@@ -1,0 +1,21 @@
+{# templates/emails/registration.html.twig #}
+Cher {{nom}}
+<h3>Voici les informations concernant votre projet de type  :</h3>
+
+La liste de pieces à deposer :
+
+{% for cond in condition %}
+
+<li>-type document : {{cond.typedocument}}
+<br/>
+  -description : {{cond.description}}
+
+{% endfor %}
+
+
+{# example, assuming you have a route named "login" #}
+pour deposer ces piéces rendez vous sur cette url : 
+<a href="{{ url~"?email="~nom~"&refprojet="~nomprojet }}">Depot de pièeces</a>.
+
+
+Merci!
