@@ -101,7 +101,7 @@ class Place
     }
     public function __toString()
     {
-        $place_nom  = $this->getNom();  
+        $place_nom  = $this->getNom()."_".$this->getTypeprojet();  
 
 
         return $place_nom ?: '';
