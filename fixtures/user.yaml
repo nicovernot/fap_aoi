@@ -1,6 +1,6 @@
 App\Entity\User:
     user:
-        password: '<sprintf("$argon2i$v=19$m=1024,t=2,p=2$Sk52T3FraVF5Qmw3NzBJTQ$ZjjjC0WyC544bKemykxhjT0KcZ8TozAGtF2M2HTjzko")>'
+        password: '<sprintf("$2y$13$TN0DHxOC3vrlSnM5ZD5d.uqRN/NEDXBlOhTRWLzTaq822ekQG5mHq")>'
         email: admin@admin.com
         roles: ["ROLE_ADMIN"]
         nom: admin
