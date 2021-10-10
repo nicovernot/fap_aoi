@@ -112,11 +112,11 @@ class App extends React.Component {
                     let reduc1 = []
                     let temp = []
                     data1.forEach(element => {
-                     //temp.push(element.fields)
+
                      reduc1.push({node: element.fields});    
                     });
                     data = reduc1   
-                    //console.log(reduc1)
+
                     this.setState({ data });
                   break; 
                   case 4:
@@ -125,11 +125,11 @@ class App extends React.Component {
                     let reduc2 = []
                     let temp1 = []
                     data2.forEach(element => {
-                     //temp.push(element.fields)
+
                      reduc2.push({node: element.fields});    
                     });
                     data = reduc2  
-                    //console.log(reduc1)
+
                     this.setState({ data });
                   break;  
                   case 5:
@@ -236,14 +236,11 @@ this.gettree(5,test[1].trim(),champs,"nofilter");
        
         this.urlresolver()
         localStorage.setItem("ssmloaded","true")    
-       // document.location.reload(true)
+
         }
     } 
   
   render() {
-     // const ttl = <h1>title</h1>
-     // const arr = [ <Imgelement img="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>, <Imgelement img="/img/85cd8e466d3a38f2c645a6ba23f51b21.jpeg" class="bg-info"/>]
-     // arr.push(ttl)
   
       return (
         <div className="alert-info">

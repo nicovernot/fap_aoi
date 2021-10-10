@@ -73,6 +73,11 @@ class Champ
      */
     private $chplib;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\ChampType", inversedBy="champs")
+     */
+    private $champType;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -184,6 +189,18 @@ class Champ
     public function setOnglet(?Onglet $onglet): self
     {
         $this->onglet = $onglet;
+
+        return $this;
+    }
+
+    public function getChampType(): ?ChampType
+    {
+        return $this->champType;
+    }
+
+    public function setChampType(?ChampType $champType): self
+    {
+        $this->champType = $champType;
 
         return $this;
     }

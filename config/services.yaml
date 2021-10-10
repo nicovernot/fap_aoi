@@ -252,4 +252,11 @@ services:
 
     App\EventListener\ProjetSubscriber:
         tags:
-            - { name: doctrine.event_subscriber, connection: default }    
+            - { name: doctrine.event_subscriber, connection: default }
+
+    admin.champ_type:
+        class: App\Admin\ChampTypeAdmin
+        arguments: [~, App\Entity\ChampType, App\Controller\ChampTypeAdminController]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: ChampType }
+        public: true
